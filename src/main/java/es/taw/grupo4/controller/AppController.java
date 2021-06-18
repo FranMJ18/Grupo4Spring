@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AppController {
     @GetMapping("/")
-    public String init(){
+    public String doInit(){
         return "index";
     }
 }
