@@ -1,10 +1,9 @@
-<%-- 
+<%@ page import="es.taw.grupo4.entity.Usuario" %><%--
     Document   : index
     Created on : 12-may-2021, 13:16:49
     Author     : chinchar@hotmail.es
 --%>
 
-<%@page import="grupo4app.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
