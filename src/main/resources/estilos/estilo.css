@@ -1,0 +1,70 @@
+
+#logo{
+    width: 5em;
+    
+    margin-right: 25px;
+}
+
+#buscador{
+    align-self: center;
+    margin-top: 20px;
+}
+
+nav{
+    
+    
+    top: 20px;
+}
+
+ul{
+    list-style-type: none;
+    display: flex;
+}
+
+ul li{
+    
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+header{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    width: 100%;
+}
+
+#eslogan{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 20%;
+    text-align: center;
+    
+}
+
+#eslogan h3,#eslogan img{
+    margin: auto;
+    display: block;
+}
+
+#eventos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+}
+
+footer {
+    background: black;
+    width: 100%;
+    color: white;
+    text-align: center; 
+     
+}
+
+footer ul{
+    display: list-item;
+}
+
+#listaPie{
+    grid-column: 2/5;
+    display: flex;
+}

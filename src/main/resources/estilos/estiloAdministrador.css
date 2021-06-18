@@ -1,0 +1,30 @@
+
+#buscador{
+    align-self: center;
+    margin-top: 20px;
+}
+
+row.fondoTabla{
+    background-color: lightslategrey;
+}
+
+#logo{
+    width: 5em;
+    margin-right: 25px;
+}
+
+añadir{
+    align-self: baseline;
+}
+
+mostrar{
+    align-self: baseline;
+}
+
+modificar{
+    align-self: baseline;
+}
+
+borrar{
+    align-self: baseline;
+}
