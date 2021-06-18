@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : InicioSesion
     Created on : 17-abr-2021, 11:40:09
     Author     : chinchar@hotmail.es
@@ -24,26 +25,25 @@
             <div class="formulario">      
               <h1>Inicio de sesión</h1>               
 
-                <form method="post" action="ServletInicioSesion">       
+                <form:form method="post" action="/iniciar" modelAttribute="usuario">
                     <p>
                         <label for="usuario">Usuario</label>
-                        <input type="text" name="usuario" id="usuario" required placeholder="Escribe tu usuario">
+                        <form:input path="nombre" id="usuario"/>
                     </p>
-                      
+
                     <p>
                         <label for="contraseña">Contraseña</label>
-                        <input type="password" name="contrasena" id="contraseña" required placeholder="Escribe tu contraseña">
-                    </p>
-                    <% 
-                        String error = (String)request.getAttribute("error");
-                        if(error != null){
+                        <form:password path="contraseña" id="contraseña"/>
+                    </p><%
+                    String error = (String)request.getAttribute("error");
+                    if(error != null){
                     %>
-                     <p style="color: red; text-align: center;"><%=error%></p>
+                    <p style="color: red; text-align: center;"><%=error%></p>
                     <%
                         }
-                     %>
+                    %>
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
-                </form>
+                </form:form>
                 <a href="RegistroUsuario.jsp">¿Todavía no tienes una cuenta?</a>
             </div>  
         </div>               

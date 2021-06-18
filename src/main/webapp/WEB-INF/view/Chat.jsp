@@ -92,7 +92,7 @@
         <div class="row py-2 text-center" style="background: #de7ebf">
             
             <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNickname()%>&contrasena=<%= usuarioIniciado.getPassword()%>">
-                <img src="img/Logo.png" style="width:2em; height:2em;">            
+                <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
                 
             <div class="col-4">

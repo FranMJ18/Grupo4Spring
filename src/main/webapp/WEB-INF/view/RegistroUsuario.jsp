@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : RegistroUsuario
     Created on : 17-abr-2021, 11:52:08
     Author     : chinchar@hotmail.es
@@ -21,65 +22,48 @@
         <div class="contact_form">
             <div class="formulario">      
                 <h1>Registro</h1>
-                <form method="post" action="ServletRegistroUsuario">  
+                <form:form method="post" action="ServletRegistroUsuario" modelAttribute="usuario">
                     <p>
                         <label for="usuario" >Usuario</label>
-                        <input type="text" name="usuario" id="usuario" required placeholder="Escribe tu usuario">
+                        <form:input path="usuario" id="usuario" placeholder="Escribe tu usuario"/>
                     </p>
 
                     <p>
                         <label for="contraseña" >Contraseña</label>
-                        <input type="password" name="password" id="contraseña" required placeholder="Escribe tu contraseña">
+                        <form:password path="contraseña" id="contraseña" placeholder="Escribe tu contraseña"/>
                     </p>
 
                     <p>
                         <label for="nombre" >Nombre</label>
-                        <input required type="text" name="Nombre" id="nombre" placeholder="Escribe tu nombre">
+                        <form:input path="nombre" id="nombre" placeholder="Escribe tu nombre"/>
                     </p>
 
                     <p>
                         <label for="apellidos" >Apellidos</label>
-                        <input required type="text" name="Apellidos" id="apellidos" placeholder="Escribe tus apellidos">
+                        <form:input path="apellidos" id="apellidos" placeholder="Escribe tus apellidos"/>
                     </p>
 
                     <p>
                         <label for="edad" >Edad</label>
-                        <input required type="number" name="Edad" id="edad" placeholder="Escribe tu edad">
+                        <form:input path="edad" id="edad" placeholder="Escribe tu edad"/>
                     </p>
-                    <input required type="number" name="rol"  value="4" hidden="true">
-                    
-                       
-                    
-                    <div style="display: grid; grid-template-columns:1fr 1fr 1fr; width:460px">
-                        <div>
-                            <label style="width:auto; height:auto" for="hombre" >Hombre</label>
-                            <input style="width:auto; height:auto" required type="radio" name="Sexo" id="hombre" value="Hombre">
-                        </div>
-                        <div>
-                            <label style="width:auto; height:auto" for="mujer" >Mujer</label>
-                            <input style="width:auto; height:auto" required type="radio" name="Sexo" id="mujer" value="Mujer">
-                        </div>
-                        <div>
-                            <label style="width:auto; height:auto" for="otro" >Otro</label>
-                            <input style="width:auto; height:auto" required type="radio" name="Sexo" id="otro" value="Otro">
-                        </div>
 
-                    </div>
+                    <form:radiobuttons path="sexo" items="${sexo}" delimiter="<br>"/>
 
                     <p>
                         <label for="domicilio" >Domicilio</label>
-                        <input required type="text" name="Domicilio" id="domicilio" placeholder="Escribe tu domicilio">
+                        <form:input path="domicilio" id="domicilio" placeholder="Escribe tu domicilio"/>
                     </p>
 
                     <p>
                         <label for="ciudad" >Ciudad</label>
-                        <input required type="text" name="Ciudad" id="ciudad" placeholder="Escribe tu ciudad">
+                        <form:input path="ciudad" id="ciudad" placeholder="Escribe tu ciudad"/>
                     </p>
 
 
 
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
-                </form>
+                </form:form>
             </div>  
         </div>
     </body>

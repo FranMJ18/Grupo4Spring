@@ -15,7 +15,7 @@
         <title>Grupo4</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="estilos/estilo.css">
+        <link rel="stylesheet" href="../../../resources/estilos/estilo.css">
     </head>
 
     <%
@@ -46,7 +46,7 @@
                 }
             </style>
 
-            <a class="col-2  text-decoration-none" href="index.jsp">
+            <a class="col-2  text-decoration-none" href="/">
                 <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
 
@@ -56,10 +56,10 @@
             </div>
 
             <div  class="col-2 " style="font-size: .9em">
-                <a href="RegistroUsuario.jsp">Registrarse </a>
+                <a href="/register">Registrarse </a>
             </div>            
             <div  class="col-2 " style="font-weight: bold">
-                <a href="InicioSesion.jsp">Iniciar sesión </a>
+                <a href="/login">Iniciar sesión </a>
             </div>            
         </div>
         <!-- End NavBar -->

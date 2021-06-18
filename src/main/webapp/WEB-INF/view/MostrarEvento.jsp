@@ -106,7 +106,7 @@
 
         <div class = "row">
             <div class="col-1"></div>
-            <img src = "img/evento.jpg"  style="aspect-ratio: 16 / 9;"  class = "col-7 fondito">
+            <img src = "img/evento.jpg" style="aspect-ratio: 16 / 9;" class = "col-7 fondito">
             <div class = "col-3 fondito py-2">
                 <p>
                     <label for ="titulo">Titulo:</label> <span id="titulo"><%= e.getTitulo()%></span>
