@@ -40,7 +40,6 @@ public class InicioController {
 
     @PostMapping("/iniciar")
     public String doIniciar(@ModelAttribute("usuario") UsuarioDto usuarioDto, Model model){
-        System.out.println(this.usuarioService.findTodos().size());
         Usuario us = this.usuarioService.findByCredenciales(usuarioDto.getUsuario(), usuarioDto.getContraseña());
         if(us == null){
             model.addAttribute("error", "Credenciales inválidas");

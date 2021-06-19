@@ -20,8 +20,5 @@ public class UsuarioService {
     public Usuario findByCredenciales(String nombre, String password){
         return usuarioRepository.findByNombreYPass(nombre, password);
     }
-
-    public List<Usuario> findTodos(){
-        return usuarioRepository.findAll();
-    }
+    
 }
