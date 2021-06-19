@@ -12,7 +12,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-
 /**
  *
  * @author carlo

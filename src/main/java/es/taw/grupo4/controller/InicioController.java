@@ -1,6 +1,7 @@
 package es.taw.grupo4.controller;
 
 import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,9 @@ public class InicioController {
 
     @PostMapping("/iniciar")
     public String doIniciar(@ModelAttribute("usuario") UsuarioDto usuarioDto, Model model){
-        if(usuarioService.findByCredenciales(usuarioDto.getUsuario(), usuarioDto.getContraseña()) == null){
+        System.out.println(this.usuarioService.findTodos().size());
+        Usuario us = this.usuarioService.findByCredenciales(usuarioDto.getUsuario(), usuarioDto.getContraseña());
+        if(us == null){
             model.addAttribute("error", "Credenciales inválidas");
             return this.doLogin(model);
         }

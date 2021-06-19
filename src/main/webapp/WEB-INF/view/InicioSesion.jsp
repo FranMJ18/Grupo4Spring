@@ -28,7 +28,7 @@
                 <form:form method="post" action="/iniciar" modelAttribute="usuario">
                     <p>
                         <label for="usuario">Usuario</label>
-                        <form:input path="nombre" id="usuario"/>
+                        <form:input path="usuario" id="usuario"/>
                     </p>
 
                     <p>
