@@ -27,10 +27,10 @@ public class ChatController {
     public String doListarConversaciones(Model model, HttpSession session){
         Usuario user = (Usuario) session.getAttribute("usuario");
         if(user.getRol() == 2){
-            List<ChatDto> misChats = this.chatService.listarMisConversaciones();
+            //List<ChatDto> misChats = this.chatService.listarMisConversaciones();
             model.addAttribute("chats");
-            List<ChatDto> otrosChats = this.chatService.listarOtrasConversaciones();
-            model.addAttribute("otrosChats")
+            //List<ChatDto> otrosChats = this.chatService.listarOtrasConversaciones();
+            model.addAttribute("otrosChats");
         } else {
 
         }

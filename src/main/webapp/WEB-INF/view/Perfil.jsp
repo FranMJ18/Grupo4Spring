@@ -98,28 +98,28 @@
             </div>       
         </div>
 
-        <div method="GET" action="ServletMostrarEditarPerfil?idUsuario=<%=usuario.getIdusuario()%>" class="row">
+        <div method="GET" action="ServletMostrarEditarPerfil?idUsuario=<%=usuario.getId()%>" class="row">
             <div class="col-2">
 
             </div>
 
             <div class="col-8 text-center">
                 <h1>Mi perfil</h1>
-                <p>Nombre: <%=usuario.getNickname()%></p>
+                <p>Nombre: <%=usuario.getUsuario()%></p>
                 <p>Rol: <%=usuario.getRol() == 0 ? "Creador de evento" : (usuario.getRol() == 1 ? "Administrador del sistema" : (usuario.getRol() == 2 ? "Teleoperador" : (usuario.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%></p>
                 <%
-                    if (usuarioEvento != null) {
+                    if (usuario.getRol() == 4) {
                 %>
-                <p>Nombre: <%=usuarioEvento.getNombre()%></p>
-                <p>Apellido: <%=usuarioEvento.getApellido()%></p>
-                <p>Ciudad: <%=usuarioEvento.getCiudad()%></p>
-                <p>Domicilio: <%=usuarioEvento.getDomicilio()%></p>
-                <p>Edad: <%=usuarioEvento.getEdad()%></p>
-                <p>Sexo: <%=usuarioEvento.getSexo()%></p>
+                <p>Nombre: <%=usuario.getNombre()%></p>
+                <p>Apellido: <%=usuario.getApellidos()%></p>
+                <p>Ciudad: <%=usuario.getCiudad()%></p>
+                <p>Domicilio: <%=usuario.getDomicilio()%></p>
+                <p>Edad: <%=usuario.getEdad()%></p>
+                <p>Sexo: <%=usuario.getSexo()%></p>
                 <%
                     }
                 %>
-                <button onclick="window.location.href='ServletMostrarEditarPerfil?idUsuario=<%=usuario.getIdusuario()%>'">Editar</button>
+                <button onclick="window.location.href='ServletMostrarEditarPerfil?idUsuario=<%=usuario.getId()%>'">Editar</button>
             </div>
 
 
@@ -156,7 +156,7 @@
                                 <%
                                     }
                                 %>
-                                    <a href="ServletCancelarEntrada?eventoUsuario=<%= e.getEventoUsuarioPK().getIdeventousuario()%>&id_usuario=<%=usuario.getIdusuario()%>" style="margin-left:2em;">
+                                    <a href="ServletCancelarEntrada?eventoUsuario=<%= e.getEventoUsuarioPK().getIdeventousuario()%>&id_usuario=<%=usuario.getId()%>" style="margin-left:2em;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
