@@ -36,7 +36,7 @@
                 <h1>Registro de Evento</h1>
 
                 <%--@elvariable id="evento" type="es.taw.grupo4.dto.EventoDto"--%>
-                <form:form method="post" action="/saveEvent" modelAttribute="evento">
+                <form:form method="post" action="/evento/saveEvent" modelAttribute="evento">
                     <form:hidden path="id"/>
                     
                     <p>
