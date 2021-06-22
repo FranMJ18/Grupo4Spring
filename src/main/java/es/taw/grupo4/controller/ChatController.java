@@ -22,7 +22,7 @@ public class ChatController {
     public void setChatService(ChatService chatService) {
         this.chatService = chatService;
     }
-
+/*
     @GetMapping("/")
     public String doListarConversaciones(Model model, HttpSession session){
         Usuario user = (Usuario) session.getAttribute("usuario");
@@ -30,11 +30,11 @@ public class ChatController {
             List<ChatDto> misChats = this.chatService.listarMisConversaciones();
             model.addAttribute("chats");
             List<ChatDto> otrosChats = this.chatService.listarOtrasConversaciones();
-            model.addAttribute("otrosChats")
+            model.addAttribute("otrosChats");
         } else {
 
         }
 
         return "Conversaciones";
-    }
+    }*/
 }

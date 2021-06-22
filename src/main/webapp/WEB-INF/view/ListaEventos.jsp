@@ -76,7 +76,7 @@
         if (puede_editar) {
     %>
     <div class="col-2"></div>
-    <a class="col-2  text-decoration-none" href="/createEvent">Crear evento</a>
+    <a class="col-2  text-decoration-none" href="/evento/createEvent">Crear evento</a>
     <% } else { %>
     <div class="col-4"></div>
     <% } %>
@@ -178,7 +178,7 @@
             %>
             <div class="col-4">
                 <div class="row">
-                    <a href="/showEvent/<%= e.getIdevento()%>" class="col-6"><img width="100%" src="img/evento.jpg"></a>
+                    <a href="/evento/showEvent/<%= e.getIdevento()%>" class="col-6"><img width="100%" src="img/evento.jpg"></a>
                     <div class="col-6">
                         <h2><%=e.getTitulo()%>
                         </h2>

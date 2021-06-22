@@ -6,6 +6,7 @@ import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.UsuarioEventoService;
+import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,18 @@ import javax.servlet.http.HttpSession;
 
 public class EventoControler {
 
+    private UsuarioService usuarioService;
+
     private UsuarioEventoService usuarioEventoService;
 
     @Autowired
-    public void setUsuarioEventoService(UsuarioEventoService usuarioEventoService) {
+    public void setUsuarioEventoService(UsuarioEventoService usuarioEventoService){
         this.usuarioEventoService = usuarioEventoService;
+    }
+
+    @Autowired
+    public void setUsuarioService(UsuarioService usuarioService){
+        this.usuarioService = usuarioService;
     }
 
     private EventoService eventoService;
@@ -47,7 +55,7 @@ public class EventoControler {
         return "MostrarEvento";
     }
 
-    @PostMapping("/events")
+    @GetMapping("/events")
     public String doListarEventos(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
 
         model.addAttribute("eventos", eventoService.findByFilter(filtro));
@@ -69,6 +77,7 @@ public class EventoControler {
 
     @PostMapping("/saveEvent")
     public String doSaveEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
+
 
         eventoService.createOrSaveEvent(evento, (Usuario) session.getAttribute("usuario"));
         return doListarEventos(new FiltroEvento(), model);
