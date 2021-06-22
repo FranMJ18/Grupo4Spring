@@ -26,4 +26,8 @@ public class EventoService {
         return eventoRepository.findById(id).get();
     }
 
+    public void eraseEventoById(Integer id) {
+        Evento e = eventoRepository.getById(id);
+        eventoRepository.delete(e);
+    }
 }

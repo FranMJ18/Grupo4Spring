@@ -90,12 +90,16 @@ public class InicioController {
         return "ListaEventos";
     }
 
-    // Cierra la sesion y te devuelve a index.jsp
     @GetMapping("/showEvent/{id}")
     public String doShowEvent(@PathVariable Integer id, Model model){
-
         model.addAttribute("evento", eventoService.findById(id));
         model.addAttribute("listaEventoUsuario", eventoUsuarioService.findByEventoId(id));
         return "MostrarEvento";
+    }
+
+    @GetMapping("/eraseEvent/{id}")
+    public String doEraseEvent(@PathVariable Integer id, Model model){
+        eventoService.eraseEventoById(id);
+        return doListarEventos(new FiltroEvento(), model);
     }
 }

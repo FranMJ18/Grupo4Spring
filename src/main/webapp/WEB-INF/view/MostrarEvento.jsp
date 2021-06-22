@@ -94,7 +94,6 @@
                     <a class="row dropdown-element" href="ServletCargarListaEventosUsuario">Mi perfil</a>
                     <%
                         if(u.getRol() != 1){
-                        <%-- TODO el enlace de abajo está mal --%>
                             %><a class="row dropdown-element" href="ServletListarConversaciones">Mensajes</a><%
                         }
                     %>
