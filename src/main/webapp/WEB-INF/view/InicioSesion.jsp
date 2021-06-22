@@ -16,15 +16,13 @@
         <link href="estilos/estiloFormulario.css" rel="stylesheet">
          
     </head>
-    <%
-        String creador = (String)request.getAttribute("creador");
-    %>
     <body>        
         <div class="contact_form">
 
             <div class="formulario">      
               <h1>Inicio de sesión</h1>               
 
+                <%--@elvariable id="usuario" type="es.taw.grupo4.dto.UsuarioDto"--%>
                 <form:form method="post" action="/iniciar" modelAttribute="usuario">
                     <p>
                         <label for="usuario">Usuario</label>
@@ -44,7 +42,7 @@
                     %>
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
                 </form:form>
-                <a href="RegistroUsuario.jsp">¿Todavía no tienes una cuenta?</a>
+                <a href="/register">¿Todavía no tienes una cuenta?</a>
             </div>  
         </div>               
     </body>
