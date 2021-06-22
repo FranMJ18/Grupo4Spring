@@ -24,6 +24,7 @@
 
                 <%--@elvariable id="usuario" type="es.taw.grupo4.dto.UsuarioDto"--%>
                 <form:form method="post" action="/iniciar" modelAttribute="usuario">
+                    <form:hidden path="id"/>
                     <p>
                         <label for="usuario">Usuario</label>
                         <form:input path="usuario" id="usuario"/>

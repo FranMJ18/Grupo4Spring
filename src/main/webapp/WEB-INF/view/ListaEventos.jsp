@@ -8,6 +8,7 @@
 <%@page import="java.util.List" %>
 <%@ page import="es.taw.grupo4.entity.Evento" %>
 <%@ page import="es.taw.grupo4.entity.Usuario" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -19,8 +20,8 @@
 </head>
 <%
     List<Evento> eventos = (List<Evento>) request.getAttribute("eventos");
-    Usuario u = (Usuario) session.getAttribute("usuario");
-    boolean puede_editar = (u).getRol() != 4;
+    UsuarioDto u = (UsuarioDto) session.getAttribute("usuario");
+    boolean puede_editar = u.getRol() != 4;
 %>
 <body>
 
@@ -66,7 +67,7 @@
 
     <%-- TODO el enlace de abajo está mal --%>
     <a class="col-2  text-decoration-none"
-       href="ServletInicioSesion?usuario=<%= u.getNickname()%>&contrasena=<%= u.getPassword()%>">
+       href="ServletInicioSesion?usuario=<%= u.getUsuario()%>&contrasena=<%= u.getContraseña()%>">
         <img src="img/Logo.png" style="width:2em; height:2em;">
     </a>
     <div class="col-4"></div>

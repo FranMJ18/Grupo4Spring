@@ -22,8 +22,7 @@
         <%
             HttpSession ses = request.getSession();
             UsuarioDto usSesion = (UsuarioDto)ses.getAttribute("usuario");
-            Usuario usuario = (Usuario) request.getAttribute("usuario");
-            UsuarioEvento usuarioEvento = usuario.getUsuarioEvento();
+            UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
             List<EventoUsuario> listaEventos = (List) request.getAttribute("listaEventos");
         %>
 
@@ -78,7 +77,7 @@
                 }
             </style>
 
-            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usSesion.getNickname()%>&contrasena=<%= usSesion.getPassword()%>">
+            <a class="col-2  text-decoration-none" href="">
                 <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
             <div class="col-4">

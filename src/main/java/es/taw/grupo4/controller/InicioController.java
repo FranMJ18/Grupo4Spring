@@ -1,4 +1,5 @@
 package es.taw.grupo4.controller;
+import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
@@ -78,6 +79,7 @@ public class InicioController {
             return this.doLogin(model);
         }
 
+        usuarioDto.setId(us.getIdusuario());
         session.setAttribute("usuario", usuarioDto);
         switch (us.getRol()){
             //CREADOR DE EVENTO
@@ -117,7 +119,8 @@ public class InicioController {
 
         us.setUsuarioEvento(usuarioEvento);
 
-        session.setAttribute("usuario", us);
+        //usuario.setId(us.getIdusuario());
+        session.setAttribute("usuario", usuario);
 
         usuarioService.guardarUsuario(us);
         usuarioEventoService.guardarUsuarioEvento(usuarioEvento);

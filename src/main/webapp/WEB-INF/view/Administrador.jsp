@@ -87,8 +87,8 @@
             <div  class="col-2 dropdown">
                 <img src="img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
-                    <a class="row dropdown-element" href="administrador/perfil">Mi perfil</a>
-                    <a class="row dropdown-element" href="administrador/cerrarSesion">Cerrar sesion</a>
+                    <a class="row dropdown-element" href="perfil">Mi perfil</a>
+                    <a class="row dropdown-element" href="cerrarSesion">Cerrar sesion</a>
                 </div>
             </div>       
         </div>
@@ -112,7 +112,7 @@
                     %>
                     <div class="col-4">
                         <div class="row">
-                            <a href="" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
+                            <a href="/usuario?<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
                             <div class="col-6">
                                 <h2><%=e.getUsuario()%></h2>
                                 <p><%=e.getRol() == 0 ? "Creador de evento" : (e.getRol() == 1 ? "Administrador del sistema" : (e.getRol() == 2 ? "Teleoperador" : (e.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%> </p>
