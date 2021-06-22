@@ -2,12 +2,10 @@ package es.taw.grupo4.service;
 
 import es.taw.grupo4.dao.AsientosRepository;
 import es.taw.grupo4.dao.EventoRepository;
+import es.taw.grupo4.dao.UsuarioEventoRepository;
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
-import es.taw.grupo4.entity.Asientos;
-import es.taw.grupo4.entity.AsientosPK;
-import es.taw.grupo4.entity.Evento;
-import es.taw.grupo4.entity.Usuario;
+import es.taw.grupo4.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,13 @@ public class EventoService {
     @Autowired
     public void setAsientosRepository(AsientosRepository asientosRepository) {
         this.asientosRepository = asientosRepository;
+    }
+
+    private UsuarioEventoRepository usuarioEventoRepository;
+
+    @Autowired
+    public void setUsuarioEventoRepository(es.taw.grupo4.dao.UsuarioEventoRepository usuarioEventoRepository) {
+        this.usuarioEventoRepository = usuarioEventoRepository;
     }
 
     public List<Evento> findByFilter(FiltroEvento filtro){
@@ -74,10 +79,11 @@ public class EventoService {
         e.setTurismo(evento.getTurismo() ? 1 : 0);
         e.setBenefico(evento.getBenefico() ? 1 : 0);
 
-        e.setCosteEntrada(evento.getPrecio());
+        e.setCosteEntrada(evento.getCosteEntrada());
         e.setTitulo(evento.getTitulo());
         e.setAsientosFijos(evento.getAsientosFijos());
         e.setDescripcion(evento.getDescripcion());
+        e.setMaxNumEntradas(evento.getMaxEntradas());
         SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
         try {
             e.setFecha(fecha.parse(evento.getFechaInicio()));
@@ -108,5 +114,24 @@ public class EventoService {
             e.setColumnas(evento.getColumnas());
             eventoRepository.save(e);
         }
+    }
+    public void buyTicket(Integer eventoId, Integer usuarioId) {
+        Evento e = eventoRepository.getById(eventoId);
+        UsuarioEvento ue = usuarioEventoRepository.getById(usuarioId);
+
+        EventoUsuarioPK epk = new EventoUsuarioPK();
+        epk.setIdevento(e.getIdevento());
+        epk.setUsuario(usuarioId);
+        EventoUsuario eu = new EventoUsuario(epk);
+        eu.setEvento(e); //TODO FALTA TERMINARLO
+        eu.setUsuarioEvento(ue);/*
+        if(e.getAsientosFijos()){
+            String[] asiento = asiento_s.split(" ");
+            Asientos a = asientosFacade.find(new AsientosPK(Integer.parseInt(asiento[0]),Integer.parseInt(asiento[1]), e));
+            eu.setAsientos(a);
+
+            a.setOcupado(1);
+            asientosFacade.edit(a);
+        }*/
     }
 }

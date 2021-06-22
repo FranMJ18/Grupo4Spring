@@ -203,6 +203,7 @@ public class Usuario implements Serializable {
         usuario.setUsuario(this.nickname);
         usuario.setContraseña(this.password);
         usuario.setRol(this.rol);
+        usuario.setId(this.idusuario);
 
         if(this.usuarioEvento != null) {
             UsuarioEvento usuarioEvento = this.usuarioEvento;

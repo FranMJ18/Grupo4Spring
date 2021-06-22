@@ -84,7 +84,7 @@ public class InicioController {
         session.setAttribute("usuario", usuarioDto);
         switch (us.getRol()){
             //CREADOR DE EVENTO
-            case 0 : return doListarEventos(new FiltroEvento(), model);
+            case 0 : return "redirect:evento/events";
             //ADMINISTRADOR
             case 1 : return "redirect:administrador/";
             //TELEOPERADOR
@@ -92,7 +92,7 @@ public class InicioController {
             //ANALISTA DE EVENTOS
             case 3 : return "redirect:filtro/";
             //USUARIO DE EVENTO
-            case 4 : return doListarEventos(new FiltroEvento(), model);
+            case 4 : return "redirect:evento/events";// return doListarEventos(new FiltroEvento(), model);
         }
         return null;
     }
@@ -128,15 +128,15 @@ public class InicioController {
 
         switch (us.getRol()){
             //CREADOR DE EVENTO
-            case 0 : return doListarEventos(new FiltroEvento(), model);
+            case 0 : return "redirect:evento/events";//doListarEventos(new FiltroEvento(), model);
             //ADMINISTRADOR
             case 1 : return "redirect:administrador/";
             //TELEOPERADOR
             case 2 : return "redirect:chat/";
             //ANALISTA DE EVENTOS
-            case 3 : return doListarEventos(new FiltroEvento(), model);
+            case 3 : return "redirect:administrador/";//return doListarEventos(new FiltroEvento(), model);
             //USUARIO DE EVENTO
-            case 4 : return doListarEventos(new FiltroEvento(), model);
+            case 4 : return "redirect:evento/events";// return doListarEventos(new FiltroEvento(), model);
         }
         return null;
     }
@@ -148,7 +148,7 @@ public class InicioController {
         return "index";
     }
 
-    @PostMapping("/events")
+   /* @PostMapping("/events")
     public String doListarEventos(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
 
         model.addAttribute("eventos", eventoService.findByFilter(filtro));
@@ -180,5 +180,5 @@ public class InicioController {
 
         eventoService.createOrSaveEvent(evento, (Usuario) session.getAttribute("usuario"));
         return doListarEventos(new FiltroEvento(), model);
-    }
+    }*/
 }

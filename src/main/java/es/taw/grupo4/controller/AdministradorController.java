@@ -1,5 +1,6 @@
 package es.taw.grupo4.controller;
 
+import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.UsuarioService;
@@ -45,14 +46,21 @@ public class AdministradorController {
     @GetMapping("/perfil")
     public String doPerfil(Model model, HttpSession session){
         model.addAttribute("usuario", session.getAttribute("usuario"));
-        model.addAttribute("listaEventos", ((Usuario) session.getAttribute("usuario")).getEventoList());
+        model.addAttribute("listaEventos", usuarioService.findById(((UsuarioDto) session.getAttribute("usuario")).getId()).getEventoList());
         return "Perfil";
     }
 
     @GetMapping("/usuario/{id}")
     public String doUsuario(@PathVariable("id") Integer id, Model model, HttpSession session){
-        model.addAttribute(usuarioService.findById(id));
-        model.addAttribute("listaEventos", ((Usuario) session.getAttribute("usuario")).getEventoList());
+        model.addAttribute("usuario", usuarioService.findById(id).getDto());
+        model.addAttribute("listaEventos", usuarioService.findById(((UsuarioDto) session.getAttribute("usuario")).getId()).getEventoList());
         return "Perfil";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String doEditar(@PathVariable("id") Integer id, Model model){
+        Usuario usuario = usuarioService.findById(id);
+        model.addAttribute("usuario", usuario);
+        return "RegistroUsuario";
     }
 }

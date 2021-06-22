@@ -5,24 +5,14 @@
  */
 package es.taw.grupo4.entity;
 
+import es.taw.grupo4.dto.EventoDto;
+import es.taw.grupo4.dto.UsuarioDto;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -376,6 +366,36 @@ public class Evento implements Serializable {
     @Override
     public String toString() {
         return "grupo4app.entity.Evento[ idevento=" + idevento + " ]";
+    }
+
+    @Transient
+    public EventoDto getDto(){
+        EventoDto e = new EventoDto();
+        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+        e.setAireLibre(this.getAireLibre() == 1);
+        e.setArte(this.getArte() == 1 );
+        e.setConferencia(this.getConferencia() == 1 );
+        e.setDeporte(this.getDeporte() == 1 );
+        e.setFormacion(this.getFormacion() == 1 );
+        e.setGaming(this.getGaming() == 1 );
+        e.setLectura(this.getLectura() == 1 );
+        e.setMusica(this.getMusica() == 1 );
+        e.setTeatro(this.getTeatro() == 1 );
+        e.setTurismo(this.getTurismo() == 1 );
+        e.setBenefico(this.getBenefico() == 1);
+
+        e.setCosteEntrada(this.getCosteEntrada());
+        e.setTitulo(this.getTitulo());
+        e.setAsientosFijos(this.getAsientosFijos());
+        e.setDescripcion(this.getDescripcion());
+        e.setId(this.idevento);
+        e.setAforo(this.aforo);
+        e.setFilas(this.filas);
+        e.setColumnas(this.columnas);
+        e.setFechaInicio(fecha.format(this.fecha));
+        e.setFechaFin(fecha.format(this.fechaReserva));
+        e.setMaxEntradas(this.maxNumEntradas);
+        return e;
     }
     
 }

@@ -36,7 +36,7 @@
                 <h1>Registro de Evento</h1>
 
                 <%--@elvariable id="evento" type="es.taw.grupo4.dto.EventoDto"--%>
-                <form:form method="post" action="/saveEvent" modelAttribute="evento">
+                <form:form method="post" action="/evento/saveEvent" modelAttribute="evento">
                     <form:hidden path="id"/>
                     
                     <p>
@@ -45,8 +45,8 @@
                     </p>
 
                     <p>
-                        <label for="precio">Precio evento</label>
-                        <form:input type="number" path="precio" id="precio" placeholder="Escribe el precio del evento"/>
+                        <label for="costeEntrada">Precio evento</label>
+                        <form:input type="number" path="costeEntrada" id="costeEntrada" placeholder="Escribe el precio del evento"/>
                     </p>
 
 
