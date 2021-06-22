@@ -1,6 +1,7 @@
 package es.taw.grupo4.service;
 
 import es.taw.grupo4.dao.UsuarioRepository;
+import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,8 @@ public class UsuarioService {
     public Usuario findByCredenciales(String nombre, String password){
         return usuarioRepository.findByNombreYPass(nombre, password);
     }
-    
+
+    public void guardarUsuario(Usuario usuario){
+        usuarioRepository.save(usuario);
+    }
 }

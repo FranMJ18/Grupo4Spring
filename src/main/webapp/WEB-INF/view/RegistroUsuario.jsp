@@ -22,7 +22,9 @@
         <div class="contact_form">
             <div class="formulario">      
                 <h1>Registro</h1>
-                <form:form method="post" action="ServletRegistroUsuario" modelAttribute="usuario">
+                <%--@elvariable id="usuario" type="es.taw.grupo4.dto.UsuarioDto"--%>
+                <form:form method="post" action="/registrar" modelAttribute="usuario">
+                    <form:hidden path="rol" value="4"/>
                     <p>
                         <label for="usuario" >Usuario</label>
                         <form:input path="usuario" id="usuario" placeholder="Escribe tu usuario"/>
