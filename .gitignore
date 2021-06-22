@@ -33,3 +33,9 @@ build/
 ### VS Code ###
 .vscode/
 derby.log
+bd/db.lck
+bd/db.lck
+bd/log/log.ctrl
+bd/log/log2.dat
+bd/log/logmirror.ctrl
+bd/seg0/c4b0.dat
