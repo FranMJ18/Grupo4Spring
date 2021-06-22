@@ -48,4 +48,9 @@ public class AdministradorController {
         return "Perfil";
     }
 
+    @GetMapping("/usuario/")
+    public String doUsuario(){
+
+        return "Perfil";
+    }
 }

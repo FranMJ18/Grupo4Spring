@@ -1,6 +1,16 @@
 package es.taw.grupo4.dto;
 
 public class UsuarioDto {
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String usuario;
 
     private String contraseña;
