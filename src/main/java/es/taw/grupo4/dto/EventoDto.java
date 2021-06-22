@@ -1,6 +1,5 @@
 package es.taw.grupo4.dto;
 
-import java.util.Date;
 
 public class EventoDto {
     public Integer getId() {
@@ -14,8 +13,8 @@ public class EventoDto {
     private Integer id;
     private String titulo;
     private String descripcion;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private String fechaInicio;
+    private String fechaFin;
     private Integer precio;
 
     public Boolean getAsientosFijos() {
@@ -48,19 +47,19 @@ public class EventoDto {
         return descripcion;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -212,4 +211,5 @@ public class EventoDto {
     private Boolean benefico;
     private Boolean arte;
     private Boolean turismo;
+
 }
