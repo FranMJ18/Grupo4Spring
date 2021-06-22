@@ -1,8 +1,10 @@
 package es.taw.grupo4.service;
 
 import es.taw.grupo4.dao.EventoRepository;
+import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.entity.Evento;
+import es.taw.grupo4.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,23 @@ public class EventoService {
     public void eraseEventoById(Integer id) {
         Evento e = eventoRepository.getById(id);
         eventoRepository.delete(e);
+    }
+
+    public void createOrSaveEvent(EventoDto evento, Usuario creador)
+    {
+        Evento e;
+        if(evento.getId() != null) // Edit
+        {
+            e = eventoRepository.getById(evento.getId());
+        }
+        else // Create
+        {
+            e = new Evento();
+            e.setCreadorevento(creador);
+        }
+
+        // TODO
+
+        eventoRepository.save(e);
     }
 }
