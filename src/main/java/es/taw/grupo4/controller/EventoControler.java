@@ -2,6 +2,7 @@ package es.taw.grupo4.controller;
 
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
+import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.EventoUsuarioService;
@@ -78,8 +79,8 @@ public class EventoControler {
     @PostMapping("/saveEvent")
     public String doSaveEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
 
-
-        eventoService.createOrSaveEvent(evento, (Usuario) session.getAttribute("usuario"));
+        UsuarioDto aux = (UsuarioDto) session.getAttribute("usuario");
+        eventoService.createOrSaveEvent(evento,usuarioService.findById(aux.getId()) );
         return doListarEventos(new FiltroEvento(), model);
     }
 }

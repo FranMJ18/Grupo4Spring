@@ -8,6 +8,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="es.taw.grupo4.entity.*" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,8 +22,8 @@
     <%
         Evento e = (Evento) request.getAttribute("evento");
         List<EventoUsuario> lista_evento_usuario = (List<EventoUsuario>) request.getAttribute("listaEventoUsuario");
-        Usuario u = (Usuario) session.getAttribute("usuario");
-        UsuarioEvento ue = u.getUsuarioEvento();
+        UsuarioDto u = (UsuarioDto) session.getAttribute("usuario");
+       // UsuarioEvento ue = u.getUsuarioEvento();
         String patron = "yyyy-MM-dd";
         SimpleDateFormat format = new SimpleDateFormat(patron);
 
@@ -81,7 +82,7 @@
             </style>
 
             <%-- TODO el enlace de abajo está mal --%>
-            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= u.getNickname()%>&contrasena=<%= u.getPassword()%>">
+            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= u.getUsuario()%>&contrasena=<%= u.getContraseña()%>">
                 <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
             <div class="col-4">
@@ -119,7 +120,7 @@
 
                 <form action="ServletRegistrarPersonaEnEvento?evento=<%=e.getIdevento()%>" method="post">
 
-                    <% if (ue != null) {
+                    <% if (u.getRol() == 4) {
                             
                             int plazas = e.getAforo() - lista_evento_usuario.size();
                             int numEntradas = 0;
