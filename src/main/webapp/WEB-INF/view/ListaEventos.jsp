@@ -75,7 +75,7 @@
         if (puede_editar) {
     %>
     <div class="col-2"></div>
-    <a class="col-2  text-decoration-none" href="RegistroEvento.jsp">Crear evento</a>
+    <a class="col-2  text-decoration-none" href="/createEvent">Crear evento</a>
     <% } else { %>
     <div class="col-4"></div>
     <% } %>

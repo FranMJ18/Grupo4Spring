@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="grupo4app.entity.Filtro"%>
+<%@ page import="es.taw.grupo4.entity.Filtro" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
