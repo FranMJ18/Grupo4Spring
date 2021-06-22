@@ -4,9 +4,9 @@
     Author     : josea
 --%>
 
-<%@page import="grupo4app.entity.Usuario"%>
-<%@page import="grupo4app.entity.Evento"%>
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.grupo4.entity.Evento" %>
+<%@ page import="es.taw.grupo4.entity.Usuario" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
