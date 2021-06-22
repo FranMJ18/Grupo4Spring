@@ -96,4 +96,5 @@ public class UsuarioDto {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
 }
