@@ -80,6 +80,7 @@ public class InicioController {
         }
 
         usuarioDto.setId(us.getIdusuario());
+        usuarioDto.setRol(us.getRol());
         session.setAttribute("usuario", usuarioDto);
         switch (us.getRol()){
             //CREADOR DE EVENTO
@@ -87,7 +88,7 @@ public class InicioController {
             //ADMINISTRADOR
             case 1 : return "redirect:administrador/";
             //TELEOPERADOR
-            case 2 : return doListarEventos(new FiltroEvento(), model);
+            case 2 : return "redirect:chat/";
             //ANALISTA DE EVENTOS
             case 3 : return "redirect:filtro/";
             //USUARIO DE EVENTO
@@ -131,7 +132,7 @@ public class InicioController {
             //ADMINISTRADOR
             case 1 : return "redirect:administrador/";
             //TELEOPERADOR
-            case 2 : return doListarEventos(new FiltroEvento(), model);
+            case 2 : return "redirect:chat/";
             //ANALISTA DE EVENTOS
             case 3 : return doListarEventos(new FiltroEvento(), model);
             //USUARIO DE EVENTO

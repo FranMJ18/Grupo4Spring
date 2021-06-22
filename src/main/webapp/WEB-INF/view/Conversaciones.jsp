@@ -4,9 +4,9 @@
     Author     : franc
 --%>
 
-<%@page import="grupo4app.entity.Usuario"%>
-<%@page import="grupo4app.entity.Chat"%>
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.grupo4.dto.ChatDto" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -80,17 +80,17 @@
         </style>
     </head>
     <%
-        List<Chat> conversaciones = (List<Chat>)request.getAttribute("chats");
+        List<ChatDto> conversaciones = (List<ChatDto>)request.getAttribute("chats");
         String error = (String)request.getAttribute("error");
         HttpSession ses = request.getSession();
-        Usuario usuarioIniciado = (Usuario)ses.getAttribute("usuario");
+        UsuarioDto usuarioIniciado = (UsuarioDto)ses.getAttribute("usuario");
     %>
     <body>
         
         <!-- BARRA -->
         
         <div class="row py-2 text-center" style="background: #de7ebf">
-            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNickname()%>&contrasena=<%= usuarioIniciado.getPassword()%>">
+            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNombre()%>&contrasena=<%= usuarioIniciado.getContraseña()%>">
                 <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
            
@@ -167,13 +167,13 @@
                     <div class="filaprim col-4 px-sm-3 py-sm-4 my-1"><b>Usuario atendido</b></div>
                 </div>
                 <%  
-                    for(Chat ch : conversaciones) {
+                    for(ChatDto ch : conversaciones) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getNickname()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getNickname()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
 
@@ -193,7 +193,7 @@
         <%
            }
         
-        List<Chat> otrosC = (List<Chat>)request.getAttribute("otrosChats");
+        List<ChatDto> otrosC = (List<ChatDto>)request.getAttribute("otrosChats");
         /// OTRAS CONVERSACIONES
         %>
             <h2 class="px-sm-3">Otras conversaciones</h2>
@@ -206,13 +206,13 @@
                     <div class="filaprim col-4 px-sm-3 py-sm-4 my-1"><b>Usuario atendido</b></div>
                 </div>
                 <%  
-                    for(Chat ch : otrosC) {
+                    for(ChatDto ch : otrosC) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getNickname()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getNickname()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>   
                         <div class="col-1 p-sm-3 my-1"><a href="ServletBorrarChat?idChat=<%=ch.getIdchat()%>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -242,13 +242,13 @@
                     <div class="filaprim col-4 px-sm-3 py-sm-4 my-1"><b>Usuario atendido</b></div>
                 </div>
                 <%  
-                    for(Chat ch : conversaciones) {
+                    for(ChatDto ch : conversaciones) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getNickname()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getNickname()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>  
                     </div>
