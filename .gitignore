@@ -33,6 +33,7 @@ build/
 ### VS Code ###
 .vscode/
 derby.log
+/bd/
 bd/db.lck
 bd/db.lck
 bd/log/log.ctrl

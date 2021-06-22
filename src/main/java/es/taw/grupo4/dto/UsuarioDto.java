@@ -5,6 +5,28 @@ public class UsuarioDto {
 
     private String contraseña;
 
+    private int rol;
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public int getRol() { return rol; }
+
+    public void setRol(int rol) { this.rol = rol; }
+
     private String nombre;
 
     private String apellidos;
@@ -16,8 +38,6 @@ public class UsuarioDto {
     private String domicilio;
 
     private String ciudad;
-
-    private int rol;
 
     public String getNombre() {
         return nombre;
@@ -66,24 +86,4 @@ public class UsuarioDto {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
-    public int getRol() { return rol; }
-
-    public void setRol(int rol) { this.rol = rol; }
 }

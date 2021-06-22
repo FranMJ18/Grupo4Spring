@@ -1,6 +1,4 @@
 package es.taw.grupo4.controller;
-
-import es.taw.grupo4.dao.UsuarioRepository;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
@@ -79,16 +77,17 @@ public class InicioController {
             model.addAttribute("error", "Credenciales inválidas");
             return this.doLogin(model);
         }
-        session.setAttribute("usuario", us);
+
+        session.setAttribute("usuario", usuarioDto);
         switch (us.getRol()){
             //CREADOR DE EVENTO
             case 0 : return doListarEventos(new FiltroEvento(), model);
             //ADMINISTRADOR
-            case 1 : return doListarEventos(new FiltroEvento(), model);
+            case 1 : return "redirect:administrador/";
             //TELEOPERADOR
             case 2 : return doListarEventos(new FiltroEvento(), model);
             //ANALISTA DE EVENTOS
-            case 3 : return doListarEventos(new FiltroEvento(), model);
+            case 3 : return "redirect:filtro/";
             //USUARIO DE EVENTO
             case 4 : return doListarEventos(new FiltroEvento(), model);
         }
@@ -127,7 +126,7 @@ public class InicioController {
             //CREADOR DE EVENTO
             case 0 : return doListarEventos(new FiltroEvento(), model);
             //ADMINISTRADOR
-            case 1 : return doListarEventos(new FiltroEvento(), model);
+            case 1 : return "redirect:administrador/";
             //TELEOPERADOR
             case 2 : return doListarEventos(new FiltroEvento(), model);
             //ANALISTA DE EVENTOS
@@ -163,6 +162,19 @@ public class InicioController {
     @GetMapping("/eraseEvent/{id}")
     public String doEraseEvent(@PathVariable Integer id, Model model){
         eventoService.eraseEventoById(id);
+        return doListarEventos(new FiltroEvento(), model);
+    }
+
+    @GetMapping("/createEvent")
+    public String doCreateEvent(Model model){
+        model.addAttribute("evento", new EventoDto());
+        return "CrearEvento";
+    }
+
+    @PostMapping("/saveEvent")
+    public String doSaveEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
+
+        eventoService.createOrSaveEvent(evento, (Usuario) session.getAttribute("usuario"));
         return doListarEventos(new FiltroEvento(), model);
     }
 }
