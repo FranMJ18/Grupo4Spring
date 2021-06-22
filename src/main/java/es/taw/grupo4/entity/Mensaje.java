@@ -5,6 +5,8 @@
  */
 package es.taw.grupo4.entity;
 
+import es.taw.grupo4.dto.MensajeDto;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -136,5 +138,15 @@ public class Mensaje implements Serializable {
     public String toString() {
         return "grupo4app.entity.Mensaje[ mensajePK=" + mensajePK + " ]";
     }
-    
+
+    public MensajeDto getDto(){
+        MensajeDto dto = new MensajeDto();
+
+        dto.setIdmensaje(this.mensajePK.getIdmensaje());
+        dto.setTexto(this.texto);
+        dto.setFechaHora(this.fechaHora);
+        dto.setEmisor(this.emisor.getDto());
+
+        return dto;
+    }
 }

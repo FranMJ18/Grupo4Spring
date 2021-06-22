@@ -40,4 +40,13 @@ public class UsuarioService {
     public Usuario findById(Integer id){
         return usuarioRepository.findById(id).get();
     }
+
+    public Usuario findRandomTeleoperador(int id) {
+        Usuario us = this.usuarioRepository.findRandomTeleoperador(id);
+        if(us != null){
+            return us;
+        } else {
+            return null;
+        }
+    }
 }

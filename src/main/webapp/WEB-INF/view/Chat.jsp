@@ -5,14 +5,14 @@
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="grupo4app.entity.Mensaje"%>
 <%@page import="java.util.List"%>
-<%@page import="grupo4app.entity.Chat"%>
-<%@page import="grupo4app.entity.Usuario"%>
+<%@ page import="es.taw.grupo4.dto.ChatDto" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
+<%@ page import="es.taw.grupo4.dto.MensajeDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <% Chat ch = (Chat)request.getAttribute("chat");%>
+    <% ChatDto ch = (ChatDto)request.getAttribute("chat");%>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
@@ -79,19 +79,19 @@
         </style>
     </head>
     <%
-        List<Mensaje> mensajes = (List<Mensaje>)request.getAttribute("mensajes");
-        Usuario teleOp = ch.getUsuario1();
-        Usuario usr = ch.getUsuario2();
+        List<MensajeDto> mensajes = (List<MensajeDto>)request.getAttribute("mensajes");
+        UsuarioDto teleOp = ch.getUsuario1();
+        UsuarioDto usr = ch.getUsuario2();
         
         HttpSession ses = request.getSession();
-        Usuario usuarioIniciado = (Usuario)ses.getAttribute("usuario");
+        UsuarioDto usuarioIniciado = (UsuarioDto)ses.getAttribute("usuario");
     %>
     <body>
         <!-- BARRA -->
         
         <div class="row py-2 text-center" style="background: #de7ebf">
             
-            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNickname()%>&contrasena=<%= usuarioIniciado.getPassword()%>">
+            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getUsuario()%>&contrasena=<%= usuarioIniciado.getContraseña()%>">
                 <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
                 
@@ -125,22 +125,22 @@
                         </div>
                         <% } %>
                         <%
-                            for(Mensaje msg : mensajes){
+                            for(MensajeDto msg : mensajes){
                          %>
                                 <div class="row">
-                             <%if (msg.getEmisor().getIdusuario() == usuarioIniciado.getIdusuario()){
+                             <%if (msg.getEmisor().getId() == usuarioIniciado.getId()){ //El emisor es el usuario que ha iniciado sesion
                              %>    
                                 <div class="col-10 px-sm-4 py-2 text-wrap text-end my-1 msg" style="background-color: #f3edf7;">
                                      <%=msg.getTexto().replaceAll("(\r\n|\n)", "<br />") %> <br/>
                                     <span class="fechahora">(<%= new SimpleDateFormat("dd/MM/yyyy 'a las' HH:mm:ss").format(msg.getFechaHora()) %>) </span>
                                 </div>
                                 <div class="col-2 px-sm-2 py-2 text-end my-1" style="background-color: #f3edf7;">
-                                    <b><%=msg.getEmisor().getNickname()%></b><img class="px-1" src="img/avatar.png" width="50px" alt="...">
+                                    <b><%=msg.getEmisor().getUsuario()%></b><img class="px-1" src="img/avatar.png" width="50px" alt="...">
                                 </div>
-                            <% } else {
+                            <% } else { // El emisor no es el usuario que ha iniciado sesion
                             %>
                                 <div class="col-2 px-sm-2 py-2 my-1" style="background-color: #fafafa;">
-                                    <img class="px-1" src="img/avatar.png" width="50px" alt="..."><b><%=msg.getEmisor().getNickname()%></b>
+                                    <img class="px-1" src="img/avatar.png" width="50px" alt="..."><b><%=msg.getEmisor().getUsuario()%></b>
                                 </div>
                                 <div class="col-10 px-sm-4 py-2 text-wrap text-start my-1 msg" style="background-color: #fafafa;">
                                     <%=msg.getTexto().replaceAll("(\r\n|\n)", "<br />") %> <br/>
@@ -159,14 +159,14 @@
                         <b>Teleoperador</b><br/>
                         <div class="d-flex flex-row justify-content-center align-items-center">
                             <div class="py-2 px-1"><img src="img/avatar.png" width="100px" alt="..."></div>
-                            <div class="py-2 px-1" style="width: 8em;"><%=teleOp.getNickname()%></div>
+                            <div class="py-2 px-1" style="width: 8em;"><%=teleOp.getUsuario()%></div>
                         </div>
                     </div>
                     <div class="d-block p-2">
                         <b>Usuario</b></br>
                         <div class="d-flex flex-row justify-content-center align-items-center">
                             <div class="py-2 px-1"><img src="img/avatar.png" width="100px" alt="..."></div>
-                            <div class="py-2 px-1" style="width: 8em;"><%=usr.getNickname()%></div>
+                            <div class="py-2 px-1" style="width: 8em;"><%=usr.getUsuario()%></div>
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
         </div>
       
         <% 
-            if (usuarioIniciado.getIdusuario() == usr.getIdusuario() || usuarioIniciado.getIdusuario() == teleOp.getIdusuario()) {
+            if (usuarioIniciado.getId() == usr.getId() || usuarioIniciado.getId() == teleOp.getId()) {
         %>
         <div class="mx-sm-3 my-sm-3">
             <form name="enviar" method="POST" action="ServletEnviarMensaje">
