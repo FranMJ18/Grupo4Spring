@@ -1,12 +1,13 @@
 package es.taw.grupo4.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import es.taw.grupo4.dao.EventoRepository;
+import es.taw.grupo4.dao.UsuarioRepository;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
+import es.taw.grupo4.entity.UsuarioEvento;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.EventoUsuarioService;
+import es.taw.grupo4.service.UsuarioEventoService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,13 @@ import javax.servlet.http.HttpSession;
 public class InicioController {
 
     private UsuarioService usuarioService;
+
+    private UsuarioEventoService usuarioEventoService;
+
+    @Autowired
+    public void setUsuarioEventoService(UsuarioEventoService usuarioEventoService){
+        this.usuarioEventoService = usuarioEventoService;
+    }
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService){
@@ -72,7 +80,62 @@ public class InicioController {
             return this.doLogin(model);
         }
         session.setAttribute("usuario", us);
-        return doListarEventos(new FiltroEvento(), model);
+        switch (us.getRol()){
+            //CREADOR DE EVENTO
+            case 0 : return doListarEventos(new FiltroEvento(), model);
+            //ADMINISTRADOR
+            case 1 : return doListarEventos(new FiltroEvento(), model);
+            //TELEOPERADOR
+            case 2 : return doListarEventos(new FiltroEvento(), model);
+            //ANALISTA DE EVENTOS
+            case 3 : return doListarEventos(new FiltroEvento(), model);
+            //USUARIO DE EVENTO
+            case 4 : return doListarEventos(new FiltroEvento(), model);
+        }
+        return null;
+    }
+
+    @PostMapping("/registrar")
+    public String doRegistrar(@ModelAttribute("usuario") UsuarioDto usuario, Model model, HttpSession session){
+
+        Usuario us = new Usuario();
+        UsuarioEvento usuarioEvento = new UsuarioEvento();
+
+        us.setNickname(usuario.getUsuario());
+        us.setPassword(usuario.getContraseña());
+        us.setRol(usuario.getRol());
+
+        usuarioService.guardarUsuario(us);
+
+        usuarioEvento.setUsuario(us.getIdusuario());
+        usuarioEvento.setCiudad(usuario.getCiudad());
+        usuarioEvento.setDomicilio(usuario.getDomicilio());
+        usuarioEvento.setApellido(usuario.getApellidos());
+        usuarioEvento.setEdad(usuario.getEdad());
+        usuarioEvento.setNombre(usuario.getNombre());
+        usuarioEvento.setSexo(usuario.getSexo());
+        usuarioEvento.setUsuario1(us);
+
+        us.setUsuarioEvento(usuarioEvento);
+
+        session.setAttribute("usuario", us);
+
+        usuarioService.guardarUsuario(us);
+        usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
+
+        switch (us.getRol()){
+            //CREADOR DE EVENTO
+            case 0 : return doListarEventos(new FiltroEvento(), model);
+            //ADMINISTRADOR
+            case 1 : return doListarEventos(new FiltroEvento(), model);
+            //TELEOPERADOR
+            case 2 : return doListarEventos(new FiltroEvento(), model);
+            //ANALISTA DE EVENTOS
+            case 3 : return doListarEventos(new FiltroEvento(), model);
+            //USUARIO DE EVENTO
+            case 4 : return doListarEventos(new FiltroEvento(), model);
+        }
+        return null;
     }
 
     // Cierra la sesion y te devuelve a index.jsp
@@ -89,6 +152,8 @@ public class InicioController {
         model.addAttribute("filtro", filtro);
         return "ListaEventos";
     }
+
+
 
     // Cierra la sesion y te devuelve a index.jsp
     @GetMapping("/showEvent/{id}")

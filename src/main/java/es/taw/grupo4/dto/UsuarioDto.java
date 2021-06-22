@@ -9,13 +9,15 @@ public class UsuarioDto {
 
     private String apellidos;
 
-    private String edad;
+    private int edad;
 
     private String sexo;
 
     private String domicilio;
 
     private String ciudad;
+
+    private int rol;
 
     public String getNombre() {
         return nombre;
@@ -33,11 +35,11 @@ public class UsuarioDto {
         this.apellidos = apellidos;
     }
 
-    public String getEdad() {
+    public int getEdad() {
         return edad;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
@@ -80,4 +82,8 @@ public class UsuarioDto {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    public int getRol() { return rol; }
+
+    public void setRol(int rol) { this.rol = rol; }
 }
