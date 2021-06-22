@@ -52,10 +52,7 @@ public class AdministradorController {
 
     @GetMapping("/usuario/{id}")
     public String doUsuario(@PathVariable("id") Integer id, Model model, HttpSession session){
-        model.addAttribute(usuarioService.findById(id).getDto());
-        System.err.println("//////////////////////////////////////////");
-        System.err.println(usuarioService.findById(id).getNickname());
-        System.err.println("//////////////////////////////////////////");
+        model.addAttribute("usuario", usuarioService.findById(id).getDto());
         model.addAttribute("listaEventos", usuarioService.findById(((UsuarioDto) session.getAttribute("usuario")).getId()).getEventoList());
         return "Perfil";
     }
