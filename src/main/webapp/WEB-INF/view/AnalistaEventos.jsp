@@ -4,9 +4,10 @@
     Author     : carlo
 --%>
 
-<%@page import="grupo4app.entity.Usuario"%>
-<%@page import="grupo4app.entity.Filtro"%>
+
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.grupo4.entity.Filtro" %>
+<%@ page import="es.taw.grupo4.entity.Usuario" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -61,7 +62,7 @@
                 if (u.getRol() == 3) {
             %>
             <div class="col-4 d-flex justify-content-center ">
-                <a class="text-decoration-none" href="CrearAnalisis.jsp">Crear analisis</a>
+                <a class="text-decoration-none" href="/filtro/crearAnalisis">Crear analisis</a>
             </div>
             <%
             } else {

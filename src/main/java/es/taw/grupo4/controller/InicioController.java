@@ -91,7 +91,7 @@ public class InicioController {
             //TELEOPERADOR
             case 2 : return doListarEventos(new FiltroEvento(), model);
             //ANALISTA DE EVENTOS
-            case 3 : return doListarEventos(new FiltroEvento(), model);
+            case 3 : return "redirect:filtro/";
             //USUARIO DE EVENTO
             case 4 : return doListarEventos(new FiltroEvento(), model);
         }
