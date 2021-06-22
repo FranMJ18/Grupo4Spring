@@ -112,7 +112,7 @@
                     %>
                     <div class="col-4">
                         <div class="row">
-                            <a href="/usuario?<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
+                            <a href="/usuario/<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
                             <div class="col-6">
                                 <h2><%=e.getUsuario()%></h2>
                                 <p><%=e.getRol() == 0 ? "Creador de evento" : (e.getRol() == 1 ? "Administrador del sistema" : (e.getRol() == 2 ? "Teleoperador" : (e.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%> </p>

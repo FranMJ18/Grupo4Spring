@@ -36,4 +36,8 @@ public class UsuarioService {
 
         return usuarios;
     }
+
+    public Usuario findById(Integer id){
+        return usuarioRepository.findById(id).get();
+    }
 }
