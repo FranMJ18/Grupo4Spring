@@ -80,6 +80,7 @@
                 }
             </style>
 
+            <%-- TODO el enlace de abajo está mal --%>
             <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= u.getNickname()%>&contrasena=<%= u.getPassword()%>">
                 <img src="img/Logo.png" style="width:2em; height:2em;">
             </a>
@@ -89,13 +90,15 @@
             <div  class="col-2 dropdown">
                 <img src="img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
+                    <%-- TODO el enlace de abajo está mal --%>
                     <a class="row dropdown-element" href="ServletCargarListaEventosUsuario">Mi perfil</a>
                     <%
                         if(u.getRol() != 1){
+                        <%-- TODO el enlace de abajo está mal --%>
                             %><a class="row dropdown-element" href="ServletListarConversaciones">Mensajes</a><%
                         }
                     %>
-                    <a class="row dropdown-element" href="ServletCerrarSesion">Cerrar sesion</a>
+                    <a class="row dropdown-element" href="/logout">Cerrar sesion</a>
                 </div>
             </div>       
         </div>
