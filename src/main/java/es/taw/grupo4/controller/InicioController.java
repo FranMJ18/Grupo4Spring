@@ -1,8 +1,10 @@
 package es.taw.grupo4.controller;
 
 import es.taw.grupo4.dao.EventoRepository;
+import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
+import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,19 +19,20 @@ import javax.servlet.http.HttpSession;
 public class InicioController {
 
     private UsuarioService usuarioService;
-    private EventoRepository eventoRepository;
-
-    @Autowired
-    public void setEventoRepository(EventoRepository eventoRepository){
-        this.eventoRepository = eventoRepository;
-    }
-
-
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService){
         this.usuarioService = usuarioService;
     }
+
+
+    private EventoService eventoService;
+
+    @Autowired
+    public void setEventoServicee(EventoService eventoService){
+        this.eventoService = eventoService;
+    }
+
 
     @GetMapping("/")
     public String doInit(){
@@ -41,6 +44,7 @@ public class InicioController {
         model.addAttribute("usuario", new UsuarioDto());
         return "InicioSesion";
     }
+
 
     @GetMapping("/register")
     public String doRegister(Model model){
@@ -57,12 +61,21 @@ public class InicioController {
             return this.doLogin(model);
         }
         session.setAttribute("usuario", us);
-        return doListarEventos(model);
+        return doListarEventos(new FiltroEvento(), model);
     }
 
-    @GetMapping("/events")
-    public String doListarEventos(Model model){
-        model.addAttribute("eventos", eventoRepository.findAll());
+    // Cierra la sesion y te devuelve a index.jsp
+    @GetMapping("/logout")
+    public String doLogout(HttpSession session){
+        session.removeAttribute("usuario");
+        return "index";
+    }
+
+    @PostMapping("/events")
+    public String doListarEventos(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
+
+        model.addAttribute("eventos", eventoService.findByFilter(filtro));
+        model.addAttribute("filtro", filtro);
         return "ListaEventos";
     }
 }
