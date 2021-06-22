@@ -3,6 +3,7 @@ package es.taw.grupo4.controller;
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.entity.Evento;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.EventoUsuarioService;
@@ -51,7 +52,8 @@ public class EventoControler {
 
     @GetMapping("/showEvent/{id}")
     public String doShowEvent(@PathVariable Integer id, Model model){
-        model.addAttribute("evento", eventoService.findById(id));
+        Evento e = eventoService.findById(id);
+        model.addAttribute("evento",e.getDto());
         model.addAttribute("listaEventoUsuario", eventoUsuarioService.findByEventoId(id));
         return "MostrarEvento";
     }
@@ -78,6 +80,14 @@ public class EventoControler {
 
     @PostMapping("/saveEvent")
     public String doSaveEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
+
+        UsuarioDto aux = (UsuarioDto) session.getAttribute("usuario");
+        eventoService.createOrSaveEvent(evento,usuarioService.findById(aux.getId()) );
+        return doListarEventos(new FiltroEvento(), model);
+    }
+
+    @PostMapping("/buyTicket")
+    public String doBuyEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
 
         UsuarioDto aux = (UsuarioDto) session.getAttribute("usuario");
         eventoService.createOrSaveEvent(evento,usuarioService.findById(aux.getId()) );

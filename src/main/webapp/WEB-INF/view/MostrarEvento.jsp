@@ -9,6 +9,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page import="es.taw.grupo4.entity.*" %>
 <%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
+<%@ page import="es.taw.grupo4.dto.EventoDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
     </head>
 
     <%
-        Evento e = (Evento) request.getAttribute("evento");
+        EventoDto e = (EventoDto) request.getAttribute("evento");
         List<EventoUsuario> lista_evento_usuario = (List<EventoUsuario>) request.getAttribute("listaEventoUsuario");
         UsuarioDto u = (UsuarioDto) session.getAttribute("usuario");
        // UsuarioEvento ue = u.getUsuarioEvento();
@@ -111,26 +112,26 @@
                     <label for ="titulo">Titulo:</label> <span id="titulo"><%= e.getTitulo()%></span>
                 </p>
                 <p> 
-                    <label for="inicio" >Inicio: </label> <span id="inicio"><%= format.format(e.getFecha())%></span>
-                    <label for="fin" class="pl-4">Fin: </label> <span id="fin"><%= format.format(e.getFechaReserva())%></span>
+                    <label for="inicio" >Inicio: </label> <span id="inicio"><%= format.format(e.getFechaInicio())%></span>
+                    <label for="fin" class="pl-4">Fin: </label> <span id="fin"><%= format.format(e.getFechaFin())%></span>
                 </p>
                 <p>
                     <label for ="precio">Precio:</label> <span id="precio"><%= e.getCosteEntrada()%></span>
                 </p>
 
-                <form action="ServletRegistrarPersonaEnEvento?evento=<%=e.getIdevento()%>" method="post">
+                <form action="ServletRegistrarPersonaEnEvento?evento=<%=e.getId()%>" method="post">
 
                     <% if (u.getRol() == 4) {
                             
                             int plazas = e.getAforo() - lista_evento_usuario.size();
                             int numEntradas = 0;
                             for (EventoUsuario aux : lista_evento_usuario) {
-                                if (aux.getEvento().getIdevento() == e.getIdevento()) {
+                                if (aux.getEvento().getIdevento() == e.getId()) {
                                     numEntradas++;
                                 }
                             }
 
-                            if (numEntradas >= e.getMaxNumEntradas()) {
+                            if (numEntradas >= e.getMaxEntradas()) {
                     %>
                     <p>Has superado el cupo</p>
                     <%
@@ -138,11 +139,11 @@
                     %>
                     <p>No quedan plazas</p>
                     <%
-                    } else if ((new Date()).compareTo(e.getFechaReserva())>0) {
+                    } else if ((new Date()).compareTo(format.parse(e.getFechaFin()))>0) {
                     %>
                     <p>El evento ya se ha realizado</p>
                     <%
-                    } else if ((new Date()).compareTo(e.getFecha())<0) {
+                    } else if ((new Date()).compareTo(format.parse(e.getFechaInicio()))<0) {
                     %>
                     <p>El evento aun no se puede comprar</p>
                     <%
@@ -150,7 +151,7 @@
                         if (e.getAsientosFijos()) {
                     %>
                     <select name="asiento">
-                        <% for (Asientos a : e.getAsientosList()) {
+                        <% for (Asientos a : e.getAsientosList()) { //TODO
                                 if (a.getOcupado() != 0) {
                                     continue;
                                 }
