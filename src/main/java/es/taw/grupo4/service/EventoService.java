@@ -3,6 +3,7 @@ package es.taw.grupo4.service;
 import es.taw.grupo4.dao.EventoRepository;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.entity.Evento;
+import es.taw.grupo4.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +31,5 @@ public class EventoService {
         Evento e = eventoRepository.getById(id);
         eventoRepository.delete(e);
     }
+
 }

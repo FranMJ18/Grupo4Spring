@@ -5,20 +5,11 @@
  */
 package es.taw.grupo4.entity;
 
+import es.taw.grupo4.dto.UsuarioDto;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -204,5 +195,26 @@ public class Usuario implements Serializable {
     public String toString() {
         return "grupo4app.entity.Usuario[ idusuario=" + idusuario + " ]";
     }
-    
+
+    @Transient
+    public UsuarioDto getDto(){
+        UsuarioDto usuario = new UsuarioDto();
+
+        usuario.setUsuario(this.nickname);
+        usuario.setContraseña(this.password);
+        usuario.setRol(this.rol);
+
+        if(this.usuarioEvento != null) {
+            UsuarioEvento usuarioEvento = this.usuarioEvento;
+
+            usuario.setApellidos(usuarioEvento.getApellido());
+            usuario.setCiudad(usuarioEvento.getCiudad());
+            usuario.setDomicilio(usuarioEvento.getDomicilio());
+            usuario.setEdad(usuarioEvento.getEdad());
+            usuario.setNombre(usuarioEvento.getNombre());
+            usuario.setSexo(usuarioEvento.getSexo());
+        }
+
+        return usuario;
+    }
 }

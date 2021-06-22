@@ -6,9 +6,10 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="grupo4app.entity.EventoUsuario"%>
-<%@page import="grupo4app.entity.UsuarioEvento"%>
-<%@page import="grupo4app.entity.Usuario"%>
+<%@ page import="es.taw.grupo4.entity.Usuario" %>
+<%@ page import="es.taw.grupo4.entity.UsuarioEvento" %>
+<%@ page import="es.taw.grupo4.entity.EventoUsuario" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
     <body>
         <%
             HttpSession ses = request.getSession();
-            Usuario usSesion = (Usuario)ses.getAttribute("usuario");
+            UsuarioDto usSesion = (UsuarioDto)ses.getAttribute("usuario");
             Usuario usuario = (Usuario) request.getAttribute("usuario");
             UsuarioEvento usuarioEvento = usuario.getUsuarioEvento();
             List<EventoUsuario> listaEventos = (List) request.getAttribute("listaEventos");

@@ -1,6 +1,5 @@
 package es.taw.grupo4.controller;
 
-import es.taw.grupo4.dao.UsuarioRepository;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
@@ -79,12 +78,13 @@ public class InicioController {
             model.addAttribute("error", "Credenciales inválidas");
             return this.doLogin(model);
         }
-        session.setAttribute("usuario", us);
+
+        session.setAttribute("usuario", usuarioDto);
         switch (us.getRol()){
             //CREADOR DE EVENTO
             case 0 : return doListarEventos(new FiltroEvento(), model);
             //ADMINISTRADOR
-            case 1 : return doListarEventos(new FiltroEvento(), model);
+            case 1 : return "redirect:administrador/";
             //TELEOPERADOR
             case 2 : return doListarEventos(new FiltroEvento(), model);
             //ANALISTA DE EVENTOS
@@ -127,7 +127,7 @@ public class InicioController {
             //CREADOR DE EVENTO
             case 0 : return doListarEventos(new FiltroEvento(), model);
             //ADMINISTRADOR
-            case 1 : return doListarEventos(new FiltroEvento(), model);
+            case 1 : return "redirect:administrador/";
             //TELEOPERADOR
             case 2 : return doListarEventos(new FiltroEvento(), model);
             //ANALISTA DE EVENTOS

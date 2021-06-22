@@ -6,6 +6,7 @@ import es.taw.grupo4.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,5 +25,15 @@ public class UsuarioService {
 
     public void guardarUsuario(Usuario usuario){
         usuarioRepository.save(usuario);
+    }
+
+    public List<UsuarioDto> findAll(){
+        List<Usuario> aux = usuarioRepository.findAll();
+        List<UsuarioDto> usuarios = new ArrayList<>();
+        for(Usuario u : aux){
+            usuarios.add(u.getDto());
+        }
+
+        return usuarios;
     }
 }
