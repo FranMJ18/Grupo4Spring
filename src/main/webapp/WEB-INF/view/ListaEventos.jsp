@@ -97,8 +97,6 @@
 <div class="py-3 row">
     <!-- Filtros -->
     <div class="col-2" style="background: #77e5ff;">
-
-
         <%--@elvariable id="filtro" type="es.taw.grupo4.dto.FiltroEvento"--%>
         <form:form method="post" action="/events" modelAttribute="filtro">
 
@@ -179,9 +177,7 @@
             %>
             <div class="col-4">
                 <div class="row">
-                    <a href="ServletMostrarEvento?idEvento=<%= e.getIdevento()%>" class="col-6"><img width="100%"
-                                                                                                     height="100%"
-                                                                                                     src="img/evento.jpg"></a>
+                    <a href="/showEvent/<%= e.getIdevento()%>" class="col-6"><img width="100%" src="img/evento.jpg"></a>
                     <div class="col-6">
                         <h2><%=e.getTitulo()%>
                         </h2>

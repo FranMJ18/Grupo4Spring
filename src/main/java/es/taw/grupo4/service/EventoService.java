@@ -20,4 +20,10 @@ public class EventoService {
     public List<Evento> findByFilter(FiltroEvento filtro){
         return eventoRepository.findAll(); // TODO filtrar algo supongo
     }
+
+    public Evento findById(Integer id)
+    {
+        return eventoRepository.findById(id).get();
+    }
+
 }

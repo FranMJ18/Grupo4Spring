@@ -1,16 +1,19 @@
 package es.taw.grupo4.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import es.taw.grupo4.dao.EventoRepository;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
+import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
@@ -29,8 +32,16 @@ public class InicioController {
     private EventoService eventoService;
 
     @Autowired
-    public void setEventoServicee(EventoService eventoService){
+    public void setEventoService(EventoService eventoService){
         this.eventoService = eventoService;
+    }
+
+
+    private EventoUsuarioService eventoUsuarioService;
+
+    @Autowired
+    public void setEventoUsuarioService(EventoUsuarioService eventoUsuarioService){
+        this.eventoUsuarioService = eventoUsuarioService;
     }
 
 
@@ -77,5 +88,14 @@ public class InicioController {
         model.addAttribute("eventos", eventoService.findByFilter(filtro));
         model.addAttribute("filtro", filtro);
         return "ListaEventos";
+    }
+
+    // Cierra la sesion y te devuelve a index.jsp
+    @GetMapping("/showEvent/{id}")
+    public String doShowEvent(@PathVariable Integer id, Model model){
+
+        model.addAttribute("evento", eventoService.findById(id));
+        model.addAttribute("listaEventoUsuario", eventoUsuarioService.findByEventoId(id));
+        return "MostrarEvento";
     }
 }

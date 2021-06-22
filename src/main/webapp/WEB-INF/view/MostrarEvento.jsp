@@ -6,12 +6,8 @@
 
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
-<%@page import="grupo4app.entity.EventoUsuario"%>
-<%@page import="grupo4app.entity.UsuarioEvento"%>
-<%@page import="grupo4app.entity.Usuario"%>
-<%@page import="grupo4app.entity.Asientos"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="grupo4app.entity.Evento"%>
+<%@ page import="es.taw.grupo4.entity.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,7 +20,7 @@
 
     <%
         Evento e = (Evento) request.getAttribute("evento");
-        List<EventoUsuario> lista_evento_usuario = (List<EventoUsuario>) request.getAttribute("lista_evento_usuario");
+        List<EventoUsuario> lista_evento_usuario = (List<EventoUsuario>) request.getAttribute("listaEventoUsuario");
         Usuario u = (Usuario) session.getAttribute("usuario");
         UsuarioEvento ue = u.getUsuarioEvento();
         String patron = "yyyy-MM-dd";
