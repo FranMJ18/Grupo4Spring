@@ -32,8 +32,9 @@ public class AdministradorController {
     }
 
     @GetMapping("/")
-    public String doInit(HttpSession session){
+    public String doInit(HttpSession session, Model model){
         session.setAttribute("listaUsuarios", usuarioService.findAll());
+        model.addAttribute("usuario", new UsuarioDto());
         return "Administrador";
     }
 
@@ -60,7 +61,15 @@ public class AdministradorController {
     @GetMapping("/editar/{id}")
     public String doEditar(@PathVariable("id") Integer id, Model model){
         Usuario usuario = usuarioService.findById(id);
-        model.addAttribute("usuario", usuario);
+        model.addAttribute("usuario", usuario.getDto());
+        model.addAttribute("sexo", new String[]{"Hombre", "Mujer", "Otro"});
         return "RegistroUsuario";
+    }
+
+    @GetMapping("borrar/{id}")
+    public String doBorrar(@PathVariable("id") Integer id, HttpSession session, Model model){
+        Usuario usuario = usuarioService.findById(id);
+        usuarioService.borrarUsuario(usuario);
+        return "redirect:/";
     }
 }

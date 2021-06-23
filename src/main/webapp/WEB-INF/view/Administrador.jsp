@@ -1,10 +1,9 @@
-<%-- 
+<%--
     Document   : Administrador
     Created on : 21-abr-2021, 13:54:05
     Author     : nieto
 --%>
 <%@page import="java.util.List"%>
-<%@ page import="es.taw.grupo4.entity.Usuario" %>
 <%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -112,16 +111,16 @@
                     %>
                     <div class="col-4">
                         <div class="row">
-                            <a href="usuario/<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
+                            <a href="/administrador/usuario/<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
                             <div class="col-6">
                                 <h2><%=e.getUsuario()%></h2>
                                 <p><%=e.getRol() == 0 ? "Creador de evento" : (e.getRol() == 1 ? "Administrador del sistema" : (e.getRol() == 2 ? "Teleoperador" : (e.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%> </p>
-                                <a href="editar/<%=e.getId()%>">
+                                <a href="/administrador/editar/<%=e.getId()%>">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                     </svg>
                                 </a>                
-                                <a href="" style="margin-left:2em;">
+                                <a href="/administrador/borrar/<%=e.getId()%>" style="margin-left:2em;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -137,64 +136,66 @@
                 </div>                
             </div>  
             <div class="col-2">
-                <form method="post" action="ServletAñadirUsuario">
+                <%--@elvariable id="usuario" type="es.taw.grupo4.dto.UsuarioDto"--%>
+                <form:form method="post" action="/administrador/anyadirUsuario" modelAttribute="usuario">
+
                     <p>
                         <label for="usuario" >Usuario</label>
-                        <input required type="text" name="usuario" id="usuario" value=>
+                        <form:input  type="text" name="usuario" id="usuario"/>
                     </p>
 
                     <p>
                         <label for="contraseña" >Contraseña</label>
-                        <input required type="password" name="password" id="contraseña" >
+                        <form:input type="password" name="contraseña" id="contraseña"/>
                     </p>
 
-                    <select id="seleccionador" name="rol" onchange="mostrar_extra()">
-                        <option value="0" >Creador de evento</option>
-                        <option value="1" >Administrador del sistema</option>
-                        <option value="2" >Teleoperador</option>
-                        <option value="3" >Analista de eventos</option>
-                        <option value="4" >Usuario de evento</option>
-                    </select>
+                    <form:select id="seleccionador" name="rol" onchange="mostrar_extra()">
+                        <form:option value="0" >Creador de evento</form:option>
+                        <form:option value="1" >Administrador del sistema</form:option>
+                        <form:option value="2" >Teleoperador</form:option>
+                        <form:option value="3" >Analista de eventos</form:option>
+                        <form:option value="4" >Usuario de evento</form:option>
+                    </form:select>
 
                     <div id="extra" class="mt-2" style="display:none;">
                         <p>
                             <label for="nombre" >Nombre</label>
-                            <input type="text" name="nombre" id="nombre">
+                            <form:input type="text" name="nombre" id="nombre"/>
                         </p>
 
                         <p>
                             <label for="apellidos" >Apellidos</label>
-                            <input type="text" name="apellidos" id="apellidos">
+                            <form:input type="text" name="apellidos" id="apellidos"/>
                         </p>
 
                         <p>
                             <label for="edad" >Edad</label>
-                            <input type="number" name="edad" id="edad">
+                            <form:input type="number" name="edad" id="edad"/>
                         </p>
 
                         <p>
                             <label for="sexo" >Sexo</label>
-                            <select id="sexo" name="sexo" >
-                                <option value="Hombre" >Hombre</option>
-                                <option value="Mujer" >Mujer</option>
-                                <option value="Otro" >Otro</option>
-                            </select>
+                            <form:select id="sexo" name="sexo" >
+                                <form:option value="Hombre" >Hombre</form:option>
+                                <form:option value="Mujer" >Mujer</form:option>
+                                <form:option value="Otro" >Otro</form:option>
+                            </form:select>
                         </p>
 
                         <p>
                             <label for="domicilio" >Domicilio</label>
-                            <input type="text" name="domicilio" id="domicilio">
+                            <form:input type="text" name="domicilio" id="domicilio"/>
                         </p>
 
                         <p>
                             <label for="ciudad" >Ciudad</label>
-                            <input type="text" name="ciudad" id="ciudad">
+                            <form:input type="text" name="ciudad" id="ciudad"/>
                         </p>
                     </div>
-
                     <input type="submit" name="enviar_formulario" id="enviar">
-                </form>
-                <form action="ServletListarEventos">
+                </form:form>
+
+                    <form action="ServletListarEventos">
                     <br>
                     <br>
                     <br>

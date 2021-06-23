@@ -40,4 +40,8 @@ public class UsuarioService {
     public Usuario findById(Integer id){
         return usuarioRepository.findById(id).get();
     }
+
+    public void borrarUsuario(Usuario usuario){
+        usuarioRepository.delete(usuario);
+    }
 }
