@@ -24,7 +24,8 @@
                 <h1>Registro</h1>
                 <%--@elvariable id="usuario" type="es.taw.grupo4.dto.UsuarioDto"--%>
                 <form:form method="post" action="/registrar" modelAttribute="usuario">
-                    <form:hidden path="rol" value="4"/>
+                    <form:hidden path="id"/>
+                    <form:hidden path="rol"/>
                     <p>
                         <label for="usuario" >Usuario</label>
                         <form:input path="usuario" id="usuario" placeholder="Escribe tu usuario"/>
@@ -50,7 +51,7 @@
                         <form:input path="edad" id="edad" placeholder="Escribe tu edad"/>
                     </p>
 
-                    <form:radiobuttons path="sexo" items="${sexo}" delimiter="<br>"/>
+                    <form:select path="sexo" items="${sexo}" delimiter="<br>"/>
 
                     <p>
                         <label for="domicilio" >Domicilio</label>
@@ -62,10 +63,9 @@
                         <form:input path="ciudad" id="ciudad" placeholder="Escribe tu ciudad"/>
                     </p>
 
-
-
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
                 </form:form>
+
             </div>  
         </div>
     </body>

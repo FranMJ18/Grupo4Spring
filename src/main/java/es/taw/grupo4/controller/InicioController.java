@@ -103,30 +103,42 @@ public class InicioController {
         Usuario us = new Usuario();
         UsuarioEvento usuarioEvento = new UsuarioEvento();
 
-        us.setNickname(usuario.getUsuario());
-        us.setPassword(usuario.getContraseña());
-        us.setRol(usuario.getRol());
+        try{
+            us = this.usuarioService.findById(usuario.getId());
+            if(us.getRol() == 4){
+                usuarioEvento = us.getUsuarioEvento();
+            }
+        }catch (Exception e){System.err.println("No se ha encontrado");}
 
-        usuarioService.guardarUsuario(us);
+            us.setNickname(usuario.getUsuario());
+            us.setPassword(usuario.getContraseña());
+            us.setRol(session.getAttribute("usuario") == null ? 4 : us.getRol());
 
-        usuarioEvento.setUsuario(us.getIdusuario());
-        usuarioEvento.setCiudad(usuario.getCiudad());
-        usuarioEvento.setDomicilio(usuario.getDomicilio());
-        usuarioEvento.setApellido(usuario.getApellidos());
-        usuarioEvento.setEdad(usuario.getEdad());
-        usuarioEvento.setNombre(usuario.getNombre());
-        usuarioEvento.setSexo(usuario.getSexo());
-        usuarioEvento.setUsuario1(us);
+            usuarioService.guardarUsuario(us);
+            if(usuario.getRol() == 4){
+                usuarioEvento.setUsuario(us.getIdusuario());
+                usuarioEvento.setCiudad(usuario.getCiudad());
+                usuarioEvento.setDomicilio(usuario.getDomicilio());
+                usuarioEvento.setApellido(usuario.getApellidos());
+                usuarioEvento.setEdad(usuario.getEdad());
+                usuarioEvento.setNombre(usuario.getNombre());
+                usuarioEvento.setSexo(usuario.getSexo());
+                usuarioEvento.setUsuario1(us);
 
-        us.setUsuarioEvento(usuarioEvento);
+                us.setUsuarioEvento(usuarioEvento);
+            }
 
-        //usuario.setId(us.getIdusuario());
-        session.setAttribute("usuario", usuario);
+            usuarioService.guardarUsuario(us);
 
-        usuarioService.guardarUsuario(us);
-        usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
+            if(usuario.getRol() == 4){
+                usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
+            }
 
-        switch (us.getRol()){
+        if(session.getAttribute("usuario") == null){
+            session.setAttribute("usuario", usuario);
+        }
+
+        switch (((UsuarioDto) (session.getAttribute("usuario"))).getRol()){
             //CREADOR DE EVENTO
             case 0 : return "redirect:evento/events";//doListarEventos(new FiltroEvento(), model);
             //ADMINISTRADOR

@@ -41,6 +41,9 @@ public class UsuarioService {
         return usuarioRepository.findById(id).get();
     }
 
+    public void borrarUsuario(Usuario usuario){
+        usuarioRepository.delete(usuario);
+    }
     public Usuario findRandomTeleoperador(int id) {
         Usuario us = this.usuarioRepository.findRandomTeleoperador(id);
         if(us != null){
