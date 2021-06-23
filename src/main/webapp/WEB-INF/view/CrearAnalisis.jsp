@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CrearAnalisis</title>
-        <link href="estilos/estiloFormulario.css" rel="stylesheet">
+        <link href="/estilos/estiloFormulario.css" rel="stylesheet">
     </head>
     <%
         Filtro filtro = (Filtro)request.getAttribute("filtroEditar");
