@@ -44,4 +44,12 @@ public class UsuarioService {
     public void borrarUsuario(Usuario usuario){
         usuarioRepository.delete(usuario);
     }
+    public Usuario findRandomTeleoperador(int id) {
+        Usuario us = this.usuarioRepository.findRandomTeleoperador(id);
+        if(us != null){
+            return us;
+        } else {
+            return null;
+        }
+    }
 }

@@ -2,12 +2,11 @@ package es.taw.grupo4.service;
 
 import es.taw.grupo4.dao.AsientosRepository;
 import es.taw.grupo4.dao.EventoRepository;
+import es.taw.grupo4.dao.EventoUsuarioRepository;
+import es.taw.grupo4.dao.UsuarioEventoRepository;
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
-import es.taw.grupo4.entity.Asientos;
-import es.taw.grupo4.entity.AsientosPK;
-import es.taw.grupo4.entity.Evento;
-import es.taw.grupo4.entity.Usuario;
+import es.taw.grupo4.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +23,13 @@ public class EventoService {
         this.eventoRepository = eventoRepository;
     }
 
+    private EventoUsuarioRepository eventoUsuarioRepository;
+
+    @Autowired
+    public void setEventoUsuarioRepository(EventoUsuarioRepository eventoUsuarioRepository){
+        this.eventoUsuarioRepository = eventoUsuarioRepository;
+    }
+
     private AsientosRepository asientosRepository;
 
     @Autowired
@@ -31,8 +37,18 @@ public class EventoService {
         this.asientosRepository = asientosRepository;
     }
 
+    private UsuarioEventoRepository usuarioEventoRepository;
+
+    @Autowired
+    public void setUsuarioEventoRepository(es.taw.grupo4.dao.UsuarioEventoRepository usuarioEventoRepository) {
+        this.usuarioEventoRepository = usuarioEventoRepository;
+    }
+
     public List<Evento> findByFilter(FiltroEvento filtro){
-        return eventoRepository.findAll(); // TODO filtrar algo supongo
+        //if(filtro.getAireLibre()==false && filtro.getArte()==false )
+
+        return eventoRepository.filtrarEventos(filtro.getMin()==null ? Integer.MIN_VALUE : filtro.getMin(), filtro.getMax()==null ? Integer.MAX_VALUE : filtro.getMax(),  filtro.getNombre()==null ? "%%" : "%" + filtro.getNombre() + "%");
+
     }
 
     public Evento findById(Integer id)
@@ -74,10 +90,11 @@ public class EventoService {
         e.setTurismo(evento.getTurismo() ? 1 : 0);
         e.setBenefico(evento.getBenefico() ? 1 : 0);
 
-        e.setCosteEntrada(evento.getPrecio());
+        e.setCosteEntrada(evento.getCosteEntrada());
         e.setTitulo(evento.getTitulo());
         e.setAsientosFijos(evento.getAsientosFijos());
         e.setDescripcion(evento.getDescripcion());
+        e.setMaxNumEntradas(evento.getMaxEntradas());
         SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
         try {
             e.setFecha(fecha.parse(evento.getFechaInicio()));
@@ -109,4 +126,32 @@ public class EventoService {
             eventoRepository.save(e);
         }
     }
+
+    public List<Asientos> getAsientosLibres(Integer id)
+    {
+        return eventoRepository.findAsientosLibresByEventoId(id);
+    }
+
+    public void buyTicket(Integer eventoId, Integer usuarioId, String asientoString) {
+        Evento e = eventoRepository.getById(eventoId);
+        UsuarioEvento ue = usuarioEventoRepository.getById(usuarioId);
+
+        EventoUsuarioPK epk = new EventoUsuarioPK();
+        epk.setIdevento(eventoId);
+        epk.setUsuario(usuarioId);
+        EventoUsuario eu = new EventoUsuario(epk);
+        eu.setEvento(e);
+        eu.setUsuarioEvento(ue);
+        if(e.getAsientosFijos()){
+            String[] asiento = asientoString.split(" ");
+            Asientos a = asientosRepository.getById(new AsientosPK(Integer.parseInt(asiento[0]),Integer.parseInt(asiento[1]), eventoId));
+            eu.setAsientos(a);
+
+            a.setOcupado(1);
+            asientosRepository.save(a);
+        }
+        eventoUsuarioRepository.save(eu);
+    }
+
+
 }

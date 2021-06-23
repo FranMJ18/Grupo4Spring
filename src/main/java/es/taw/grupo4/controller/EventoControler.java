@@ -3,12 +3,14 @@ package es.taw.grupo4.controller;
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.entity.Evento;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.UsuarioEventoService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,13 +53,23 @@ public class EventoControler {
 
     @GetMapping("/showEvent/{id}")
     public String doShowEvent(@PathVariable Integer id, Model model){
-        model.addAttribute("evento", eventoService.findById(id));
+        Evento e = eventoService.findById(id);
+        model.addAttribute("evento",e.getDto());
         model.addAttribute("listaEventoUsuario", eventoUsuarioService.findByEventoId(id));
+        model.addAttribute("listaAsientosLibres", e.getAsientosFijos() ? eventoService.getAsientosLibres(id): null);
         return "MostrarEvento";
     }
 
     @GetMapping("/events")
     public String doListarEventos(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
+
+      //  model.addAttribute("eventos", eventoService.findByFilter(filtro));
+        //model.addAttribute("filtro", filtro);
+        return doFilter(filtro, model);
+    }
+
+    @PostMapping("/filter")
+    public String doFilter(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
 
         model.addAttribute("eventos", eventoService.findByFilter(filtro));
         model.addAttribute("filtro", filtro);
@@ -79,8 +91,23 @@ public class EventoControler {
     @PostMapping("/saveEvent")
     public String doSaveEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
 
-        UsuarioDto aux = (UsuarioDto) session.getAttribute("usuario");
-        eventoService.createOrSaveEvent(evento,usuarioService.findById(aux.getId()) );
+        UsuarioDto current = (UsuarioDto) session.getAttribute("usuario");
+        eventoService.createOrSaveEvent(evento,usuarioService.findById(current.getId()) );
         return doListarEventos(new FiltroEvento(), model);
     }
+
+    @PostMapping("/buyTicket/{id}")
+    public String doBuyEvent(@PathVariable Integer id, @RequestParam String asiento, Model model, HttpSession session){
+
+        UsuarioDto current = (UsuarioDto) session.getAttribute("usuario");
+        eventoService.buyTicket(id, current.getId(), asiento);
+        return doListarEventos(new FiltroEvento(), model);
+    }
+    @GetMapping("/edit/{idevento}")
+    public String doEdit(@PathVariable("idevento") Integer idevento, Model model){
+        Evento e = eventoService.findById(idevento);
+        model.addAttribute("evento", e.getDto());
+        return "CrearEvento";
+    }
+
 }

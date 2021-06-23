@@ -15,7 +15,7 @@ public class EventoDto {
     private String descripcion;
     private String fechaInicio;
     private String fechaFin;
-    private Integer precio;
+   // private Integer precio;
 
     public Boolean getAsientosFijos() {
         return asientosFijos;
@@ -27,13 +27,13 @@ public class EventoDto {
 
     private Boolean asientosFijos;
 
-    public Integer getPrecio() {
+   /* public Integer getPrecio() {
         return precio;
     }
 
     public void setPrecio(Integer precio) {
         this.precio = precio;
-    }
+    }*/
 
     public String getTitulo() {
         return titulo;

@@ -45,8 +45,8 @@
                     </p>
 
                     <p>
-                        <label for="precio">Precio evento</label>
-                        <form:input type="number" path="precio" id="precio" placeholder="Escribe el precio del evento"/>
+                        <label for="costeEntrada">Precio evento</label>
+                        <form:input type="number" path="costeEntrada" id="costeEntrada" placeholder="Escribe el precio del evento"/>
                     </p>
 
 
@@ -58,7 +58,7 @@
 
                     <p>
                         <label for="fechaFin">Fin de la compra de entradas</label>
-                        <input type="date" name="fechaFin" id="fechaFin" required placeholder="Escribe el fin de la compra de las entradas" />
+                        <form:input type="date" path="fechaFin" id="fechaFin" placeholder="Escribe el fin de la compra de las entradas" />
                     </p> 
 
                  
