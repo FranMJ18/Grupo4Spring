@@ -96,13 +96,13 @@
     <%-- TODO el enlace de abajo está mal --%>
     <a class="col-2  text-decoration-none"
        href="ServletInicioSesion?usuario=<%= u.getUsuario()%>&contrasena=<%= u.getContraseña()%>">
-        <img src="img/Logo.png" style="width:2em; height:2em;">
+        <img src="/img/Logo.png" style="width:2em; height:2em;">
     </a>
     <div class="col-4">
     </div>
     <div class="col-4"></div>
     <div class="col-2 dropdown">
-        <img src="img/avatar.png" style="width:2em; height:2em;">
+        <img src="/img/avatar.png" style="width:2em; height:2em;">
         <div class="dropdown-content">
             <%-- TODO el enlace de abajo está mal --%>
             <a class="row dropdown-element" href="ServletCargarListaEventosUsuario">Mi perfil</a>
@@ -118,7 +118,7 @@
 
 <div class="row">
     <div class="col-1"></div>
-    <img src="img/evento.jpg" style="aspect-ratio: 16 / 9;" class="col-7 fondito">
+    <img src="/img/evento.jpg" style="aspect-ratio: 16 / 9;" class="col-7 fondito">
     <div class="col-3 fondito py-2">
         <p>
             <label for="titulo">Titulo:</label> <span id="titulo"><%= e.getTitulo()%></span>
