@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
     Document   : Administrador
     Created on : 21-abr-2021, 13:54:05
@@ -28,7 +29,7 @@
         <div class="row py-2 text-center" style="background: #de7ebf">
             <style>
                 body{
-                    background-image: url("img/pattern.jpg");
+                    background-image: url("/img/pattern.jpg");
                 }
                 a{
                     font-size: 1.3em;
@@ -76,7 +77,7 @@
             </style>
 
             <a class="col-2  text-decoration-none" href="">
-                <img src="img/Logo.png" style="width:2em; height:2em;">
+                <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
                 <div class="col-4"></div>
            <!-- <form class="col-4">
@@ -84,7 +85,7 @@
             </form>-->
             <div class="col-4"></div>
             <div  class="col-2 dropdown">
-                <img src="img/avatar.png" style="width:2em; height:2em;">
+                <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
                     <a class="row dropdown-element" href="perfil">Mi perfil</a>
                     <a class="row dropdown-element" href="cerrarSesion">Cerrar sesion</a>
@@ -111,7 +112,7 @@
                     %>
                     <div class="col-4">
                         <div class="row">
-                            <a href="/administrador/usuario/<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="img/avatar.png"></a>
+                            <a href="/administrador/usuario/<%=e.getId()%>" class="col-6"><img width="100%" height="100%" src="/img/avatar.png"></a>
                             <div class="col-6">
                                 <h2><%=e.getUsuario()%></h2>
                                 <p><%=e.getRol() == 0 ? "Creador de evento" : (e.getRol() == 1 ? "Administrador del sistema" : (e.getRol() == 2 ? "Teleoperador" : (e.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%> </p>
@@ -141,41 +142,40 @@
 
                     <p>
                         <label for="usuario" >Usuario</label>
-                        <form:input  type="text" name="usuario" id="usuario"/>
+                        <form:input  type="text" name="usuario" id="usuario" path="usuario"/>
                     </p>
 
                     <p>
                         <label for="contraseña" >Contraseña</label>
-                        <form:input type="password" name="contraseña" id="contraseña"/>
+                        <form:input type="password" name="contraseña" id="contraseña" path="contraseña"/>
                     </p>
 
-                    <form:select id="seleccionador" name="rol" onchange="mostrar_extra()">
+                    <form:select id="seleccionador" name="rol" onchange="mostrar_extra()" path="rol">
                         <form:option value="0" >Creador de evento</form:option>
                         <form:option value="1" >Administrador del sistema</form:option>
                         <form:option value="2" >Teleoperador</form:option>
                         <form:option value="3" >Analista de eventos</form:option>
                         <form:option value="4" >Usuario de evento</form:option>
                     </form:select>
-
                     <div id="extra" class="mt-2" style="display:none;">
                         <p>
                             <label for="nombre" >Nombre</label>
-                            <form:input type="text" name="nombre" id="nombre"/>
+                            <form:input type="text" name="nombre" id="nombre" path="nombre"/>
                         </p>
 
                         <p>
                             <label for="apellidos" >Apellidos</label>
-                            <form:input type="text" name="apellidos" id="apellidos"/>
+                            <form:input type="text" name="apellidos" id="apellidos" path="apellidos"/>
                         </p>
 
                         <p>
                             <label for="edad" >Edad</label>
-                            <form:input type="number" name="edad" id="edad"/>
+                            <form:input type="number" name="edad" id="edad" path="edad"/>
                         </p>
 
                         <p>
                             <label for="sexo" >Sexo</label>
-                            <form:select id="sexo" name="sexo" >
+                            <form:select id="sexo" name="sexo"  path="sexo">
                                 <form:option value="Hombre" >Hombre</form:option>
                                 <form:option value="Mujer" >Mujer</form:option>
                                 <form:option value="Otro" >Otro</form:option>
@@ -184,18 +184,18 @@
 
                         <p>
                             <label for="domicilio" >Domicilio</label>
-                            <form:input type="text" name="domicilio" id="domicilio"/>
+                            <form:input type="text" name="domicilio" id="domicilio" path="domicilio"/>
                         </p>
 
                         <p>
                             <label for="ciudad" >Ciudad</label>
-                            <form:input type="text" name="ciudad" id="ciudad"/>
+                            <form:input type="text" name="ciudad" id="ciudad" path="ciudad"/>
                         </p>
                     </div>
                     <input type="submit" name="enviar_formulario" id="enviar">
                 </form:form>
 
-                    <form action="ServletListarEventos">
+                <form action="/evento/events">
                     <br>
                     <br>
                     <br>
