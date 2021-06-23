@@ -63,6 +63,14 @@ public class EventoControler {
     @GetMapping("/events")
     public String doListarEventos(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
 
+      //  model.addAttribute("eventos", eventoService.findByFilter(filtro));
+        //model.addAttribute("filtro", filtro);
+        return doFilter(filtro, model);
+    }
+
+    @PostMapping("/filter")
+    public String doFilter(@ModelAttribute("filtro") FiltroEvento filtro, Model model){
+
         model.addAttribute("eventos", eventoService.findByFilter(filtro));
         model.addAttribute("filtro", filtro);
         return "ListaEventos";

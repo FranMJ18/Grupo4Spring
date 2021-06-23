@@ -45,7 +45,10 @@ public class EventoService {
     }
 
     public List<Evento> findByFilter(FiltroEvento filtro){
-        return eventoRepository.findAll(); // TODO filtrar algo supongo
+        //if(filtro.getAireLibre()==false && filtro.getArte()==false )
+
+        return eventoRepository.filtrarEventos(filtro.getMin()==null ? Integer.MIN_VALUE : filtro.getMin(), filtro.getMax()==null ? Integer.MAX_VALUE : filtro.getMax(),  filtro.getNombre()==null ? "%%" : "%" + filtro.getNombre() + "%");
+
     }
 
     public Evento findById(Integer id)
@@ -149,4 +152,6 @@ public class EventoService {
         }
         eventoUsuarioRepository.save(eu);
     }
+
+
 }

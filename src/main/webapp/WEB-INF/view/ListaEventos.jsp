@@ -99,7 +99,7 @@
     <!-- Filtros -->
     <div class="col-2" style="background: #77e5ff;">
         <%--@elvariable id="filtro" type="es.taw.grupo4.dto.FiltroEvento"--%>
-        <form:form method="post" action="/evento/events" modelAttribute="filtro">
+        <form:form method="post" action="/evento/filter" modelAttribute="filtro">
 
             <div class="row m-1">
                 <form:input style="width: 100%; border-radius: 25px" type="search" path="nombre"/>
