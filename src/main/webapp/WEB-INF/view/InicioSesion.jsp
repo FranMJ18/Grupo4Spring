@@ -13,7 +13,7 @@
         
         <title>Inicio de sesion</title>
         
-        <link href="estilos/estiloFormulario.css" rel="stylesheet">
+        <link href="/estilos/estiloFormulario.css" rel="stylesheet">
          
     </head>
     <body>        

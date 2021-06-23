@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title> Registro Evento </title>
 
-        <link href="estilos/estiloFormulario.css" rel="stylesheet">
+        <link href="/estilos/estiloFormulario.css" rel="stylesheet">
 
         <script>
             function mostrar_extra()

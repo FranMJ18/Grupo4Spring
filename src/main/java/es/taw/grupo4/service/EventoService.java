@@ -45,10 +45,25 @@ public class EventoService {
     }
 
     public List<Evento> findByFilter(FiltroEvento filtro){
-        //if(filtro.getAireLibre()==false && filtro.getArte()==false )
 
-        return eventoRepository.filtrarEventos(filtro.getMin()==null ? Integer.MIN_VALUE : filtro.getMin(), filtro.getMax()==null ? Integer.MAX_VALUE : filtro.getMax(),  filtro.getNombre()==null ? "%%" : "%" + filtro.getNombre() + "%");
+        List<Evento> res = new ArrayList<>();
 
+        for (Evento e: eventoRepository.filtrarEventos(filtro.getMin()==null ? Integer.MIN_VALUE : filtro.getMin(), filtro.getMax()==null ? Integer.MAX_VALUE : filtro.getMax(),  filtro.getNombre()==null ? "%%" : "%" + filtro.getNombre() + "%")          ) {
+            if((filtro.getAireLibre() && e.getAireLibre() != 1)
+                    || (filtro.getArte() && e.getArte() != 1)
+                    || (filtro.getBenefico() && e.getBenefico() != 1)
+                    || (filtro.getMusica() && e.getMusica() != 1)
+                    || (filtro.getDeporte() && e.getDeporte() != 1)
+                    || (filtro.getTeatro() && e.getTeatro() != 1)
+                    || (filtro.getGaming() && e.getGaming() != 1)
+                    || (filtro.getLectura() && e.getLectura() != 1)
+                    || (filtro.getFormacion() && e.getFormacion() != 1)
+                    || (filtro.getConferencia() && e.getConferencia() != 1)
+                    || (filtro.getTurismo() && e.getTurismo() != 1) ) {
+
+            } else {res.add(e);}
+        }
+        return res;
     }
 
     public Evento findById(Integer id)

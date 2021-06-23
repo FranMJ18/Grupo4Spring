@@ -3,24 +3,24 @@ package es.taw.grupo4.dto;
 public class FiltroEvento {
     private String nombre;
     private Integer min, max;
-    private Boolean disponible;
-    private Boolean musica;
-    private Boolean aireLibre;
-    private Boolean deporte;
-    private Boolean teatro;
-    private Boolean gaming;
-    private Boolean lectura;
-    private Boolean formacion;
-    private Boolean conferencia;
-    private Boolean benefico;
-    private Boolean arte;
-    private Boolean turismo;
+    private boolean disponible;
+    private boolean musica;
+    private boolean aireLibre;
+    private boolean deporte;
+    private boolean teatro;
+    private boolean gaming;
+    private boolean lectura;
+    private boolean formacion;
+    private boolean conferencia;
+    private boolean benefico;
+    private boolean arte;
+    private boolean turismo;
 
-    public Boolean getFormacion() {
+    public boolean getFormacion() {
         return formacion;
     }
 
-    public void setFormacion(Boolean formacion) {
+    public void setFormacion(boolean formacion) {
         this.formacion = formacion;
     }
 
@@ -48,91 +48,91 @@ public class FiltroEvento {
         this.max = max;
     }
 
-    public Boolean getDisponible() {
+    public boolean getDisponible() {
         return disponible;
     }
 
-    public void setDisponible(Boolean disponible) {
+    public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
 
-    public Boolean getMusica() {
+    public boolean getMusica() {
         return musica;
     }
 
-    public void setMusica(Boolean musica) {
+    public void setMusica(boolean musica) {
         this.musica = musica;
     }
 
-    public Boolean getAireLibre() {
+    public boolean getAireLibre() {
         return aireLibre;
     }
 
-    public void setAireLibre(Boolean aireLibre) {
+    public void setAireLibre(boolean aireLibre) {
         this.aireLibre = aireLibre;
     }
 
-    public Boolean getDeporte() {
+    public boolean getDeporte() {
         return deporte;
     }
 
-    public void setDeporte(Boolean deporte) {
+    public void setDeporte(boolean deporte) {
         this.deporte = deporte;
     }
 
-    public Boolean getTeatro() {
+    public boolean getTeatro() {
         return teatro;
     }
 
-    public void setTeatro(Boolean teatro) {
+    public void setTeatro(boolean teatro) {
         this.teatro = teatro;
     }
 
-    public Boolean getGaming() {
+    public boolean getGaming() {
         return gaming;
     }
 
-    public void setGaming(Boolean gaming) {
+    public void setGaming(boolean gaming) {
         this.gaming = gaming;
     }
 
-    public Boolean getLectura() {
+    public boolean getLectura() {
         return lectura;
     }
 
-    public void setLectura(Boolean lectura) {
+    public void setLectura(boolean lectura) {
         this.lectura = lectura;
     }
 
-    public Boolean getConferencia() {
+    public boolean getConferencia() {
         return conferencia;
     }
 
-    public void setConferencia(Boolean conferencia) {
+    public void setConferencia(boolean conferencia) {
         this.conferencia = conferencia;
     }
 
-    public Boolean getBenefico() {
+    public boolean getBenefico() {
         return benefico;
     }
 
-    public void setBenefico(Boolean benefico) {
+    public void setBenefico(boolean benefico) {
         this.benefico = benefico;
     }
 
-    public Boolean getArte() {
+    public boolean getArte() {
         return arte;
     }
 
-    public void setArte(Boolean arte) {
+    public void setArte(boolean arte) {
         this.arte = arte;
     }
 
-    public Boolean getTurismo() {
+    public boolean getTurismo() {
         return turismo;
     }
 
-    public void setTurismo(Boolean turismo) {
+    public void setTurismo(boolean turismo) {
         this.turismo = turismo;
     }
 }
