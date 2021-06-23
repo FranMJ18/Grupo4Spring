@@ -14,7 +14,7 @@
 
         <title>Registro</title>
 
-        <link href="estilos/estiloFormulario.css" rel="stylesheet">
+        <link href="/estilos/estiloFormulario.css" rel="stylesheet">
     </head>
 
     <script>
