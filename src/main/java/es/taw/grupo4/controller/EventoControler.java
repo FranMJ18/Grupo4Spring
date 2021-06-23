@@ -95,4 +95,11 @@ public class EventoControler {
         eventoService.buyTicket(id, current.getId(), asiento);
         return doListarEventos(new FiltroEvento(), model);
     }
+    @GetMapping("/edit/{idevento}")
+    public String doEdit(@PathVariable("idevento") Integer idevento, Model model){
+        Evento e = eventoService.findById(idevento);
+        model.addAttribute("evento", e.getDto());
+        return "CrearEvento";
+    }
+
 }

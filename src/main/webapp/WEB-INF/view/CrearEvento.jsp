@@ -58,7 +58,7 @@
 
                     <p>
                         <label for="fechaFin">Fin de la compra de entradas</label>
-                        <input type="date" name="fechaFin" id="fechaFin" required placeholder="Escribe el fin de la compra de las entradas" />
+                        <form:input type="date" path="fechaFin" id="fechaFin" placeholder="Escribe el fin de la compra de las entradas" />
                     </p> 
 
                  
