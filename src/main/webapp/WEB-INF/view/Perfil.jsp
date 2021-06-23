@@ -30,7 +30,7 @@
         <div class="row py-2 text-center" style="background: #de7ebf">
             <style>
                 body{
-                    background-image: url("img/pattern.jpg");
+                    background-image: url("/img/pattern.jpg");
                 }
                 a{
                     font-size: 1.3em;
@@ -78,27 +78,27 @@
             </style>
 
             <a class="col-2  text-decoration-none" href="">
-                <img src="img/Logo.png" style="width:2em; height:2em;">
+                <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
             <div class="col-4">
 
             </div>
             <div class="col-4"></div>
             <div  class="col-2 dropdown">
-                <img src="img/avatar.png" style="width:2em; height:2em;">
+                <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
-                    <a class="row dropdown-element" href="ServletCargarListaEventosUsuario">Mi perfil</a>
+                    <a class="row dropdown-element" href="/administrador/perfil">Mi perfil</a>
                     <%
                         if (usuario.getRol() ==  0 || usuario.getRol() == 2 || usuario.getRol() ==  4) {
                     %><a class="row dropdown-element" href="ServletListarConversaciones">Mensajes</a><%
                                 }
                     %>
-                    <a class="row dropdown-element" href="ServletCerrarSesion">Cerrar sesion</a>
+                    <a class="row dropdown-element" href="/administrador/cerrarSesion">Cerrar sesion</a>
                 </div>
             </div>       
         </div>
 
-        <div method="GET" action="ServletMostrarEditarPerfil?idUsuario=<%=usuario.getId()%>" class="row">
+        <div method="GET" action="/administrador/editar/<%=usuario.getId()%>" class="row">
             <div class="col-2">
 
             </div>
@@ -119,7 +119,7 @@
                 <%
                     }
                 %>
-                <button onclick="window.location.href='ServletMostrarEditarPerfil?idUsuario=<%=usuario.getId()%>'">Editar</button>
+                <button onclick="window.location.href='/administrador/editar/<%=usuario.getId()%>'">Editar</button>
             </div>
 
 
