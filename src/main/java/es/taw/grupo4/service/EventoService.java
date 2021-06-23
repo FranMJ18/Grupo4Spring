@@ -2,6 +2,7 @@ package es.taw.grupo4.service;
 
 import es.taw.grupo4.dao.AsientosRepository;
 import es.taw.grupo4.dao.EventoRepository;
+import es.taw.grupo4.dao.EventoUsuarioRepository;
 import es.taw.grupo4.dao.UsuarioEventoRepository;
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
@@ -20,6 +21,13 @@ public class EventoService {
     @Autowired
     public void setEventoRepository(EventoRepository eventoRepository){
         this.eventoRepository = eventoRepository;
+    }
+
+    private EventoUsuarioRepository eventoUsuarioRepository;
+
+    @Autowired
+    public void setEventoUsuarioRepository(EventoUsuarioRepository eventoUsuarioRepository){
+        this.eventoUsuarioRepository = eventoUsuarioRepository;
     }
 
     private AsientosRepository asientosRepository;
@@ -115,23 +123,30 @@ public class EventoService {
             eventoRepository.save(e);
         }
     }
-    public void buyTicket(Integer eventoId, Integer usuarioId) {
+
+    public List<Asientos> getAsientosLibres(Integer id)
+    {
+        return eventoRepository.findAsientosLibresByEventoId(id);
+    }
+
+    public void buyTicket(Integer eventoId, Integer usuarioId, String asientoString) {
         Evento e = eventoRepository.getById(eventoId);
         UsuarioEvento ue = usuarioEventoRepository.getById(usuarioId);
 
         EventoUsuarioPK epk = new EventoUsuarioPK();
-        epk.setIdevento(e.getIdevento());
+        epk.setIdevento(eventoId);
         epk.setUsuario(usuarioId);
         EventoUsuario eu = new EventoUsuario(epk);
-        eu.setEvento(e); //TODO FALTA TERMINARLO
-        eu.setUsuarioEvento(ue);/*
+        eu.setEvento(e);
+        eu.setUsuarioEvento(ue);
         if(e.getAsientosFijos()){
-            String[] asiento = asiento_s.split(" ");
-            Asientos a = asientosFacade.find(new AsientosPK(Integer.parseInt(asiento[0]),Integer.parseInt(asiento[1]), e));
+            String[] asiento = asientoString.split(" ");
+            Asientos a = asientosRepository.getById(new AsientosPK(Integer.parseInt(asiento[0]),Integer.parseInt(asiento[1]), eventoId));
             eu.setAsientos(a);
 
             a.setOcupado(1);
-            asientosFacade.edit(a);
-        }*/
+            asientosRepository.save(a);
+        }
+        eventoUsuarioRepository.save(eu);
     }
 }

@@ -55,6 +55,7 @@ public class EventoControler {
         Evento e = eventoService.findById(id);
         model.addAttribute("evento",e.getDto());
         model.addAttribute("listaEventoUsuario", eventoUsuarioService.findByEventoId(id));
+        model.addAttribute("listaAsientosLibres", e.getAsientosFijos() ? eventoService.getAsientosLibres(id): null);
         return "MostrarEvento";
     }
 
@@ -81,16 +82,15 @@ public class EventoControler {
     @PostMapping("/saveEvent")
     public String doSaveEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
 
-        UsuarioDto aux = (UsuarioDto) session.getAttribute("usuario");
-        eventoService.createOrSaveEvent(evento,usuarioService.findById(aux.getId()) );
+        UsuarioDto current = (UsuarioDto) session.getAttribute("usuario");
+        eventoService.createOrSaveEvent(evento,usuarioService.findById(current.getId()) );
         return doListarEventos(new FiltroEvento(), model);
     }
 
-    @PostMapping("/buyTicket")
-    public String doBuyEvent(@ModelAttribute EventoDto evento, Model model, HttpSession session){
-
-        UsuarioDto aux = (UsuarioDto) session.getAttribute("usuario");
-        eventoService.createOrSaveEvent(evento,usuarioService.findById(aux.getId()) );
+    @PostMapping("/buyTicket/{id}")
+    public String doBuyEvent(@PathVariable Integer id, Model model, HttpSession session){
+        UsuarioDto current = (UsuarioDto) session.getAttribute("usuario");
+        eventoService.buyTicket(id, current.getId(), (String) model.getAttribute("asiento"));
         return doListarEventos(new FiltroEvento(), model);
     }
 }
