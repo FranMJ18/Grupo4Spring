@@ -44,12 +44,32 @@ public class UsuarioService {
     public void borrarUsuario(Usuario usuario){
         usuarioRepository.delete(usuario);
     }
-    public Usuario findRandomTeleoperador(int id) {
+    public UsuarioDto findRandomTeleoperador(int id) {
         Usuario us = this.usuarioRepository.findRandomTeleoperador(id);
         if(us != null){
-            return us;
+            return us.getDto();
         } else {
             return null;
         }
+    }
+
+    public List<UsuarioDto> listarTodosLosTeleoperadores(){
+        List<Usuario> teleopList = this.usuarioRepository.findAllTeleoperadores();
+        List<UsuarioDto> lista = new ArrayList<>();
+        for(Usuario u : teleopList){
+            lista.add(u.getDto());
+        }
+
+        return lista;
+    }
+
+    public List<UsuarioDto> listarTodosCreadoresUsuariosEvento(){
+        List<Usuario> usList = this.usuarioRepository.findAllCreadoresUsuariosEvento();
+        List<UsuarioDto> lista = new ArrayList<>();
+        for(Usuario u : usList){
+            lista.add(u.getDto());
+        }
+
+        return lista;
     }
 }

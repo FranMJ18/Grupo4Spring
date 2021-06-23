@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : Chat
     Created on : 24-abr-2021, 3:05:59
     Author     : franc
@@ -20,7 +21,7 @@
         <style>
             
             body{
-                background-image: url("img/pattern.jpg");
+                background-image: url("/img/pattern.jpg");
             }
             
             .btn .tooltiptext {
@@ -92,7 +93,7 @@
         <div class="row py-2 text-center" style="background: #de7ebf">
             
             <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getUsuario()%>&contrasena=<%= usuarioIniciado.getContraseña()%>">
-                <img src="img/Logo.png" style="width:2em; height:2em;">
+                <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
                 
             <div class="col-4">
@@ -100,11 +101,11 @@
             <div class="col-4 d-flex justify-content-around ">
             </div>
             <div  class="col-2 dropdown">
-                <img src="img/avatar.png" style="width:2em; height:2em;">
+                <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
                     <a class="row dropdown-element text-decoration-none" href="ServletCargarListaEventosUsuario">Mi perfil</a>
-                    <a class="row dropdown-element text-decoration-none" href="ServletListarConversaciones">Mensajes</a>
-                    <a class="row dropdown-element text-decoration-none" href="ServletCerrarSesion">Cerrar sesion</a>
+                    <a class="row dropdown-element text-decoration-none" href="/chat/">Mensajes</a>
+                    <a class="row dropdown-element text-decoration-none" href="/logout">Cerrar sesion</a>
                 </div>
             </div>       
         </div>
@@ -135,12 +136,12 @@
                                     <span class="fechahora">(<%= new SimpleDateFormat("dd/MM/yyyy 'a las' HH:mm:ss").format(msg.getFechaHora()) %>) </span>
                                 </div>
                                 <div class="col-2 px-sm-2 py-2 text-end my-1" style="background-color: #f3edf7;">
-                                    <b><%=msg.getEmisor().getUsuario()%></b><img class="px-1" src="img/avatar.png" width="50px" alt="...">
+                                    <b><%=msg.getEmisor().getUsuario()%></b><img class="px-1" src="/img/avatar.png" width="50px" alt="...">
                                 </div>
                             <% } else { // El emisor no es el usuario que ha iniciado sesion
                             %>
                                 <div class="col-2 px-sm-2 py-2 my-1" style="background-color: #fafafa;">
-                                    <img class="px-1" src="img/avatar.png" width="50px" alt="..."><b><%=msg.getEmisor().getUsuario()%></b>
+                                    <img class="px-1" src="/img/avatar.png" width="50px" alt="..."><b><%=msg.getEmisor().getUsuario()%></b>
                                 </div>
                                 <div class="col-10 px-sm-4 py-2 text-wrap text-start my-1 msg" style="background-color: #fafafa;">
                                     <%=msg.getTexto().replaceAll("(\r\n|\n)", "<br />") %> <br/>
@@ -158,14 +159,14 @@
                     <div class="d-block p-2">
                         <b>Teleoperador</b><br/>
                         <div class="d-flex flex-row justify-content-center align-items-center">
-                            <div class="py-2 px-1"><img src="img/avatar.png" width="100px" alt="..."></div>
+                            <div class="py-2 px-1"><img src="/img/avatar.png" width="100px" alt="..."></div>
                             <div class="py-2 px-1" style="width: 8em;"><%=teleOp.getUsuario()%></div>
                         </div>
                     </div>
                     <div class="d-block p-2">
                         <b>Usuario</b></br>
                         <div class="d-flex flex-row justify-content-center align-items-center">
-                            <div class="py-2 px-1"><img src="img/avatar.png" width="100px" alt="..."></div>
+                            <div class="py-2 px-1"><img src="/img/avatar.png" width="100px" alt="..."></div>
                             <div class="py-2 px-1" style="width: 8em;"><%=usr.getUsuario()%></div>
                         </div>
                     </div>
@@ -177,19 +178,19 @@
             if (usuarioIniciado.getId() == usr.getId() || usuarioIniciado.getId() == teleOp.getId()) {
         %>
         <div class="mx-sm-3 my-sm-3">
-            <form name="enviar" method="POST" action="ServletEnviarMensaje">
-                <input type="hidden" name="idChat" value="<%=ch.getIdchat()%>">
+            <form:form method="POST" name="enviar" action="/chat/enviarMensaje" modelAttribute="msgNuevo">
+                <form:hidden path="idchat"/>
                 <div class="d-flex align-items-md-center">
-                    <textarea name="mensaje" id="mensaje" rows="3" cols="80" maxlength="200" placeholder="Envía un mensaje"></textarea>
+                    <form:textarea name="mensaje" id="mensaje" path="texto" rows="3" cols="80" maxlength="200" placeholder="Envía un mensaje"></form:textarea>
                     <input class="mx-2" type="submit" name="enviar"/>
                 </div>
-            </form>
+            </form:form>
         </div>
         <%
             }
         %>
         <div class="mx-sm-3 my-sm-3">
-            <button class="btn" style="background-color: rgb(239, 239, 239); border: 1px solid black;" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';">
+            <button class="btn" style="background-color: rgb(239, 239, 239); border: 1px solid black;" onclick="location.href='chat/mostrar/<%=ch.getIdchat()%>';">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"></path>
                 <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"></path>

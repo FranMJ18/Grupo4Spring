@@ -1,4 +1,4 @@
-<%@ page import="es.taw.grupo4.entity.Usuario" %><%--
+<%--
     Document   : index
     Created on : 12-may-2021, 13:16:49
     Author     : chinchar@hotmail.es
@@ -17,10 +17,6 @@
 
         <link rel="stylesheet" href="../../../resources/estilos/estilo.css">
     </head>
-
-    <%
-        Usuario u = (Usuario) session.getAttribute("usuario");
-    %>
 
     <body>  
 

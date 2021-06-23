@@ -9,17 +9,7 @@ import es.taw.grupo4.dto.MensajeDto;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -139,10 +129,12 @@ public class Mensaje implements Serializable {
         return "grupo4app.entity.Mensaje[ mensajePK=" + mensajePK + " ]";
     }
 
+    @Transient
     public MensajeDto getDto(){
         MensajeDto dto = new MensajeDto();
 
         dto.setIdmensaje(this.mensajePK.getIdmensaje());
+        dto.setIdchat(this.mensajePK.getChat());
         dto.setTexto(this.texto);
         dto.setFechaHora(this.fechaHora);
         dto.setEmisor(this.emisor.getDto());

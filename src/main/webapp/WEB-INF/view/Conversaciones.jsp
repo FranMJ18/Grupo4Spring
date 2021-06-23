@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : Conversaciones
     Created on : 22-abr-2021, 20:51:37
     Author     : franc
@@ -16,7 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
         <style> 
             body{
-                background-image: url("img/pattern.jpg");
+                background-image: url("/img/pattern.jpg");
             }
             
             a{
@@ -91,7 +92,7 @@
         
         <div class="row py-2 text-center" style="background: #de7ebf">
             <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNombre()%>&contrasena=<%= usuarioIniciado.getContraseña()%>">
-                <img src="img/Logo.png" style="width:2em; height:2em;">
+                <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
            
             <div class="col-4">
@@ -100,7 +101,7 @@
                 if(usuarioIniciado.getRol() == 2){
             %>
                 <div class="col-4 d-flex justify-content-center ">
-                    <a class="text-decoration-none" href="ServletCrearChatManual">Crear una nueva conversación</a>
+                    <a class="text-decoration-none" href="/chat/crearManual">Crear una nueva conversación</a>
                 </div>
             <%
                 } else {
@@ -111,11 +112,11 @@
                 }
             %>
             <div  class="col-2 dropdown">
-                <img src="img/avatar.png" style="width:2em; height:2em;">
+                <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
                     <a class="row dropdown-element text-decoration-none" href="ServletCargarListaEventosUsuario">Mi perfil</a>
-                    <a class="row dropdown-element text-decoration-none" href="ServletListarConversaciones">Mensajes</a>
-                    <a class="row dropdown-element text-decoration-none" href="ServletCerrarSesion">Cerrar sesion</a>
+                    <a class="row dropdown-element text-decoration-none" href="/chat/">Mensajes</a>
+                    <a class="row dropdown-element text-decoration-none" href="/logout">Cerrar sesion</a>
                 </div>
             </div>       
         </div>
@@ -124,14 +125,14 @@
         
         <div class="p-sm-3 text-sm-left">
             <h1 class="py-2">Conversaciones</h1>
-            <form method="POST" action="ServletListarConversaciones">
-                <input type="search" name="usuarioBuscar" placeholder="Buscar por usuario"/>
+            <form:form method="POST" action="/chat/filtrar" modelAttribute="filtro">
+                <form:input path="usuario"/>
                 <input type="submit" value="Buscar"/>
-            </form>
+            </form:form>
             <% if(request.getAttribute("buscado") != null) {
             %>
                 <br/>
-                <button onclick="location.href='ServletListarConversaciones';">Mostrar todas</button>
+                <button onclick="location.href='/chat/';">Mostrar todas</button>
             <% }
             %>
         </div>
@@ -141,7 +142,7 @@
         
         <% if(usuarioIniciado.getRol() == 0 || usuarioIniciado.getRol() == 4) {
         %>   
-            <form class="px-sm-3" method="POST" action="/chat/crear">
+            <form class="px-sm-3" method="GET" action="/chat/crear">
                 <input type="submit" value="Inicia una conversación con un nuevo teleoperador">
             </form>
         <% }
@@ -170,10 +171,10 @@
                     for(ChatDto ch : conversaciones) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
 
@@ -209,10 +210,10 @@
                     for(ChatDto ch : otrosC) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>   
                         <div class="col-1 p-sm-3 my-1"><a href="/chat/borrar/<%=ch.getIdchat()%>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -245,10 +246,10 @@
                     for(ChatDto ch : conversaciones) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='ServletMostrarChat?idChat=<%=ch.getIdchat()%>';" ><img src="img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>  
                     </div>
