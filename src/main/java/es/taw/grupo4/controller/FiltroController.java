@@ -5,13 +5,14 @@ import es.taw.grupo4.dto.FiltroDto;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Filtro;
 import es.taw.grupo4.entity.Usuario;
+import es.taw.grupo4.service.FiltroService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.type.ArrayType;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 public class FiltroController {
 
     private UsuarioService usuarioService;
+    private FiltroService fs;
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
@@ -32,34 +34,66 @@ public class FiltroController {
     public void setFilrep(FiltroRepository filrep) {
         this.filrep = filrep;
     }
+    @Autowired
+    public void setFs(FiltroService fs) {
+        this.fs = fs;
+    }
 
     @GetMapping("/")
     public String inicio(HttpSession http, Model model){
         UsuarioDto analista = (UsuarioDto)http.getAttribute("usuario");
         List<FiltroDto> listaFiltrosdto = new ArrayList<>();
-        List<Filtro> listaFiltros = filrep.filtrosCreador(analista.getId());
+        List<Filtro> listaFiltros = fs.encontarByAnalista(analista.getId());
         for(Filtro fd : listaFiltros){
-            FiltroDto fdt = new FiltroDto();
-            //fdt.setAnalistaeventos(fd.getFiltroPK().getAnalistaeventos());
-            fdt.setIdfiltro(fd.getFiltroPK().getIdfiltro());
-            fdt.setAnyo(fd.getAnyo());
-            fdt.setCategoria(fd.getCategoria());
-            fdt.setCiudad(fd.getCiudad());
-            fdt.setCoste_entrada(fd.getCosteEntrada());
-            fdt.setNombre(fd.getNombre());
-            fdt.setSexo(fd.getSexo());
-            fdt.setEdad_lim_inf(fd.getEdadLimInf());
-            fdt.setEdad_lim_sup(fd.getEdadLimSup());
-
-            listaFiltrosdto.add(fdt);
+            listaFiltrosdto.add(fd.getDto());
         }
         model.addAttribute("listaFiltros", listaFiltrosdto);
         return "AnalistaEventos";
     }
 
-    @GetMapping("/crearAnalisis")
-    public String crearAnalisis(){
+    @GetMapping("/crearAnalisis/{id}")
+    public String crearAnalisis(@PathVariable("id") Integer id, Model model){
+        //FiltroService fs = new FiltroService();
+        FiltroDto fdto;
+        Filtro filtro;
+        try{
+             filtro = fs.econtrarById(id);
+             fdto = filtro.getDto();
+        }catch(Exception e){
+            filtro = null;
+            fdto = null;
+        }
+        ArrayList<String> sexo = new ArrayList<>();
+        sexo.add("");
+        sexo.add("hombre");
+        sexo.add("Mujer");
+        sexo.add("Otro");
+        model.addAttribute("sexo", sexo);
+        model.addAttribute("fdto", fdto);
+
+        ArrayList<String> categorias = new ArrayList<>();
+        categorias.add("");
+        categorias.add("gaming");
+        categorias.add("teatro");
+        categorias.add("deporte");
+        categorias.add("aireLibre");
+        categorias.add("musica");
+        categorias.add("lectura");
+        categorias.add("formacion");
+        categorias.add("conferencia");
+        categorias.add("benefico");
+        categorias.add("arte");
+        categorias.add("turismo");
+
+        model.addAttribute("categorias", categorias);
+
         return"CrearAnalisis";
+    }
+
+    @PostMapping("/guardarFiltro/{id}")
+    public String guardarAnalisis(Model model, @ModelAttribute("fdto") FiltroDto fdto){
+
+        return "";
     }
 
 }

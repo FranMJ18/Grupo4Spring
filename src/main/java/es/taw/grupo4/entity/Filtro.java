@@ -5,15 +5,12 @@
  */
 package es.taw.grupo4.entity;
 
+import es.taw.grupo4.dto.EventoDto;
+import es.taw.grupo4.dto.FiltroDto;
+
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.text.SimpleDateFormat;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -189,6 +186,21 @@ public class Filtro implements Serializable {
     @Override
     public String toString() {
         return "grupo4app.entity.Filtro[ filtroPK=" + filtroPK + " ]";
+    }
+
+    @Transient
+    public FiltroDto getDto(){
+        FiltroDto f = new FiltroDto();
+        f.setIdfiltro(getFiltroPK().getIdfiltro());
+        f.setEdad_lim_sup(this.getEdadLimSup());
+        f.setEdad_lim_inf(this.getEdadLimSup());
+        f.setCoste_entrada(this.costeEntrada);
+        f.setSexo(this.getSexo());
+        f.setNombre(this.getNombre());
+        f.setCiudad(this.getCiudad());
+        f.setCategoria(this.getCategoria());
+        f.setAnyo(this.getAnyo());
+        return f;
     }
     
 }

@@ -64,7 +64,7 @@
                 if (u.getRol() == 3) {
             %>
             <div class="col-4 d-flex justify-content-center ">
-                <a class="text-decoration-none" href="/filtro/crearAnalisis">Crear analisis</a>
+                <a class="text-decoration-none" href="/filtro/crearAnalisis/0">Crear analisis</a>
             </div>
             <%
             } else {
