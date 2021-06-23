@@ -10,6 +10,7 @@ import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.UsuarioEventoService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -88,9 +89,10 @@ public class EventoControler {
     }
 
     @PostMapping("/buyTicket/{id}")
-    public String doBuyEvent(@PathVariable Integer id, Model model, HttpSession session){
+    public String doBuyEvent(@PathVariable Integer id, @RequestParam String asiento, Model model, HttpSession session){
+
         UsuarioDto current = (UsuarioDto) session.getAttribute("usuario");
-        eventoService.buyTicket(id, current.getId(), (String) model.getAttribute("asiento"));
+        eventoService.buyTicket(id, current.getId(), asiento);
         return doListarEventos(new FiltroEvento(), model);
     }
 }

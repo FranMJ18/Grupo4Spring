@@ -1,4 +1,5 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : MostrarEvento
     Created on : 24-abr-2021, 19:15:48
     Author     : chinchar@hotmail.es
@@ -130,35 +131,37 @@
             <label for="precio">Precio:</label> <span id="precio"><%= e.getCosteEntrada()%></span>
         </p>
 
-        <form action="/evento/buyTicket/<%=e.getId()%>" method="post">
 
-            <% if (u.getRol() == 4) {
+        <% if (u.getRol() == 4) {
 
-                int plazas = e.getAforo() - listaEventoUsuario.size();
-                int numEntradas = 0;
-                for (EventoUsuario aux : listaEventoUsuario) {
-                    if (aux.getEvento().getIdevento() == e.getId()) {
-                        numEntradas++;
-                    }
+            int plazas = e.getAforo() - listaEventoUsuario.size();
+            int numEntradas = 0;
+            for (EventoUsuario aux : listaEventoUsuario) {
+                if (aux.getEvento().getIdevento() == e.getId()) {
+                    numEntradas++;
                 }
+            }
 
-                if (numEntradas >= e.getMaxEntradas()) {
-            %>
-            <p>Has superado el cupo</p>
+            if (numEntradas >= e.getMaxEntradas()) {
+        %>
+        <p>Has superado el cupo</p>
+        <%
+        } else if (plazas == 0) {
+        %>
+        <p>No quedan plazas</p>
+        <%
+        } else if ((new Date()).compareTo(format.parse(e.getFechaFin())) > 0) {
+        %>
+        <p>El evento ya se ha realizado</p>
+        <%
+        } else if ((new Date()).compareTo(format.parse(e.getFechaInicio())) < 0) {
+        %>
+        <p>El evento aun no se puede comprar</p>
+        <%
+        } else {
+        %>
+        <form action="/evento/buyTicket/<%=e.getId()%>" method="post">
             <%
-            } else if (plazas == 0) {
-            %>
-            <p>No quedan plazas</p>
-            <%
-            } else if ((new Date()).compareTo(format.parse(e.getFechaFin())) > 0) {
-            %>
-            <p>El evento ya se ha realizado</p>
-            <%
-            } else if ((new Date()).compareTo(format.parse(e.getFechaInicio())) < 0) {
-            %>
-            <p>El evento aun no se puede comprar</p>
-            <%
-            } else {
                 if (e.getAsientosFijos()) {
             %>
             <select name="asiento">
@@ -169,15 +172,15 @@
                 </option>
                 <% }%>
             </select>
-            <input type="submit" value="Comprar">
             <%} else {%>
+            <input name="asiento" value="" hidden>
             <span>Plazas disponibles: <%= plazas%></span>
-            <input type="submit" value="Comprar">
             <% }
             }%>
-
-            <%}%>
+            <input type="submit" value="Comprar">
         </form>
+        <%}%>
+
 
     </div>
     <div class="col-1"></div>
