@@ -175,11 +175,12 @@
             <%} else {%>
             <input name="asiento" value="" hidden>
             <span>Plazas disponibles: <%= plazas%></span>
-            <% }
-            }%>
+            <% }%>
             <input type="submit" value="Comprar">
         </form>
-        <%}%>
+        <%
+                }
+            }%>
 
 
     </div>
