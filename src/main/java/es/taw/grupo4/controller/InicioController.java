@@ -111,7 +111,7 @@ public class InicioController {
         Usuario u = usuarioService.findById(uDto.getId());
         uDto = u.getDto();
         model.addAttribute("usuario", uDto);
-        model.addAttribute("listaEventos", u.getEventoList()); //TODO DEBERIA SER DTO
+        model.addAttribute("listaEventos", u.getEventoList()); //TODO DEBERIA SER DTO y no carga ningun elemento
         return "Perfil";
     }
 
