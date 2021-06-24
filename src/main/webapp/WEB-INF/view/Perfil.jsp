@@ -20,8 +20,6 @@
     </head>
     <body>
         <%
-            HttpSession ses = request.getSession();
-            UsuarioDto usSesion = (UsuarioDto)ses.getAttribute("usuario");
             UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
             List<EventoUsuario> listaEventos = (List) request.getAttribute("listaEventos");
         %>
