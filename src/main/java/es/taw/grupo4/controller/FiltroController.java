@@ -101,6 +101,7 @@ public class FiltroController {
     public String mostrarUsuarios(@PathVariable("id") Integer id){
         Filtro filtro = this.filrep.getById(id);
         FiltroDto fdto = filtro.getDto();
+        return null; // TODO
     }
 
 }

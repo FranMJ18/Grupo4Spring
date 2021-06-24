@@ -10,6 +10,7 @@ import es.taw.grupo4.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -150,22 +151,31 @@ public class EventoService {
     public void buyTicket(Integer eventoId, Integer usuarioId, String asientoString) {
         Evento e = eventoRepository.getById(eventoId);
         UsuarioEvento ue = usuarioEventoRepository.getById(usuarioId);
-
+/*
         EventoUsuarioPK epk = new EventoUsuarioPK();
         epk.setIdevento(eventoId);
         epk.setUsuario(usuarioId);
         EventoUsuario eu = new EventoUsuario(epk);
         eu.setEvento(e);
         eu.setUsuarioEvento(ue);
+        */
         if(e.getAsientosFijos()){
             String[] asiento = asientoString.split(" ");
-            Asientos a = asientosRepository.getById(new AsientosPK(Integer.parseInt(asiento[0]),Integer.parseInt(asiento[1]), eventoId));
-            eu.setAsientos(a);
-
+            Integer fila = Integer.parseInt(asiento[0]), columna =Integer.parseInt(asiento[1]);
+            eventoUsuarioRepository.createEventoUsuarioConAsiento(usuarioId, eventoId, fila, columna);
+            Asientos a = asientosRepository.getById(new AsientosPK(fila,columna, eventoId));
             a.setOcupado(1);
             asientosRepository.save(a);
+
+            //eu.setAsientos(a);
+
+
+
+        } else{
+            eventoUsuarioRepository.createEventoUsuarioSinAsiento(usuarioId, eventoId);
         }
-        eventoUsuarioRepository.save(eu);
+
+        //eventoUsuarioRepository.save(eu);
     }
 
 
