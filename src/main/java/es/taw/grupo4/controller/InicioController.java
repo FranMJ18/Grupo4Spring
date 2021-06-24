@@ -111,8 +111,54 @@ public class InicioController {
         Usuario u = usuarioService.findById(uDto.getId());
         uDto = u.getDto();
         model.addAttribute("usuario", uDto);
-        model.addAttribute("listaEventos", u.getEventoList());
+        model.addAttribute("listaEventos", u.getEventoList()); //TODO DEBERIA SER DTO y no carga ningun elemento
         return "Perfil";
+    }
+
+    @GetMapping("/editarPerfilUsuario/{id}")
+    public String doEditarPerfilUsuario(@PathVariable("id") Integer id, Model model){
+        UsuarioDto usrDto = this.usuarioService.findById(id).getDto();
+        model.addAttribute("usuario", usrDto);
+        model.addAttribute("sexo", new String[]{"Hombre", "Mujer", "Otro"});
+
+        return "EditarPerfil";
+    }
+
+    @PostMapping("/guardarPerfilUsuario")
+    public String doGuardarPerfilUsuario(@ModelAttribute("usuario") UsuarioDto usuario){
+        Usuario us = new Usuario();
+        UsuarioEvento usuarioEvento = new UsuarioEvento();
+
+        try{
+            us = this.usuarioService.findById(usuario.getId());
+            if(us.getRol() == 4){
+                usuarioEvento = us.getUsuarioEvento();
+            }
+        }catch (Exception e){System.err.println("No se ha encontrado");}
+
+        us.setNickname(usuario.getUsuario());
+        us.setPassword(usuario.getPassword());
+
+        usuarioService.guardarUsuario(us);
+        if(usuario.getRol() == 4){
+            usuarioEvento.setUsuario(us.getIdusuario());
+            usuarioEvento.setCiudad(usuario.getCiudad());
+            usuarioEvento.setDomicilio(usuario.getDomicilio());
+            usuarioEvento.setApellido(usuario.getApellidos());
+            usuarioEvento.setEdad(usuario.getEdad());
+            usuarioEvento.setNombre(usuario.getNombre());
+            usuarioEvento.setSexo(usuario.getSexo());
+            usuarioEvento.setUsuario1(us);
+
+            us.setUsuarioEvento(usuarioEvento);
+        }
+
+        usuarioService.guardarUsuario(us);
+
+        if(usuario.getRol() == 4){
+            usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
+        }
+        return "redirect:/perfil";
     }
 
     @PostMapping("/registrar")
