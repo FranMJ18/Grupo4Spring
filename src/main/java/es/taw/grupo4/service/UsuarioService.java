@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UsuarioService {
@@ -44,12 +45,16 @@ public class UsuarioService {
     public void borrarUsuario(Usuario usuario){
         usuarioRepository.delete(usuario);
     }
+
     public UsuarioDto findRandomTeleoperador(int id) {
-        Usuario us = this.usuarioRepository.findRandomTeleoperador(id);
-        if(us != null){
-            return us.getDto();
-        } else {
+        List<Usuario> us = this.usuarioRepository.findRandomTeleoperador(id);
+
+        if(us.isEmpty()){
             return null;
+        } else {
+            Random rnd = new Random();
+            int idRnd = rnd.nextInt(us.size());
+            return us.get(idRnd).getDto();
         }
     }
 
