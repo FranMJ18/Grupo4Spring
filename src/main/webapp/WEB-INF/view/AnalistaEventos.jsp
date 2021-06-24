@@ -57,7 +57,7 @@
 
             </style>
             <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= u.getUsuario()%>&contrasena=<%= u.getContraseña()%>">
-                <img src="img/Logo.png" style="width:2em; height:2em;">
+                <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
             <div class="col-4"></div>
             <%
@@ -74,7 +74,7 @@
                 }
             %>                          
             <div  class="col-2 dropdown">
-                <img src="img/avatar.png" style="width:2em; height:2em;">
+                <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
                     <a class="row dropdown-element text-decoration-none" href="ServletCargarListaEventosUsuario">Mi perfil</a>
                     <a class="row dropdown-element text-decoration-none" href="ServletCerrarSesion">Cerrar sesion</a>

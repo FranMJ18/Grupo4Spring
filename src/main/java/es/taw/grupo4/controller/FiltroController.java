@@ -61,7 +61,10 @@ public class FiltroController {
              fdto = filtro.getDto();
         }catch(Exception e){
             filtro = null;
-            fdto = null;
+            fdto = new FiltroDto();
+            fdto.setIdfiltro(0);
+            fdto.setSexo("");
+            fdto.setCategoria("");
         }
         String[] sexo = new String[]{"","Hombre", "Mujer", "Otro"};
 
@@ -87,10 +90,17 @@ public class FiltroController {
         return"CrearAnalisis";
     }
 
-    @PostMapping("/guardarFiltro/{id}")
-    public String guardarAnalisis(Model model, @ModelAttribute("fdto") FiltroDto fdto){
+    @PostMapping("/guardarFiltro")
+    public String guardarAnalisis(Model model, @ModelAttribute("fdto") FiltroDto fdto, HttpSession session){
+        UsuarioDto current = (UsuarioDto) session.getAttribute("usuario");
+        this.fs.guardarOEditar(fdto, current.getId());
+        return inicio(session, model);
+    }
 
-        return "";
+    @GetMapping("/mostrarUsuarios/{id}")
+    public String mostrarUsuarios(@PathVariable("id") Integer id){
+        Filtro filtro = this.filrep.getById(id);
+        FiltroDto fdto = filtro.getDto();
     }
 
 }

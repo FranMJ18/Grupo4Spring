@@ -200,6 +200,8 @@ public class Filtro implements Serializable {
         f.setCiudad(this.getCiudad());
         f.setCategoria(this.getCategoria());
         f.setAnyo(this.getAnyo());
+        f.setUsuario(1);
+
         return f;
     }
     

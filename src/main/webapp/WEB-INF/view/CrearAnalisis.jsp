@@ -25,8 +25,9 @@
             <div class="formulario"> 
         <h1>Creacion de analisis</h1>
         <%--@elvariable id="fdto" type="es.taw.grupo4.dto.FiltroDto"--%>
-        <form:form method="post" action="" modelAttribute="fdto">
+        <form:form method="post" action="/filtro/guardarFiltro" modelAttribute="fdto">
             <form:hidden path="idfiltro" />
+            <form:hidden path="usuario" />
             Ciudad: <form:input path="ciudad" /><br>
             Nombre: <form:input path="nombre" /><br>
             Sexo:

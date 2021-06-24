@@ -3,11 +3,20 @@ package es.taw.grupo4.dto;
 public class FiltroDto {
     private Integer idfiltro;
     //private Integer analistaeventos;
+    private Integer usuario;
     private String nombre;
     private Integer edad_lim_inf;
     private Integer edad_lim_sup;
     private String sexo;
     private String ciudad;
+
+    public Integer getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Integer usuario) {
+        this.usuario = usuario;
+    }
 
     public Integer getIdfiltro() {
         return idfiltro;
@@ -21,13 +30,7 @@ public class FiltroDto {
     private Integer coste_entrada;
     private String categoria;
 
-    /*public Integer getAnalistaeventos() {
-        return analistaeventos;
-    }*/
 
-    /*public void setAnalistaeventos(Integer analistaeventos) {
-        this.analistaeventos = analistaeventos;
-    }*/
 
     public String getNombre() {
         return nombre;
