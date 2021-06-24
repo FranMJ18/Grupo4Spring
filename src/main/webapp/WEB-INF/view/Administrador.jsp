@@ -87,7 +87,7 @@
             <div  class="col-2 dropdown">
                 <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
-                    <a class="row dropdown-element" href="perfil">Mi perfil</a>
+                    <a class="row dropdown-element" href="/perfil">Mi perfil</a>
                     <a class="row dropdown-element" href="cerrarSesion">Cerrar sesion</a>
                 </div>
             </div>       

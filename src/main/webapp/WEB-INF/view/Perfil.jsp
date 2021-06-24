@@ -96,14 +96,14 @@
             </div>       
         </div>
 
-        <div method="GET" action="/administrador/editar/<%=usuario.getId()%>" class="row">
+        <div method="GET" action="/editarPerfilUsuario/<%=usuario.getId()%>" class="row">
             <div class="col-2">
 
             </div>
 
             <div class="col-8 text-center">
                 <h1>Mi perfil</h1>
-                <p>Nombre: <%=usuario.getUsuario()%></p>
+                <p>Nombre de usuario: <%=usuario.getUsuario()%></p>
                 <p>Rol: <%=usuario.getRol() == 0 ? "Creador de evento" : (usuario.getRol() == 1 ? "Administrador del sistema" : (usuario.getRol() == 2 ? "Teleoperador" : (usuario.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%></p>
                 <%
                     if (usuario.getRol() == 4) {
@@ -117,7 +117,7 @@
                 <%
                     }
                 %>
-                <button onclick="window.location.href='/administrador/editar/<%=usuario.getId()%>'">Editar</button>
+                <button onclick="window.location.href='/editarPerfilUsuario/<%=usuario.getId()%>'">Editar</button>
             </div>
 
 
