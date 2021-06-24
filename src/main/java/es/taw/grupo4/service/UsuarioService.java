@@ -75,6 +75,10 @@ public class UsuarioService {
 
     public UsuarioDto findByNombre(String usuario) {
         Usuario usr = this.usuarioRepository.findbyNickname(usuario);
-        return usr.getDto();
+        if(usr != null){
+            return usr.getDto();
+        } else {
+            return null;
+        }
     }
 }

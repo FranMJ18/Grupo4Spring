@@ -194,6 +194,13 @@
                     </div>
                     <input type="submit" name="enviar_formulario" id="enviar">
                 </form:form>
+                    <%
+                        if (request.getAttribute("error") != null) {
+                    %>
+                    <p style="color:red"><%=request.getAttribute("error")%></p>
+                    <%
+                        }
+                    %>
 
                 <form action="/evento/events">
                     <br>
@@ -209,13 +216,7 @@
                 </form>
             </div>
         </div>
-        <%
-            if (request.getAttribute("error") != null) {
-        %>
-        <p style="color:red"><%=request.getAttribute("error")%>
-            <%
-                }
-            %>
+
             <script>
                 function mostrar_extra()
                 {
