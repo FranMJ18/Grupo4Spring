@@ -13,7 +13,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findByNombreYPass(String nombre, String password);
 
     @Query("SELECT u FROM Usuario u WHERE u.rol = 2 AND u.idusuario NOT IN (SELECT c.usuario1.idusuario FROM Chat c WHERE c.usuario2.idusuario = :us)")
-    public Usuario findRandomTeleoperador(Integer us);
+    public List<Usuario> findRandomTeleoperador(Integer us);
 
     @Query("SELECT u FROM Usuario u WHERE u.rol = 2")
     public List<Usuario> findAllTeleoperadores();

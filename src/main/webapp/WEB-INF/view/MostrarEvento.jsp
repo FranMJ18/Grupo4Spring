@@ -108,7 +108,7 @@
             <a class="row dropdown-element" href="/perfil">Mi perfil</a>
             <%
                 if (u.getRol() != 1) {
-            %><a class="row dropdown-element" href="ServletListarConversaciones">Mensajes</a><%
+            %><a class="row dropdown-element" href="/chat/">Mensajes</a><%
             }
         %>
             <a class="row dropdown-element" href="/logout">Cerrar sesion</a>
