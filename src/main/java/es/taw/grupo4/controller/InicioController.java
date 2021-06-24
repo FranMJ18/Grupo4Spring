@@ -73,7 +73,7 @@ public class InicioController {
 
     @PostMapping("/iniciar")
     public String doIniciar(@ModelAttribute("usuario") UsuarioDto usuarioDto, Model model, HttpSession session){
-        Usuario us = this.usuarioService.findByCredenciales(usuarioDto.getUsuario(), usuarioDto.getContraseña());
+        Usuario us = this.usuarioService.findByCredenciales(usuarioDto.getUsuario(), usuarioDto.getPassword());
         if(us == null){
             model.addAttribute("error", "Credenciales inválidas");
             return this.doLogin(model);
@@ -119,7 +119,11 @@ public class InicioController {
             model.addAttribute("error", "Error: el nombre de usuario ya está registrado");
             return doRegister(model);
         }
+        return doEditarPerfil(usuario, session);
+    }
 
+    @GetMapping("/editarPerfil")
+    public String doEditarPerfil(UsuarioDto usuario, HttpSession session){
         Usuario us = new Usuario();
         UsuarioEvento usuarioEvento = new UsuarioEvento();
 
@@ -130,29 +134,29 @@ public class InicioController {
             }
         }catch (Exception e){System.err.println("No se ha encontrado");}
 
-            us.setNickname(usuario.getUsuario());
-            us.setPassword(usuario.getContraseña());
-            us.setRol(session.getAttribute("usuario") == null ? 4 : us.getRol());
+        us.setNickname(usuario.getUsuario());
+        us.setPassword(usuario.getPassword());
+        us.setRol(session.getAttribute("usuario") == null ? 4 : us.getRol());
 
-            usuarioService.guardarUsuario(us);
-            if(usuario.getRol() == 4){
-                usuarioEvento.setUsuario(us.getIdusuario());
-                usuarioEvento.setCiudad(usuario.getCiudad());
-                usuarioEvento.setDomicilio(usuario.getDomicilio());
-                usuarioEvento.setApellido(usuario.getApellidos());
-                usuarioEvento.setEdad(usuario.getEdad());
-                usuarioEvento.setNombre(usuario.getNombre());
-                usuarioEvento.setSexo(usuario.getSexo());
-                usuarioEvento.setUsuario1(us);
+        usuarioService.guardarUsuario(us);
+        if(usuario.getRol() == 4){
+            usuarioEvento.setUsuario(us.getIdusuario());
+            usuarioEvento.setCiudad(usuario.getCiudad());
+            usuarioEvento.setDomicilio(usuario.getDomicilio());
+            usuarioEvento.setApellido(usuario.getApellidos());
+            usuarioEvento.setEdad(usuario.getEdad());
+            usuarioEvento.setNombre(usuario.getNombre());
+            usuarioEvento.setSexo(usuario.getSexo());
+            usuarioEvento.setUsuario1(us);
 
-                us.setUsuarioEvento(usuarioEvento);
-            }
+            us.setUsuarioEvento(usuarioEvento);
+        }
 
-            usuarioService.guardarUsuario(us);
+        usuarioService.guardarUsuario(us);
 
-            if(usuario.getRol() == 4){
-                usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
-            }
+        if(usuario.getRol() == 4){
+            usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
+        }
 
         if(session.getAttribute("usuario") == null){
             session.setAttribute("usuario", usuario);
