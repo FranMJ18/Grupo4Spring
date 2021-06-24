@@ -1,9 +1,12 @@
 package es.taw.grupo4.controller;
 
+import es.taw.grupo4.dao.EventoUsuarioRepository;
 import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Evento;
+import es.taw.grupo4.entity.EventoUsuario;
+import es.taw.grupo4.entity.EventoUsuarioPK;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoService;
 import es.taw.grupo4.service.EventoUsuarioService;
@@ -25,6 +28,8 @@ public class EventoControler {
     private UsuarioService usuarioService;
 
     private UsuarioEventoService usuarioEventoService;
+
+
 
     @Autowired
     public void setUsuarioEventoService(UsuarioEventoService usuarioEventoService){
@@ -110,4 +115,20 @@ public class EventoControler {
         return "CrearEvento";
     }
 
+    @GetMapping("/deleteTicket/{idEventoUsuario}/{idUsuario}/{idEvento}")
+    public String doDeleteTicket(@PathVariable("idEventoUsuario") Integer idEventoUsuario,@PathVariable("idUsuario") Integer idUsuario,@PathVariable("idEvento") Integer idEvento, Model model, HttpSession session){
+
+
+        EventoUsuarioPK eupk = new EventoUsuarioPK(idEventoUsuario,idUsuario,idEvento);
+        //UsuarioDto id_usuario = request.getParameter("id_usuario");
+
+
+        UsuarioDto usr = (UsuarioDto)session.getAttribute("usuario");
+
+       // if(id_usuario == null) id_usuario =usr.getIdusuario().toString();
+
+        eventoUsuarioService.cancelTicket(eupk);
+
+       return "redirect:evento/events";
+    }
 }
