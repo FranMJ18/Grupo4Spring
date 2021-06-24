@@ -35,7 +35,7 @@
 
                     <p>
                         <label for="contraseña" >Contraseña</label>
-                        <form:password path="contraseña" id="contraseña" placeholder="Escribe tu contraseña"/>
+                        <form:password path="password" id="contraseña" placeholder="Escribe tu contraseña"/>
                     </p>
 
                     <p>

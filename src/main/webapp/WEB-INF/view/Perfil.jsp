@@ -75,7 +75,7 @@
                 }
             </style>
 
-            <a class="col-2  text-decoration-none" href="">
+            <a class="col-2  text-decoration-none" href="/pantallaInicio">
                 <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
             <div class="col-4">

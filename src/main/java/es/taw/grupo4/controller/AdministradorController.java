@@ -63,7 +63,7 @@ public class AdministradorController {
         Usuario usuario = usuarioService.findById(id);
         model.addAttribute("usuario", usuario.getDto());
         model.addAttribute("sexo", new String[]{"Hombre", "Mujer", "Otro"});
-        return "RegistroUsuario";
+        return "EditarUsuario";
     }
 
     @GetMapping("/borrar/{id}")
@@ -73,16 +73,11 @@ public class AdministradorController {
         return "redirect:/administrador/";
     }
 
-    @PostMapping("/anyadirUsuario")
-    public String doAnyadir(@ModelAttribute("usuario") UsuarioDto usuarioDto, Model model, HttpSession session){
-        if(this.usuarioService.findByNombre(usuarioDto.getUsuario()) != null){
-            model.addAttribute("error", "Error: el nombre de usuario ya está registrado");
-            return doInit(session, model);
-        }
-
-        Usuario usuario = new Usuario();
+    @PostMapping("/guardar")
+    public String doGuardar(@ModelAttribute("usuario") UsuarioDto usuarioDto){
+        Usuario usuario = usuarioService.findById(usuarioDto.getId());
         usuario.setNickname(usuarioDto.getUsuario());
-        usuario.setPassword(usuarioDto.getContraseña());
+        usuario.setPassword(usuarioDto.getPassword());
         usuario.setRol(usuarioDto.getRol());
         usuarioService.guardarUsuario(usuario);
 
@@ -103,7 +98,42 @@ public class AdministradorController {
             usuarioService.guardarUsuario(usuario);
             usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
         }
+        return "redirect:/administrador/";
+    }
 
+    @PostMapping("/anyadirUsuario")
+    public String doAnyadir(@ModelAttribute("usuario") UsuarioDto usuarioDto, Model model, HttpSession session){
+        if(this.usuarioService.findByNombre(usuarioDto.getUsuario()) != null){
+            model.addAttribute("error", "Error: el nombre de usuario ya está registrado");
+            return doInit(session, model);
+        }
+        Usuario usuario = new Usuario();
+        usuario.setNickname(usuarioDto.getUsuario());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setRol(usuarioDto.getRol());
+
+        if (usuarioDto.getId() != 0) {
+            usuario.setIdusuario(usuarioDto.getId());
+        }
+        usuarioService.guardarUsuario(usuario);
+
+        //ES UN USUARIO DE EVENTO
+        if(usuario.getRol() == 4){
+            UsuarioEvento usuarioEvento = new UsuarioEvento();
+            usuarioEvento.setUsuario1(usuario);
+            usuarioEvento.setUsuario(usuario.getIdusuario());
+            usuarioEvento.setSexo(usuarioDto.getSexo());
+            usuarioEvento.setNombre(usuarioDto.getNombre());
+            usuarioEvento.setApellido(usuarioDto.getApellidos());
+            usuarioEvento.setEdad(usuarioDto.getEdad());
+            usuarioEvento.setDomicilio(usuarioDto.getDomicilio());
+            usuarioEvento.setCiudad(usuarioDto.getCiudad());
+
+            usuario.setUsuarioEvento(usuarioEvento);
+
+            usuarioService.guardarUsuario(usuario);
+            usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
+        }
         return "redirect:/administrador/";
     }
 }

@@ -32,7 +32,7 @@
 
                     <p>
                         <label for="contraseña">Contraseña</label>
-                        <form:password path="contraseña" id="contraseña"/>
+                        <form:password path="password" id="contraseña"/>
                     </p><%
                     String error = (String)request.getAttribute("error");
                     if(error != null){
