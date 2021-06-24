@@ -82,19 +82,8 @@ public class InicioController {
         usuarioDto.setId(us.getIdusuario());
         usuarioDto.setRol(us.getRol());
         session.setAttribute("usuario", usuarioDto);
-        switch (us.getRol()){
-            //CREADOR DE EVENTO
-            case 0 : return "redirect:evento/events";
-            //ADMINISTRADOR
-            case 1 : return "redirect:administrador/";
-            //TELEOPERADOR
-            case 2 : return "redirect:chat/";
-            //ANALISTA DE EVENTOS
-            case 3 : return "redirect:filtro/";
-            //USUARIO DE EVENTO
-            case 4 : return "redirect:evento/events";// return doListarEventos(new FiltroEvento(), model);
-        }
-        return null;
+
+        return doPantallaInicio(session);
     }
 
     @GetMapping("/pantallaInicio")
