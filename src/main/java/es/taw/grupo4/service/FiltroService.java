@@ -19,7 +19,7 @@ public class FiltroService {
     }
 
     public Filtro econtrarById(Integer id){
-        return this.firep.getById(id);
+        return this.firep.findById(id).get();
     }
 
     public List<Filtro> encontarByAnalista(Integer id){

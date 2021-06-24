@@ -63,11 +63,8 @@ public class FiltroController {
             filtro = null;
             fdto = null;
         }
-        ArrayList<String> sexo = new ArrayList<>();
-        sexo.add("");
-        sexo.add("hombre");
-        sexo.add("Mujer");
-        sexo.add("Otro");
+        String[] sexo = new String[]{"","Hombre", "Mujer", "Otro"};
+
         model.addAttribute("sexo", sexo);
         model.addAttribute("fdto", fdto);
 
