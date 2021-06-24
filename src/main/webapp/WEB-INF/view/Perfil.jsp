@@ -88,7 +88,7 @@
                     <a class="row dropdown-element" href="/administrador/perfil">Mi perfil</a>
                     <%
                         if (usuario.getRol() ==  0 || usuario.getRol() == 2 || usuario.getRol() ==  4) {
-                    %><a class="row dropdown-element" href="ServletListarConversaciones">Mensajes</a><%
+                    %><a class="row dropdown-element" href="/chat/">Mensajes</a><%
                                 }
                     %>
                     <a class="row dropdown-element" href="/administrador/cerrarSesion">Cerrar sesion</a>
@@ -96,14 +96,14 @@
             </div>       
         </div>
 
-        <div method="GET" action="/administrador/editar/<%=usuario.getId()%>" class="row">
+        <div method="GET" action="/editarPerfilUsuario/<%=usuario.getId()%>" class="row">
             <div class="col-2">
 
             </div>
 
             <div class="col-8 text-center">
                 <h1>Mi perfil</h1>
-                <p>Nombre: <%=usuario.getUsuario()%></p>
+                <p>Nombre de usuario: <%=usuario.getUsuario()%></p>
                 <p>Rol: <%=usuario.getRol() == 0 ? "Creador de evento" : (usuario.getRol() == 1 ? "Administrador del sistema" : (usuario.getRol() == 2 ? "Teleoperador" : (usuario.getRol() == 3 ? "Analista de eventos" : "Usuario de evento")))%></p>
                 <%
                     if (usuario.getRol() == 4) {
@@ -117,7 +117,7 @@
                 <%
                     }
                 %>
-                <button onclick="window.location.href='/administrador/editar/<%=usuario.getId()%>'">Editar</button>
+                <button onclick="window.location.href='/editarPerfilUsuario/<%=usuario.getId()%>'">Editar</button>
             </div>
 
 
@@ -143,7 +143,7 @@
                     %>
                     <div class="col-4">
                         <div class="row">
-                            <a href="ServletMostrarEvento?idEvento=<%=e.getEvento().getIdevento()%>" class="col-6"><img width="100%" height="100%" src="img/Logo.png"></a>
+                            <a href="/evento/showEvent/<%=e.getEvento().getIdevento()%>" class="col-6"><img width="100%" height="100%" src="img/Logo.png"></a>
                             <div class="col-6">
                                 <h2><%=e.getEvento().getTitulo()%></h2>
                                 <p><%=e.getEvento().getDescripcion()%></p>
@@ -154,7 +154,7 @@
                                 <%
                                     }
                                 %>
-                                    <a href="ServletCancelarEntrada?eventoUsuario=<%= e.getEventoUsuarioPK().getIdeventousuario()%>&id_usuario=<%=usuario.getId()%>" style="margin-left:2em;">
+                                    <a href="/evento/deleteTicket/<%= e.getEventoUsuarioPK().getIdeventousuario()%>/<%= e.getEventoUsuarioPK().getUsuario()%>/<%= e.getEventoUsuarioPK().getIdevento()%>" style="margin-left:2em;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>

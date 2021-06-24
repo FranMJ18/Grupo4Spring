@@ -5,15 +5,11 @@
  */
 package es.taw.grupo4.entity;
 
+import es.taw.grupo4.dto.EventoUsuarioDto;
+import es.taw.grupo4.dto.FiltroDto;
+
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -112,6 +108,18 @@ public class EventoUsuario implements Serializable {
     @Override
     public String toString() {
         return "grupo4app.entity.EventoUsuario[ eventoUsuarioPK=" + eventoUsuarioPK + " ]";
+    }
+
+    @Transient
+    public EventoUsuarioDto getDto(){
+        EventoUsuarioDto eu = new EventoUsuarioDto();
+        eu.setIdEventoUsuario(this.getEventoUsuarioPK().getIdeventousuario());
+        eu.setUsuario(this.getUsuarioEvento());
+        eu.setIdEvento(this.getEventoUsuarioPK().getIdevento());
+        eu.setFila(this.getAsientos().getAsientosPK().getFila());
+        eu.setColumna(this.getAsientos().getAsientosPK().getColumna());
+        eu.setEvento(this.getEvento());
+        return eu;
     }
     
 }
