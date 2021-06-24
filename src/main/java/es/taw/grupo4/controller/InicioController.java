@@ -105,6 +105,13 @@ public class InicioController {
         return null;
     }
 
+    @GetMapping("/perfil")
+    public String doPerfil(Model model, HttpSession session){
+        model.addAttribute("usuario", session.getAttribute("usuario"));
+        model.addAttribute("listaEventos", usuarioService.findById(((UsuarioDto) session.getAttribute("usuario")).getId()).getEventoList());
+        return "Perfil";
+    }
+
     @PostMapping("/registrar")
     public String doRegistrar(@ModelAttribute("usuario") UsuarioDto usuario, Model model, HttpSession session){
 
