@@ -6,6 +6,7 @@ import es.taw.grupo4.dto.FiltroDto;
 import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.EventoUsuario;
 import es.taw.grupo4.entity.Filtro;
+import es.taw.grupo4.entity.FiltroPK;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.FiltroService;
@@ -109,8 +110,10 @@ public class FiltroController {
     }
 
     @GetMapping("/mostrarUsuarios/{id}")
-    public String mostrarUsuarios(@PathVariable("id") Integer id, Model model){
-        Filtro filtro = this.filrep.getById(id);
+    public String mostrarUsuarios(@PathVariable("id") Integer id, Model model, HttpSession session){
+        UsuarioDto analista = (UsuarioDto) session.getAttribute("usuario");
+        FiltroPK fk = new FiltroPK(id, analista.getId());
+        Filtro filtro = this.fs.findByPK(fk).get(0);
         FiltroDto fdto = filtro.getDto();
         List<EventoUsuario> usuarios = new ArrayList<>();
         List<EventoUsuarioDto> listaUsuarios = new ArrayList<>();

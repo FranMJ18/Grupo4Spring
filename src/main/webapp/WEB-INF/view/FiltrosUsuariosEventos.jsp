@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@ page import="es.taw.grupo4.dto.EventoUsuarioDto" %>
 <%@ page import="es.taw.grupo4.entity.Usuario" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
     <%
         List<EventoUsuarioDto> listaUsuarios = (List) request.getAttribute("listaUsuarios");
         HttpSession ses = request.getSession();
-        Usuario u = (Usuario) ses.getAttribute("usuario");
+        UsuarioDto u = (UsuarioDto) ses.getAttribute("usuario");
     %>
     <body>
         <!-- Navbar -->      
@@ -62,7 +63,7 @@
 
             </style>
             <a class="col-2  text-decoration-none" href="/pantallaInicio">
-                <img src="img/Logo.png" style="width:2em; height:2em;">
+                <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
             <div class="col-4"></div>
             <%
@@ -79,7 +80,7 @@
                 }
             %>                          
             <div  class="col-2 dropdown">
-                <img src="img/avatar.png" style="width:2em; height:2em;">
+                <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
                     <a class="row dropdown-element text-decoration-none" href="/perfil">Mi perfil</a>
                     <a class="row dropdown-element text-decoration-none" href="/logout">Cerrar sesion</a>

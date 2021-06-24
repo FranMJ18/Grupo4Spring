@@ -10,4 +10,7 @@ import java.util.List;
 public interface FiltroRepository extends JpaRepository<Filtro, Integer> {
     @Query("SELECT f FROM Filtro f WHERE f.filtroPK.analistaeventos = :analistaeventos")
     public List<Filtro> filtrosCreador(int analistaeventos);
+
+    @Query("SELECT f FROM Filtro f WHERE f.filtroPK.analistaeventos = :analistaeventos AND f.filtroPK.idfiltro = :idfiltro")
+    public List<Filtro> findByPK(int analistaeventos, int idfiltro);
 }

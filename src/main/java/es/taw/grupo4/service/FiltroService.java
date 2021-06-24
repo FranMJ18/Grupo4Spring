@@ -105,9 +105,11 @@ public class FiltroService {
     public List<EventoUsuario> filtrarPorFiltro(FiltroDto fdto) throws ParseException {
         //List<EventoUsuario> resultados = new ArrayList<>();
         List<EventoUsuario> usuarios = new ArrayList<>();
+        List<EventoUsuario> auxiliar = new ArrayList<>();
+        List<EventoUsuario> prohibidos = new ArrayList<>();
 
         int anyo = fdto.getAnyo(); //Evento
-        if(anyo == 0){
+        if (anyo == 0) {
             anyo = 0000;
         }
         String anyoSup = anyo + "-12-31";
@@ -116,59 +118,130 @@ public class FiltroService {
         Date inf = new SimpleDateFormat("yyyy-MM-dd").parse(anyoInf);
         Date sup = new SimpleDateFormat("yyyy-MM-dd").parse(anyoSup);
 
-        if(fdto.getEdad_lim_sup() > 0 || !fdto.getSexo().isEmpty() || !fdto.getCiudad().isEmpty() || fdto.getUsuario() != null || fdto.getAnyo() > 0 || fdto.getCoste_entrada() > 0 || !fdto.getCategoria().isEmpty()) {
+        if (fdto.getEdad_lim_sup() > 0 || !fdto.getSexo().isEmpty() || !fdto.getCiudad().isEmpty() || fdto.getUsuario() != null || fdto.getAnyo() > 0 || fdto.getCoste_entrada() > 0 || !fdto.getCategoria().isEmpty()) {
             usuarios = this.eurep.findAll();
+            auxiliar = this.eurep.findAll();
             if (fdto.getEdad_lim_inf() != 0) {
                 usuarios.retainAll(this.eurep.findByMinEdad(fdto.getEdad_lim_inf()));
-            } else if (fdto.getEdad_lim_sup() > 0) {
-                usuarios.retainAll(this.eurep.findByMaxEdad(fdto.getEdad_lim_sup()));
-            } else if (!fdto.getSexo().isEmpty()) {
-                usuarios.retainAll(this.eurep.findBySexo(fdto.getSexo()));
-            } else if (!fdto.getCiudad().isEmpty()) {
-                usuarios.retainAll(this.eurep.findByCiudad(fdto.getCiudad()));
-            } else if (fdto.getCoste_entrada() > 0) {
-                usuarios.retainAll(this.eurep.findByCosteEntrada(fdto.getCoste_entrada()));
-            } else if (!fdto.getCategoria().isEmpty()) {
-                String cat = fdto.getCategoria();
-                switch (cat) {
-                    case ("musica"):
-                        usuarios.retainAll(this.eurep.findByMusica());
-                        break;
-                    case ("aireLibre"):
-                        usuarios.retainAll(this.eurep.findByAireLibre());
-                        break;
-                    case ("deporte"):
-                        usuarios.retainAll(this.eurep.findByDeporte());
-                        break;
-                    case ("teatro"):
-                        usuarios.retainAll(this.eurep.findByTeatro());
-                        break;
-                    case ("gaming"):
-                        usuarios.retainAll(this.eurep.findByGaming());
-                        break;
-                    case ("lectura"):
-                        usuarios.retainAll(this.eurep.findByLectura());
-                        break;
-                    case ("formacion"):
-                        usuarios.retainAll(this.eurep.findByFormacion());
-                        break;
-                    case ("conferencia"):
-                        usuarios.retainAll(this.eurep.findByConferencia());
-                        break;
-                    case ("beneficio"):
-                        usuarios.retainAll(this.eurep.findByBenefico());
-                        break;
-                    case ("arte"):
-                        usuarios.retainAll(this.eurep.findByArte());
-                        break;
-                    case ("turismo"):
-                        usuarios.retainAll(this.eurep.findByTurismo());
-                        break;
+                if (usuarios != null && usuarios.size() != 0) {
+                    auxiliar.retainAll(usuarios);
+
                 }
-            } else if (anyo > 0) {
-                usuarios.retainAll(this.eurep.findByAnyo(inf, sup));
             }
-        }
-        return usuarios;
+                if (fdto.getEdad_lim_sup() != 0) {
+                    usuarios = this.eurep.findAll();
+                    usuarios.retainAll(this.eurep.findByMaxEdad(fdto.getEdad_lim_sup()));
+                    if (usuarios != null && usuarios.size() != 0) {
+                        auxiliar.retainAll(usuarios);
+                    }
+                }
+                if (!fdto.getSexo().isEmpty()) {
+                    usuarios = this.eurep.findAll();
+                    usuarios.retainAll(this.eurep.findBySexo(fdto.getSexo()));
+                    if (usuarios != null && usuarios.size() != 0) {
+                        auxiliar.retainAll(usuarios);
+                    }
+                }
+                if (!fdto.getCiudad().isEmpty()) {
+                    usuarios = this.eurep.findAll();
+                    usuarios.retainAll(this.eurep.findByCiudad(fdto.getCiudad()));
+                    if (usuarios != null && usuarios.size() != 0) {
+                        auxiliar.retainAll(usuarios);
+                    }
+                }
+                if (fdto.getCoste_entrada() > 0) {
+                    usuarios = this.eurep.findAll();
+                    usuarios.retainAll(this.eurep.findByCosteEntrada(fdto.getCoste_entrada()));
+                    if (usuarios != null && usuarios.size() != 0) {
+                        auxiliar.retainAll(usuarios);
+                    }
+                }
+                if (!fdto.getCategoria().isEmpty()) {
+                    usuarios = this.eurep.findAll();
+                    String cat = fdto.getCategoria();
+                    switch (cat) {
+                        case ("musica"):
+                            usuarios.retainAll(this.eurep.findByMusica());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("aireLibre"):
+                            usuarios.retainAll(this.eurep.findByAireLibre());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("deporte"):
+                            usuarios.retainAll(this.eurep.findByDeporte());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("teatro"):
+                            usuarios.retainAll(this.eurep.findByTeatro());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("gaming"):
+                            usuarios.retainAll(this.eurep.findByGaming());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("lectura"):
+                            usuarios.retainAll(this.eurep.findByLectura());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("formacion"):
+                            usuarios.retainAll(this.eurep.findByFormacion());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("conferencia"):
+                            usuarios.retainAll(this.eurep.findByConferencia());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("benefico"):
+                            usuarios.retainAll(this.eurep.findByBenefico());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("arte"):
+                            usuarios.retainAll(this.eurep.findByArte());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                        case ("turismo"):
+                            usuarios.retainAll(this.eurep.findByTurismo());
+                            if (usuarios != null && usuarios.size() != 0) {
+                                auxiliar.retainAll(usuarios);
+                            }
+                            break;
+                    }
+                }
+                if (anyo > 0) {
+                    usuarios = this.eurep.findAll();
+                    usuarios.retainAll(this.eurep.findByAnyo(inf, sup));
+                    if (usuarios != null && usuarios.size() != 0) {
+                        auxiliar.retainAll(usuarios);
+                    }
+                }
+            }
+
+        return auxiliar;
     }
+
+    public List<Filtro> findByPK(FiltroPK fk){
+        return this.firep.findByPK(fk.getAnalistaeventos(), fk.getIdfiltro());
+    }
+
 }
