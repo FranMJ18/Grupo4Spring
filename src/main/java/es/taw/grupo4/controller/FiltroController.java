@@ -1,10 +1,13 @@
 package es.taw.grupo4.controller;
 
 import es.taw.grupo4.dao.FiltroRepository;
+import es.taw.grupo4.dto.EventoUsuarioDto;
 import es.taw.grupo4.dto.FiltroDto;
 import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.entity.EventoUsuario;
 import es.taw.grupo4.entity.Filtro;
 import es.taw.grupo4.entity.Usuario;
+import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.FiltroService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.lang.model.type.ArrayType;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +25,15 @@ import java.util.List;
 @Controller
 public class FiltroController {
 
+
+    private EventoUsuarioService euService;
     private UsuarioService usuarioService;
     private FiltroService fs;
+
+    @Autowired
+    public void setEuService(EventoUsuarioService euService) {
+        this.euService = euService;
+    }
 
     @Autowired
     public void setUsuarioService(UsuarioService usuarioService) {
@@ -98,9 +109,22 @@ public class FiltroController {
     }
 
     @GetMapping("/mostrarUsuarios/{id}")
-    public String mostrarUsuarios(@PathVariable("id") Integer id){
+    public String mostrarUsuarios(@PathVariable("id") Integer id, Model model){
         Filtro filtro = this.filrep.getById(id);
         FiltroDto fdto = filtro.getDto();
+        List<EventoUsuario> usuarios = new ArrayList<>();
+        List<EventoUsuarioDto> listaUsuarios = new ArrayList<>();
+        try {
+             usuarios = this.fs.filtrarPorFiltro(fdto);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        for(EventoUsuario eu : usuarios){
+            listaUsuarios.add(eu.getDto());
+        }
+
+        model.addAttribute("listaUsuarios", listaUsuarios);
+        return "FiltrosUsuariosEventos";
     }
 
 }
