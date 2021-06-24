@@ -104,7 +104,6 @@
     <div class="col-2 dropdown">
         <img src="/img/avatar.png" style="width:2em; height:2em;">
         <div class="dropdown-content">
-            <%-- TODO el enlace de abajo está mal --%>
             <a class="row dropdown-element" href="/perfil">Mi perfil</a>
             <%
                 if (u.getRol() != 1) {
