@@ -100,6 +100,11 @@ public class InicioController {
     @PostMapping("/registrar")
     public String doRegistrar(@ModelAttribute("usuario") UsuarioDto usuario, Model model, HttpSession session){
 
+        if(this.usuarioService.findByNombre(usuario.getUsuario()) != null){
+            model.addAttribute("error", "Error: el nombre de usuario ya está registrado");
+            return doRegister(model);
+        }
+
         Usuario us = new Usuario();
         UsuarioEvento usuarioEvento = new UsuarioEvento();
 

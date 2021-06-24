@@ -79,7 +79,12 @@ public class AdministradorController {
     }
 
     @PostMapping("/anyadirUsuario")
-    public String doAnyadir(@ModelAttribute("usuario") UsuarioDto usuarioDto){
+    public String doAnyadir(@ModelAttribute("usuario") UsuarioDto usuarioDto, Model model, HttpSession session){
+        if(this.usuarioService.findByNombre(usuarioDto.getUsuario()) != null){
+            model.addAttribute("error", "Error: el nombre de usuario ya está registrado");
+            return doInit(session, model);
+        }
+
         Usuario usuario = new Usuario();
         usuario.setNickname(usuarioDto.getUsuario());
         usuario.setPassword(usuarioDto.getContraseña());

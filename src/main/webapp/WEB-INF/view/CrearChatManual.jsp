@@ -24,11 +24,11 @@
                 <form:form method="post" action="/chat/guardar" modelAttribute="chat">
                     <label for="teleoperador" >Teleoperador</label>
                     <form:select id="teleoperador" path="usuario1">
-                       <form:options items="${teleoperadores}" itemLabel="usuario"/>
+                       <form:options items="${teleoperadores}"/>
                     </form:select>
                     <label for="usuario" >Usuario a atender</label>
                     <form:select id="usuario" path="usuario2">
-                        <form:options items="${usuarios}" itemLabel="usuario"/>
+                        <form:options items="${usuarios}"/>
                     </form:select>
                     <% 
                         if(error != null) {

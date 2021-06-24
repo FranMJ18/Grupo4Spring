@@ -53,23 +53,32 @@ public class UsuarioService {
         }
     }
 
-    public List<UsuarioDto> listarTodosLosTeleoperadores(){
+    public List<String> listarTodosLosTeleoperadoresPorNombres(){
         List<Usuario> teleopList = this.usuarioRepository.findAllTeleoperadores();
-        List<UsuarioDto> lista = new ArrayList<>();
+        List<String> lista = new ArrayList<>();
         for(Usuario u : teleopList){
-            lista.add(u.getDto());
+            lista.add(u.getNickname());
         }
 
         return lista;
     }
 
-    public List<UsuarioDto> listarTodosCreadoresUsuariosEvento(){
+    public List<String> listarTodosCreadoresUsuariosEventoPorNombres(){
         List<Usuario> usList = this.usuarioRepository.findAllCreadoresUsuariosEvento();
-        List<UsuarioDto> lista = new ArrayList<>();
+        List<String> lista = new ArrayList<>();
         for(Usuario u : usList){
-            lista.add(u.getDto());
+            lista.add(u.getNickname());
         }
 
         return lista;
+    }
+
+    public UsuarioDto findByNombre(String usuario) {
+        Usuario usr = this.usuarioRepository.findbyNickname(usuario);
+        if(usr != null){
+            return usr.getDto();
+        } else {
+            return null;
+        }
     }
 }

@@ -53,8 +53,9 @@ public class MensajeService {
     }
 
     public void crearMensaje(MensajeDto msgNuevo, UsuarioDto usuario) {
-        MensajePK mpk = new MensajePK();
         Chat ch = this.chatRepository.findById(msgNuevo.getIdchat()).get();
+
+        MensajePK mpk = new MensajePK();
         mpk.setChat(ch.getIdchat());
 
         Mensaje nuevo = new Mensaje(mpk);

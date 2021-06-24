@@ -17,7 +17,9 @@
     </head>
 
 
-
+    <%
+        String error = (String)request.getAttribute("error");
+    %>
     <body>
         <div class="contact_form">
             <div class="formulario">      
@@ -62,6 +64,14 @@
                         <label for="ciudad" >Ciudad</label>
                         <form:input path="ciudad" id="ciudad" placeholder="Escribe tu ciudad"/>
                     </p>
+
+                    <%
+                        if(error != null) {
+                    %>
+                    <p style="color: red; text-align: center;"><%=error%></p>
+                    <%
+                        }
+                    %>
 
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
                 </form:form>
