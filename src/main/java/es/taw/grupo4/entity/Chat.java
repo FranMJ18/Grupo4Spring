@@ -110,8 +110,8 @@ public class Chat implements Serializable {
         ChatDto dto = new ChatDto();
 
         dto.setIdchat(this.idchat);
-        dto.setUsuario1(this.usuario1.getDto());
-        dto.setUsuario2(this.usuario2.getDto());
+        dto.setUsuario1(this.usuario1.getNickname());
+        dto.setUsuario2(this.usuario2.getNickname());
 
         return dto;
     }

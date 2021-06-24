@@ -171,10 +171,10 @@
                     for(ChatDto ch : conversaciones) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
 
@@ -210,10 +210,10 @@
                     for(ChatDto ch : otrosC) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>   
                         <div class="col-1 p-sm-3 my-1"><a href="/chat/borrar/<%=ch.getIdchat()%>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -246,10 +246,10 @@
                     for(ChatDto ch : conversaciones) {
                 %>    
                     <div class="row justify-content-start">
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario1()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>
-                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2().getUsuario()%>
+                        <div class="columna col-4 p-sm-3 my-1" onclick="location.href='/chat/mostrar/<%=ch.getIdchat()%>';" ><img src="/img/avatar.png" width="50px" alt="..."><%=ch.getUsuario2()%>
                             <span class="tooltiptext">Ver la conversación</span>
                         </div>  
                     </div>

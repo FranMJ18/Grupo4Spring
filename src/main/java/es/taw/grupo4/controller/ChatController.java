@@ -96,16 +96,18 @@ public class ChatController {
     public String doCrearChatManual(Model model){
         ChatDto chat = new ChatDto();
         model.addAttribute("chat",chat);
-        model.addAttribute("teleoperadores",this.usuarioService.listarTodosLosTeleoperadores());
-        model.addAttribute("usuarios",this.usuarioService.listarTodosCreadoresUsuariosEvento());
+        model.addAttribute("teleoperadores",this.usuarioService.listarTodosLosTeleoperadoresPorNombres());
+        model.addAttribute("usuarios",this.usuarioService.listarTodosCreadoresUsuariosEventoPorNombres());
 
         return "CrearChatManual";
     }
 
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("chat") ChatDto chat, Model model){
-        if(!this.chatService.existeChat(chat.getUsuario1(), chat.getUsuario2())){
-            this.chatService.crearChat(chat.getUsuario1(), chat.getUsuario2());
+        UsuarioDto usr1 = this.usuarioService.findByNombre(chat.getUsuario1());
+        UsuarioDto usr2 = this.usuarioService.findByNombre(chat.getUsuario2());
+        if(!this.chatService.existeChat(usr1, usr2)){
+            this.chatService.crearChat(usr1, usr2);
 
             return "redirect:/chat/";
         }
@@ -122,8 +124,12 @@ public class ChatController {
         model.addAttribute("mensajes",msgs);
         MensajeDto nuevo = new MensajeDto();
         nuevo.setIdchat(id);
-        System.out.println(id);
         model.addAttribute("msgNuevo", nuevo);
+
+        UsuarioDto usr1 = this.usuarioService.findByNombre(chat.getUsuario1());
+        UsuarioDto usr2 = this.usuarioService.findByNombre(chat.getUsuario2());
+        model.addAttribute("teleoperador",usr1);
+        model.addAttribute("usuario2",usr2);
 
         return "Chat";
     }
