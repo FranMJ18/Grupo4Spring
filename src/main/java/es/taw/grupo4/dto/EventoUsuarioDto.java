@@ -6,20 +6,19 @@ import es.taw.grupo4.entity.UsuarioEvento;
 
 public class EventoUsuarioDto {
     private Integer idEventoUsuario;
-    private UsuarioEvento usuario;
+    private Integer idUsuarioEvento;
     private Integer idEvento;
     private Integer fila;
 
-    public UsuarioEvento getUsuario() {
-        return usuario;
+    public Integer getIdUsuarioEvento() {
+        return idUsuarioEvento;
     }
 
-    public void setUsuario(UsuarioEvento usuario) {
-        this.usuario = usuario;
+    public void setUsuario(Integer usuario) {
+        this.idUsuarioEvento = usuario;
     }
 
     private Integer columna;
-    private Evento evento;
 
     public Integer getIdEventoUsuario() {
         return idEventoUsuario;
@@ -54,11 +53,4 @@ public class EventoUsuarioDto {
         this.columna = columna;
     }
 
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
 }
