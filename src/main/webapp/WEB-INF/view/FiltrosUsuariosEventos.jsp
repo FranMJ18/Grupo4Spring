@@ -8,6 +8,8 @@
 <%@ page import="es.taw.grupo4.dto.EventoUsuarioDto" %>
 <%@ page import="es.taw.grupo4.entity.Usuario" %>
 <%@ page import="es.taw.grupo4.dto.UsuarioDto" %>
+<%@ page import="es.taw.grupo4.entity.EventoUsuario" %>
+<%@ page import="es.taw.grupo4.dto.EventoDto" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,6 +20,8 @@
     </head>
     <%
         List<EventoUsuarioDto> listaUsuarios = (List) request.getAttribute("listaUsuarios");
+        List<EventoDto> eventos = (List) request.getAttribute("eventos");
+        List<UsuarioDto> titulos = (List) request.getAttribute("titulos");
         HttpSession ses = request.getSession();
         UsuarioDto u = (UsuarioDto) ses.getAttribute("usuario");
     %>
@@ -92,6 +96,7 @@
         <h1>Usuarios filtrados: </h1>
 
         <%
+            int i = 0;
             if (!listaUsuarios.isEmpty()) {
         %>
 
@@ -104,13 +109,13 @@
                 for (EventoUsuarioDto filtrado : listaUsuarios) {
             %>    
             <div class="row justify-content-start">
-                <div class="columna col-4 p-sm-3 my-1" ><img src="/img/avatar.png" width="50px" alt="..."><%= filtrado.getUsuario().getNombre()%>
+                <div class="columna col-4 p-sm-3 my-1" ><img src="/img/avatar.png" width="50px" alt="..."><%= titulos.get(i).getNombre()%>
 
                 </div>
-                <div class="columna col-4 p-sm-3 my-1" ><%= filtrado.getEvento().getTitulo()%>
+                <div class="columna col-4 p-sm-3 my-1" ><%= eventos.get(i).getTitulo()%>
                 </div>  
             </div>
-            <% }
+            <% i++; }
             %>
         </div>   
         <%

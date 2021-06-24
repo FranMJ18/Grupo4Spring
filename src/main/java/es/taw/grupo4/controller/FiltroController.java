@@ -1,6 +1,7 @@
 package es.taw.grupo4.controller;
 
 import es.taw.grupo4.dao.FiltroRepository;
+import es.taw.grupo4.dto.EventoDto;
 import es.taw.grupo4.dto.EventoUsuarioDto;
 import es.taw.grupo4.dto.FiltroDto;
 import es.taw.grupo4.dto.UsuarioDto;
@@ -122,10 +123,17 @@ public class FiltroController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        List<EventoDto> eventos = new ArrayList<>();
+        List<UsuarioDto> titulos = new ArrayList<>();
+
         for(EventoUsuario eu : usuarios){
             listaUsuarios.add(eu.getDto());
+            eventos.add(eu.getEvento().getDto());
+            titulos.add(eu.getUsuarioEvento().getUsuario1().getDto());
         }
-
+        model.addAttribute("eventos", eventos);
+        model.addAttribute("titulos", titulos);
         model.addAttribute("listaUsuarios", listaUsuarios);
         return "FiltrosUsuariosEventos";
     }

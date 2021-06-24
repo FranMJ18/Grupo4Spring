@@ -106,7 +106,6 @@ public class FiltroService {
         //List<EventoUsuario> resultados = new ArrayList<>();
         List<EventoUsuario> usuarios = new ArrayList<>();
         List<EventoUsuario> auxiliar = new ArrayList<>();
-        List<EventoUsuario> prohibidos = new ArrayList<>();
 
         int anyo = fdto.getAnyo(); //Evento
         if (anyo == 0) {
