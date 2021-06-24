@@ -201,7 +201,7 @@ public class Usuario implements Serializable {
         UsuarioDto usuario = new UsuarioDto();
 
         usuario.setUsuario(this.nickname);
-        usuario.setContraseña(this.password);
+        usuario.setPassword(this.password);
         usuario.setRol(this.rol);
         usuario.setId(this.idusuario);
 

@@ -1,11 +1,12 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="es.taw.grupo4.entity.Usuario" %>
+<%@ page import="es.taw.grupo4.entity.UsuarioEvento" %>
+<%@ page import="es.taw.grupo4.dto.UsuarioDto" %><%--
     Document   : EditarUsuario
     Created on : 11-may-2021, 10:26:18
     Author     : nieto
 --%>
 
-<%@page import="grupo4app.entity.UsuarioEvento"%>
-<%@page import="grupo4app.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,73 +34,61 @@
 
     <body>
         <%
-            Usuario usuario = (Usuario) request.getAttribute("usuario");
-            UsuarioEvento usuarioEvento = (UsuarioEvento) request.getAttribute("usuarioEvento");
+            UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
         %>
 
         <div class="contact_form">
             <div class="formulario">      
                 <h1>Edición</h1>
-                <form method="post" action="ServletEditarUsuario?id=<%=usuario.getIdusuario()%>">  
+                <%--@elvariable id="usuario" type="es.taw.grupo4.dto.UsuarioDto"--%>
+                <form:form method="post" action="/administrador/guardar" modelAttribute="usuario">
                     
-                    <input type="text" name="rol" hidden value="<%=usuario.getRol()%>">
+                    <form:hidden name="rol" path="rol"/>
+                    <form:hidden path="id"/>
                     <p>
                         <label for="usuario" >Usuario</label>
-                        <input required type="text" name="usuario" id="usuario" value=<%=usuario.getNickname()%>>
+                        <form:input name="usuario" id="usuario" path="usuario"/>
                     </p>
 
                     <p>
                         <label for="contraseña" >Contraseña</label>
-                        <input required type="password" name="password" id="contraseña" value=<%=usuario.getPassword()%>>
+                        <form:password path="password" name="password" id="contraseña" value="<%=usuario.getPassword()%>"/>
                     </p>
 
-                   <%--
-                    <select id="seleccionador" name="rol" onchange="mostrar_extra()">
-                        <option value="0" <%= usuario.getRol() == 0 ? "selected" : ""%>>Creador de evento</option>
-                        <option value="1" <%= usuario.getRol() == 1 ? "selected" : ""%>>Administrador del sistema</option>
-                        <option value="2" <%= usuario.getRol() == 2 ? "selected" : ""%>>Teleoperador</option>
-                        <option value="3" <%= usuario.getRol() == 3 ? "selected" : ""%>>Analista de eventos</option>
-                        <option value="4" <%= usuario.getRol() == 4 ? "selected" : ""%>>Usuario de evento</option>
-                    </select>
-                   --%>
                     <div id="extra" style="display:none;" oncha>
                         <p>
                             <label for="nombre" >Nombre</label>
-                            <input type="text" name="nombre" id="nombre" value="<%=usuarioEvento == null ? "" : usuarioEvento.getNombre()%>" placeholder="Escribe tu nombre">
+                            <form:input name="nombre" id="nombre" path="nombre" placeholder="Escribe tu nombre"/>
                         </p>
 
                         <p>
                             <label for="apellidos" >Apellidos</label>
-                            <input type="text" name="apellidos" id="apellidos" value="<%=usuarioEvento == null ? "" : usuarioEvento.getApellido()%>" placeholder="Escribe tus apellidos">
+                            <form:input name="apellidos" id="apellidos" path="apellidos" placeholder="Escribe tus apellidos"/>
                         </p>
 
                         <p>
                             <label for="edad" >Edad</label>
-                            <input type="number" name="edad" id="edad" value="<%=usuarioEvento == null ? "" : usuarioEvento.getEdad()%>" placeholder="Escribe tu edad">
+                            <form:input type="number" name="edad" id="edad" path="edad" placeholder="Escribe tu edad"/>
                         </p>
 
                         <p>
                             <label for="sexo" >Sexo</label>
-                            <select id="sexo" name="sexo">
-                                <option value="Hombre" <%= usuarioEvento == null ? "" : (usuarioEvento.getSexo().equals("Hombre") ? "selected" : "")%>>Hombre</option>
-                                <option value="Mujer" <%= usuarioEvento == null ? "" : (usuarioEvento.getSexo().equals("Mujer") ? "selected" : "")%>>Mujer</option>
-                                <option value="Otro" <%= usuarioEvento == null ? "" : (usuarioEvento.getSexo().equals("Otro") ? "selected" : "")%>>Otro</option>
-                            </select>
+                            <form:select id="sexo" name="sexo" path="sexo" items="${sexo}"/>
                         </p>
 
                         <p>
                             <label for="domicilio" >Domicilio</label>
-                            <input type="text" name="domicilio" id="domicilio" value="<%=usuarioEvento == null ? "" : usuarioEvento.getDomicilio()%>" placeholder="Escribe tu domicilio">
+                            <form:input name="domicilio" id="domicilio" path="domicilio" placeholder="Escribe tu domicilio"/>
                         </p>
 
                         <p>
                             <label for="ciudad" >Ciudad</label>
-                            <input type="text" name="ciudad" id="ciudad" value="<%=usuarioEvento == null ? "" : usuarioEvento.getCiudad()%>" placeholder="Escribe tu ciudad">
+                            <form:input name="ciudad" id="ciudad" path="ciudad" placeholder="Escribe tu ciudad"/>
                         </p>
                     </div>
 
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Enviar</p></button>
-                </form>
+                </form:form>
             </div>  
         </div>
 

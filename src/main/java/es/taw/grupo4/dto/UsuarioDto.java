@@ -13,12 +13,12 @@ public class UsuarioDto {
 
     private String usuario;
 
-    private String contraseña;
+    private String password;
 
     private int rol;
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
     public String getUsuario() {
@@ -29,8 +29,8 @@ public class UsuarioDto {
         this.usuario = usuario;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String contraseña) {
+        this.password = contraseña;
     }
 
     public int getRol() { return rol; }

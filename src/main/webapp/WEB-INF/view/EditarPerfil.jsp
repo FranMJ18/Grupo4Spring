@@ -4,8 +4,6 @@
     Author     : nieto
 --%>
 
-<%@page import="grupo4app.entity.UsuarioEvento"%>
-<%@page import="grupo4app.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

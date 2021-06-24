@@ -91,7 +91,7 @@
         <!-- BARRA -->
         
         <div class="row py-2 text-center" style="background: #de7ebf">
-            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNombre()%>&contrasena=<%= usuarioIniciado.getContraseña()%>">
+            <a class="col-2  text-decoration-none" href="/pantallaInicio">
                 <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
            
@@ -114,7 +114,7 @@
             <div  class="col-2 dropdown">
                 <img src="/img/avatar.png" style="width:2em; height:2em;">
                 <div class="dropdown-content">
-                    <a class="row dropdown-element text-decoration-none" href="ServletCargarListaEventosUsuario">Mi perfil</a>
+                    <a class="row dropdown-element text-decoration-none" href="/perfil">Mi perfil</a>
                     <a class="row dropdown-element text-decoration-none" href="/chat/">Mensajes</a>
                     <a class="row dropdown-element text-decoration-none" href="/logout">Cerrar sesion</a>
                 </div>
