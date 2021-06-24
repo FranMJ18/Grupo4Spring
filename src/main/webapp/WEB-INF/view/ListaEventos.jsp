@@ -67,7 +67,7 @@
 
     <%-- TODO el enlace de abajo está mal --%>
     <a class="col-2  text-decoration-none"
-       href="ServletInicioSesion?usuario=<%= u.getUsuario()%>&contrasena=<%= u.getContraseña()%>">
+       href="/pantallaInicio">
         <img src="/img/Logo.png" style="width:2em; height:2em;">
     </a>
     <div class="col-4"></div>

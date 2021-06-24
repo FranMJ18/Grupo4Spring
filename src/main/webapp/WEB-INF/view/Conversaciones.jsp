@@ -91,7 +91,7 @@
         <!-- BARRA -->
         
         <div class="row py-2 text-center" style="background: #de7ebf">
-            <a class="col-2  text-decoration-none" href="ServletInicioSesion?usuario=<%= usuarioIniciado.getNombre()%>&contrasena=<%= usuarioIniciado.getContraseña()%>">
+            <a class="col-2  text-decoration-none" href="/pantallaInicio">
                 <img src="/img/Logo.png" style="width:2em; height:2em;">
             </a>
            

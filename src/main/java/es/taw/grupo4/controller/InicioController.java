@@ -97,6 +97,25 @@ public class InicioController {
         return null;
     }
 
+    @GetMapping("/pantallaInicio")
+    public String doPantallaInicio(HttpSession session){
+
+        UsuarioDto us = (UsuarioDto) session.getAttribute("usuario");
+        switch (us.getRol()){
+            //CREADOR DE EVENTO
+            case 0 : return "redirect:evento/events";
+            //ADMINISTRADOR
+            case 1 : return "redirect:administrador/";
+            //TELEOPERADOR
+            case 2 : return "redirect:chat/";
+            //ANALISTA DE EVENTOS
+            case 3 : return "redirect:filtro/";
+            //USUARIO DE EVENTO
+            case 4 : return "redirect:evento/events";// return doListarEventos(new FiltroEvento(), model);
+        }
+        return null;
+    }
+
     @PostMapping("/registrar")
     public String doRegistrar(@ModelAttribute("usuario") UsuarioDto usuario, Model model, HttpSession session){
 
