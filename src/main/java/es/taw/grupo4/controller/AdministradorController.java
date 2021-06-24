@@ -49,12 +49,7 @@ public class AdministradorController {
         return "redirect:/";
     }
 
-    @GetMapping("/perfil")
-    public String doPerfil(Model model, HttpSession session){
-        model.addAttribute("usuario", session.getAttribute("usuario"));
-        model.addAttribute("listaEventos", usuarioService.findById(((UsuarioDto) session.getAttribute("usuario")).getId()).getEventoList());
-        return "Perfil";
-    }
+
 
     @GetMapping("/usuario/{id}")
     public String doUsuario(@PathVariable("id") Integer id, Model model, HttpSession session){
