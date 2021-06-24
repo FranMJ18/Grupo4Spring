@@ -147,7 +147,7 @@
 
                     <p>
                         <label for="contraseña" >Contraseña</label>
-                        <form:input type="password" name="contraseña" id="contraseña" path="contraseña"/>
+                        <form:input type="password" name="contraseña" id="contraseña" path="password"/>
                     </p>
 
                     <form:select id="seleccionador" name="rol" onchange="mostrar_extra()" path="rol">
