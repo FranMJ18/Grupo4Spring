@@ -1,11 +1,11 @@
-<%-- 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
     Document   : CrearChatManual
     Created on : 15-may-2021, 1:52:20
     Author     : franc
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="grupo4app.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,35 +16,20 @@
     </head>
     <body>
        <%
-            List<Usuario> teleOps = (List<Usuario>) request.getAttribute("teleoperadores");
-            List<Usuario> usrs = (List<Usuario>) request.getAttribute("usuarios");
             String error = (String) request.getAttribute("error");
         %>
         <div class="contact_form">
             <div class="formulario">      
                 <h1>Crea una conversación</h1>
-                <form method="post" action="ServletCrearChat">  
+                <form:form method="post" action="/chat/guardar" modelAttribute="chat">
                     <label for="teleoperador" >Teleoperador</label>
-                    <select id="teleoperador" name="teleoperador">
-                        <% 
-                            for(Usuario us : teleOps){
-                        %>
-                            <option value="<%=us.getIdusuario()%>" ><%=us.getNickname()%></option>
-                        <%
-                            }
-                        %>
-                       
-                    </select>
+                    <form:select id="teleoperador" path="usuario1">
+                       <form:options items="${teleoperadores}" itemLabel="usuario"/>
+                    </form:select>
                     <label for="usuario" >Usuario a atender</label>
-                    <select id="usuario" name="usuario">
-                        <% 
-                            for(Usuario us : usrs){
-                        %>
-                            <option value="<%=us.getIdusuario()%>" ><%=us.getNickname()%></option>
-                        <%
-                            }
-                        %>
-                    </select>
+                    <form:select id="usuario" path="usuario2">
+                        <form:options items="${usuarios}" itemLabel="usuario"/>
+                    </form:select>
                     <% 
                         if(error != null) {
                     %>
@@ -53,7 +38,7 @@
                         }
                     %>
                     <button type="submit" name="enviar_formulario" id="enviar"><p>Crear</p></button>
-                </form>
+                </form:form>
             </div>  
         </div>
     </body>

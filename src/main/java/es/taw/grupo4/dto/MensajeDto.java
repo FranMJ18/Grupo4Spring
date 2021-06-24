@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class MensajeDto {
     private int idmensaje;
+    private int idchat;
     private String texto;
     private Date fechaHora;
     private UsuarioDto emisor;
@@ -38,5 +39,13 @@ public class MensajeDto {
 
     public void setEmisor(UsuarioDto emisor) {
         this.emisor= emisor;
+    }
+
+    public int getIdchat() {
+        return idchat;
+    }
+
+    public void setIdchat(int idchat) {
+        this.idchat = idchat;
     }
 }

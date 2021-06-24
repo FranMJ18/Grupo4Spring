@@ -1,9 +1,8 @@
 package es.taw.grupo4.controller;
 
-import es.taw.grupo4.dto.ChatDto;
-import es.taw.grupo4.dto.MensajeDto;
-import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.dto.*;
 import es.taw.grupo4.entity.Chat;
+import es.taw.grupo4.entity.Mensaje;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.service.ChatService;
 import es.taw.grupo4.service.MensajeService;
@@ -11,11 +10,10 @@ import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -45,15 +43,27 @@ public class ChatController {
 
     @GetMapping("/")
     public String doListarConversaciones(Model model, HttpSession session){
+        FiltroBusquedaChat filtro = new FiltroBusquedaChat();
+
+        return this.doFiltrarChats(filtro, model, session);
+    }
+
+    @PostMapping("/filtrar")
+    public String doFiltrarChats(@ModelAttribute("filtro") FiltroBusquedaChat filtro, Model model, HttpSession session){
         UsuarioDto user = (UsuarioDto) session.getAttribute("usuario");
         if(user.getRol() == 2){
-            List<ChatDto> misChats = this.chatService.listarMisConversacionesTeleoperador(user.getId());
+            List<ChatDto> misChats = this.chatService.listarMisConversaciones(user,filtro);
             model.addAttribute("chats",misChats);
-            List<ChatDto> otrosChats = this.chatService.listarOtrasConversaciones(user.getId());
+            List<ChatDto> otrosChats = this.chatService.listarOtrasConversaciones(user,filtro);
             model.addAttribute("otrosChats",otrosChats);
         } else {
-            List<ChatDto> misChats = this.chatService.listarMisConversacionesUsuario(user.getId());
+            List<ChatDto> misChats = this.chatService.listarMisConversaciones(user,filtro);
             model.addAttribute("chats",misChats);
+        }
+
+        model.addAttribute("filtro", filtro);
+        if(filtro.getUsuario() != null){
+            model.addAttribute("buscado","buscado");
         }
 
         return "Conversaciones";
@@ -63,24 +73,45 @@ public class ChatController {
     public String doBorrarConversacion(@PathVariable("id") Integer idchat){
         this.chatService.borrarChat(idchat);
 
-        return "redirect:chat/";
+        return "redirect:/chat/";
     }
 
-    @GetMapping("/crear/")
+    @GetMapping("/crear")
     public String doCrearChatAleatorio(Model model, HttpSession session){
         UsuarioDto usr = (UsuarioDto) session.getAttribute("usuario");
-        Usuario teleOpRandom = this.usuarioService.findRandomTeleoperador(usr.getId());
+        UsuarioDto teleOpRandom = this.usuarioService.findRandomTeleoperador(usr.getId());
         if(teleOpRandom != null){
-            Usuario usuarioIniciado = this.usuarioService.findById(usr.getId());
-            ChatDto chat = this.chatService.crearChat(teleOpRandom, usuarioIniciado);
+            ChatDto chat = this.chatService.crearChat(teleOpRandom, usr);
 
-            return "redirect:chat/mostrar/" + chat.getIdchat();
+            return "redirect:/chat/mostrar/" + chat.getIdchat();
 
         } else {
             model.addAttribute("error","Error: No hay teleoperadores adicionales disponibles");
 
-            return doListarConversaciones(model, session);
+            return this.doListarConversaciones(model, session);
         }
+    }
+
+    @GetMapping("/crearManual")
+    public String doCrearChatManual(Model model){
+        ChatDto chat = new ChatDto();
+        model.addAttribute("chat",chat);
+        model.addAttribute("teleoperadores",this.usuarioService.listarTodosLosTeleoperadores());
+        model.addAttribute("usuarios",this.usuarioService.listarTodosCreadoresUsuariosEvento());
+
+        return "CrearChatManual";
+    }
+
+    @PostMapping("/guardar")
+    public String doGuardar(@ModelAttribute("chat") ChatDto chat, Model model){
+        if(!this.chatService.existeChat(chat.getUsuario1(), chat.getUsuario2())){
+            this.chatService.crearChat(chat.getUsuario1(), chat.getUsuario2());
+
+            return "redirect:/chat/";
+        }
+
+        model.addAttribute("error", "Error: Esa conversación ya existe");
+        return this.doCrearChatManual(model);
     }
 
     @GetMapping("/mostrar/{id}")
@@ -89,7 +120,20 @@ public class ChatController {
         ChatDto chat = this.chatService.findById(id);
         model.addAttribute("chat",chat);
         model.addAttribute("mensajes",msgs);
+        MensajeDto nuevo = new MensajeDto();
+        nuevo.setIdchat(id);
+        System.out.println(id);
+        model.addAttribute("msgNuevo", nuevo);
 
         return "Chat";
     }
+
+    @PostMapping("/enviarMensaje")
+    public String doEnviarMensaje(@ModelAttribute("msgNuevo") MensajeDto msgNuevo, HttpSession session){
+        UsuarioDto usuario = (UsuarioDto) session.getAttribute("usuario");
+        this.mensajeService.crearMensaje(msgNuevo, usuario);
+
+        return "redirect:/chat/mostrar/" + msgNuevo.getIdchat();
+    }
+
 }
