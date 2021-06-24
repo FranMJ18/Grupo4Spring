@@ -4,10 +4,9 @@
     Author     : carlo
 --%>
 
-<%@page import="grupo4app.entity.Usuario"%>
-<%@page import="grupo4app.entity.EventoUsuario"%>
-<%@page import="grupo4app.entity.UsuarioEvento"%>
 <%@page import="java.util.List"%>
+<%@ page import="es.taw.grupo4.dto.EventoUsuarioDto" %>
+<%@ page import="es.taw.grupo4.entity.Usuario" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +16,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <%
-        List<EventoUsuario> listaUsuarios = (List) request.getAttribute("filtrados");
+        List<EventoUsuarioDto> listaUsuarios = (List) request.getAttribute("listaUsuarios");
         HttpSession ses = request.getSession();
         Usuario u = (Usuario) ses.getAttribute("usuario");
     %>
@@ -26,7 +25,7 @@
         <div class="row py-2 text-center" style="background: #de7ebf">
             <style>
                 body{
-                    background-image: url("img/pattern.jpg");
+                    background-image: url("/img/pattern.jpg");
                 }
 
                 a{
@@ -101,10 +100,10 @@
                 <div class="filaprim col-4 px-sm-3 py-sm-4 my-1"><b>Nombre evento</b></div>
             </div>
             <%
-                for (EventoUsuario filtrado : listaUsuarios) {
+                for (EventoUsuarioDto filtrado : listaUsuarios) {
             %>    
             <div class="row justify-content-start">
-                <div class="columna col-4 p-sm-3 my-1" ><img src="img/avatar.png" width="50px" alt="..."><%= filtrado.getUsuarioEvento().getNombre()%>
+                <div class="columna col-4 p-sm-3 my-1" ><img src="/img/avatar.png" width="50px" alt="..."><%= filtrado.getUsuario().getNombre()%>
 
                 </div>
                 <div class="columna col-4 p-sm-3 my-1" ><%= filtrado.getEvento().getTitulo()%>
