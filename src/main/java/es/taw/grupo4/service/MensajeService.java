@@ -12,6 +12,7 @@ import es.taw.grupo4.entity.MensajePK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,17 +54,6 @@ public class MensajeService {
     }
 
     public void crearMensaje(MensajeDto msgNuevo, UsuarioDto usuario) {
-        Chat ch = this.chatRepository.findById(msgNuevo.getIdchat()).get();
-
-        MensajePK mpk = new MensajePK();
-        mpk.setChat(ch.getIdchat());
-
-        Mensaje nuevo = new Mensaje(mpk);
-        nuevo.setTexto(msgNuevo.getTexto());
-        nuevo.setEmisor(this.usuarioRepository.findById(usuario.getId()).get());
-        nuevo.setFechaHora(new Date());
-        nuevo.setChat1(ch);
-
-        this.mensajeRepository.save(nuevo);
+        this.mensajeRepository.crearMensaje(msgNuevo.getIdchat(), msgNuevo.getTexto(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), usuario.getId());
     }
 }
