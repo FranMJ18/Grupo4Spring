@@ -1,7 +1,9 @@
 package es.taw.grupo4.controller;
 import es.taw.grupo4.dto.EventoDto;
+import es.taw.grupo4.dto.EventoUsuarioDto;
 import es.taw.grupo4.dto.FiltroEvento;
 import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.entity.EventoUsuario;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.entity.UsuarioEvento;
 import es.taw.grupo4.service.EventoService;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class InicioController {
@@ -111,7 +115,14 @@ public class InicioController {
         Usuario u = usuarioService.findById(uDto.getId());
         uDto = u.getDto();
         model.addAttribute("usuario", uDto);
-        model.addAttribute("listaEventos", eventoUsuarioService.findByUsuarioId(u.getIdusuario())); //TODO DEBERIA SER DTO y no carga ningun elemento
+        List<EventoUsuario> aux = eventoUsuarioService.findByUsuarioId(u.getIdusuario());
+        List<EventoUsuarioDto> listaEventos = new ArrayList<>();
+
+        for(EventoUsuario e : aux){
+            listaEventos.add(e.getDto());
+        }
+
+        model.addAttribute("listaEventos", listaEventos); //TODO DEBERIA SER DTO y no carga ningun elemento
         return "Perfil";
     }
 

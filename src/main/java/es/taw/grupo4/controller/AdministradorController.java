@@ -1,6 +1,8 @@
 package es.taw.grupo4.controller;
 
+import es.taw.grupo4.dto.EventoUsuarioDto;
 import es.taw.grupo4.dto.UsuarioDto;
+import es.taw.grupo4.entity.EventoUsuario;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.entity.UsuarioEvento;
 import es.taw.grupo4.service.EventoService;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("administrador")
@@ -60,7 +64,14 @@ public class AdministradorController {
     @GetMapping("/usuario/{id}")
     public String doUsuario(@PathVariable("id") Integer id, Model model, HttpSession session){
         model.addAttribute("usuario", usuarioService.findById(id).getDto());
-        model.addAttribute("listaEventos", eventoUsuarioService.findByUsuarioId(id));
+        List<EventoUsuario> aux = eventoUsuarioService.findByUsuarioId(id);
+        List<EventoUsuarioDto> listaEventos = new ArrayList<>();
+
+        for(EventoUsuario e : aux){
+            listaEventos.add(e.getDto());
+        }
+
+        model.addAttribute("listaEventos",listaEventos);
         return "Perfil";
     }
 

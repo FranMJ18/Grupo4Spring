@@ -9,6 +9,28 @@ public class EventoUsuarioDto {
     private Integer idUsuarioEvento;
     private Integer idEvento;
     private Integer fila;
+    private Usuario usuario;
+    private Evento evento;
+
+    public void setIdUsuarioEvento(Integer idUsuarioEvento) {
+        this.idUsuarioEvento = idUsuarioEvento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
 
     public Integer getIdUsuarioEvento() {
         return idUsuarioEvento;

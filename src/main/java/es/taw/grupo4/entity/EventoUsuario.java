@@ -119,6 +119,8 @@ public class EventoUsuario implements Serializable {
         eu.setFila(this.getAsientos().getAsientosPK().getFila());
         eu.setColumna(this.getAsientos().getAsientosPK().getColumna());
         eu.setIdEvento(this.getEvento().getIdevento());
+        eu.setUsuario(this.usuarioEvento.getUsuario1());
+        eu.setEvento(this.evento);
         return eu;
     }
     
