@@ -78,4 +78,7 @@ public interface EventoUsuarioRepository extends JpaRepository<EventoUsuario, Ev
     @Modifying
     @Query(value = "INSERT INTO EVENTO_USUARIO (USUARIO, IDEVENTO, EVENTO) VALUES (:usuario, :idevento, :idevento)", nativeQuery = true)
     void createEventoUsuarioSinAsiento(Integer usuario, Integer idevento);
+
+    @Query("SELECT eu FROM EventoUsuario eu WHERE eu.usuarioEvento.usuario = :id")
+    List<EventoUsuario> findByUsuarioId(Integer id);
 }

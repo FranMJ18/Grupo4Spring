@@ -32,6 +32,10 @@ public class EventoUsuarioService {
     {
         return eventoUsuarioRepository.findByEventoId(id);
     }
+    public List<EventoUsuario> findByUsuarioId(Integer id)
+    {
+        return eventoUsuarioRepository.findByUsuarioId(id);
+    }
 
     public EventoUsuario findByEventoUsuarioId(EventoUsuarioPK id){return eventoUsuarioRepository.getById(id);}
 

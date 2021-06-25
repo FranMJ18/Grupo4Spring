@@ -16,6 +16,7 @@ public class UsuarioEventoService {
         this.usuarioEventoRepository = usuarioEventoRepository;
     }
 
+
     public void guardarUsuarioEvento(UsuarioEvento usuarioEvento){
         usuarioEventoRepository.save(usuarioEvento);
     }
