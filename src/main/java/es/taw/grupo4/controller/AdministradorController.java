@@ -4,6 +4,7 @@ import es.taw.grupo4.dto.UsuarioDto;
 import es.taw.grupo4.entity.Usuario;
 import es.taw.grupo4.entity.UsuarioEvento;
 import es.taw.grupo4.service.EventoService;
+import es.taw.grupo4.service.EventoUsuarioService;
 import es.taw.grupo4.service.UsuarioEventoService;
 import es.taw.grupo4.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,12 @@ public class AdministradorController {
     private UsuarioEventoService usuarioEventoService;
 
     private EventoService eventoService;
+    private EventoUsuarioService eventoUsuarioService;
 
+    @Autowired
+    public void setEventoUsuarioService(EventoUsuarioService eventoUsuarioService){
+        this.eventoUsuarioService = eventoUsuarioService;
+    }
     @Autowired
     public void setUsuarioEventoService (UsuarioEventoService usuarioEventoService) { this.usuarioEventoService = usuarioEventoService; }
 
@@ -54,7 +60,7 @@ public class AdministradorController {
     @GetMapping("/usuario/{id}")
     public String doUsuario(@PathVariable("id") Integer id, Model model, HttpSession session){
         model.addAttribute("usuario", usuarioService.findById(id).getDto());
-        model.addAttribute("listaEventos", usuarioService.findById(((UsuarioDto) session.getAttribute("usuario")).getId()).getEventoList());
+        model.addAttribute("listaEventos", eventoUsuarioService.findByUsuarioId(id));
         return "Perfil";
     }
 

@@ -116,19 +116,11 @@ public class EventoControler {
     }
 
     @GetMapping("/deleteTicket/{idEventoUsuario}/{idUsuario}/{idEvento}")
-    public String doDeleteTicket(@PathVariable("idEventoUsuario") Integer idEventoUsuario,@PathVariable("idUsuario") Integer idUsuario,@PathVariable("idEvento") Integer idEvento, Model model, HttpSession session){
-
-
+    public String doDeleteTicket(@PathVariable("idEventoUsuario") Integer idEventoUsuario,@PathVariable("idUsuario") Integer idUsuario,@PathVariable("idEvento") Integer idEvento){
         EventoUsuarioPK eupk = new EventoUsuarioPK(idEventoUsuario,idUsuario,idEvento);
-        //UsuarioDto id_usuario = request.getParameter("id_usuario");
-
-
-        UsuarioDto usr = (UsuarioDto)session.getAttribute("usuario");
-
-       // if(id_usuario == null) id_usuario =usr.getIdusuario().toString();
 
         eventoUsuarioService.cancelTicket(eupk);
 
-       return "redirect:evento/events";
+       return "redirect:/administrador/usuario/"+idUsuario;
     }
 }
