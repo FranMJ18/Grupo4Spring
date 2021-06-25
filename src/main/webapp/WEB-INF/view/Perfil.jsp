@@ -20,6 +20,7 @@
         <%
             UsuarioDto usuario = (UsuarioDto) request.getAttribute("usuario");
             List<EventoUsuarioDto> listaEventos = (List) request.getAttribute("listaEventos");
+            UsuarioDto usuarioIniciado = (UsuarioDto) session.getAttribute("usuario");
         %>
 
         <!-- Navbar -->      
@@ -85,7 +86,7 @@
                 <div class="dropdown-content">
                     <a class="row dropdown-element" href="/perfil">Mi perfil</a>
                     <%
-                        if (usuario.getRol() ==  0 || usuario.getRol() == 2 || usuario.getRol() ==  4) {
+                        if (usuarioIniciado.getRol() ==  0 || usuarioIniciado.getRol() == 2 || usuarioIniciado.getRol() ==  4) {
                     %><a class="row dropdown-element" href="/chat/">Mensajes</a><%
                                 }
                     %>
@@ -141,7 +142,7 @@
                     %>
                     <div class="col-4">
                         <div class="row">
-                            <a href="/evento/showEvent/<%=e.getIdEvento()%>" class="col-6"><img width="100%" height="100%" src="img/Logo.png"></a>
+                            <a href="/evento/showEvent/<%=e.getIdEvento()%>" class="col-6"><img width="100%" height="100%" src="/img/evento.jpg"></a>
                             <div class="col-6">
                                 <h2><%=e.getEvento().getTitulo()%></h2>
                                 <p><%=e.getEvento().getDescripcion()%></p>
