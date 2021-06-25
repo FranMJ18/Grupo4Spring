@@ -29,7 +29,7 @@
 <div class="row py-2 text-center" style="background: #de7ebf">
     <style>
         body {
-            background-image: url("img/pattern.jpg");
+            background-image: url("/img/pattern.jpg");
         }
 
         a {

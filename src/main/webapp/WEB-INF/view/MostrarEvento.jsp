@@ -37,7 +37,7 @@
 <div class="row py-2 text-center" style="background: #de7ebf">
     <style>
         body {
-            background-image: url("img/pattern.jpg");
+            background-image: url("/img/pattern.jpg");
         }
 
         a {
@@ -136,7 +136,7 @@
             int plazas = e.getAforo() - listaEventoUsuario.size();
             int numEntradas = 0;
             for (EventoUsuario aux : listaEventoUsuario) {
-                if (aux.getEvento().getIdevento() == e.getId()) {
+                if (aux.getUsuarioEvento().getUsuario() == u.getId()) {
                     numEntradas++;
                 }
             }

@@ -116,8 +116,10 @@ public class EventoUsuario implements Serializable {
         eu.setIdEventoUsuario(this.getEventoUsuarioPK().getIdeventousuario());
         eu.setUsuario(this.getUsuarioEvento().getUsuario()); // TODO NO SE SI ES USUARIO O USUARIO1
         eu.setIdEvento(this.getEventoUsuarioPK().getIdevento());
-        eu.setFila(this.getAsientos().getAsientosPK().getFila());
-        eu.setColumna(this.getAsientos().getAsientosPK().getColumna());
+        if(this.getAsientos() != null){
+            eu.setFila(this.getAsientos().getAsientosPK().getFila());
+            eu.setColumna(this.getAsientos().getAsientosPK().getColumna());
+        }
         eu.setIdEvento(this.getEvento().getIdevento());
         eu.setUsuario(this.usuarioEvento.getUsuario1());
         eu.setEvento(this.evento);
