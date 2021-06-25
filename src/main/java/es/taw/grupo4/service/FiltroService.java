@@ -92,14 +92,14 @@ public class FiltroService {
         filtro.setAnyo(anyo);
         filtro.setNombre(nombre);
         filtro.setCosteEntrada(costeEntrada);
-        Usuario usuarioFiltrado = this.usurep.getById(usuario);
+        //Usuario usuarioFiltrado = this.usurep.getById(usuario);
         filtro.setCategoria(fdto.getCategoria());
-        filtro.setUsuario1(usuarioFiltrado);
+        //filtro.setUsuario1(usuarioFiltrado);
         filtro.setUsuario(this.usurep.getById(analista));
-        filtro.setEdadLimInf(fdto.getEdad_lim_inf());
-        filtro.setEdadLimSup(fdto.getEdad_lim_sup());
+        filtro.setEdadLimInf(edadInf);
+        filtro.setEdadLimSup(edadSup);
 
-        this.firep.save(filtro);
+        this.firep.crearFiltro(analista, filtro.getNombre(), filtro.getEdadLimInf(), filtro.getEdadLimSup(), filtro.getSexo(), filtro.getCiudad(), filtro.getAnyo(), filtro.getCosteEntrada(), filtro.getCategoria(), 1);
     }
 
     public List<EventoUsuario> filtrarPorFiltro(FiltroDto fdto) throws ParseException {
@@ -117,7 +117,7 @@ public class FiltroService {
         Date inf = new SimpleDateFormat("yyyy-MM-dd").parse(anyoInf);
         Date sup = new SimpleDateFormat("yyyy-MM-dd").parse(anyoSup);
 
-        if (fdto.getEdad_lim_sup() > 0 || !fdto.getSexo().isEmpty() || !fdto.getCiudad().isEmpty() || fdto.getUsuario() != null || fdto.getAnyo() > 0 || fdto.getCoste_entrada() > 0 || !fdto.getCategoria().isEmpty()) {
+        if (fdto.getEdad_lim_sup() > 0 || !fdto.getSexo().isEmpty() || !fdto.getCiudad().isEmpty() || fdto.getAnyo() > 0 || fdto.getCoste_entrada() > 0 || !fdto.getCategoria().isEmpty()) {
             usuarios = this.eurep.findAll();
             auxiliar = this.eurep.findAll();
             if (fdto.getEdad_lim_inf() != 0) {
@@ -237,6 +237,10 @@ public class FiltroService {
             }
 
         return auxiliar;
+    }
+
+    public void borrarFiltro(Filtro filtro){
+        this.firep.delete(filtro);
     }
 
     public List<Filtro> findByPK(FiltroPK fk){

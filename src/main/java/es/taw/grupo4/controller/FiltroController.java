@@ -53,8 +53,8 @@ public class FiltroController {
     }
 
     @GetMapping("/")
-    public String inicio(HttpSession http, Model model){
-        UsuarioDto analista = (UsuarioDto)http.getAttribute("usuario");
+    public String inicio(HttpSession session, Model model){
+        UsuarioDto analista = (UsuarioDto)session.getAttribute("usuario");
         List<FiltroDto> listaFiltrosdto = new ArrayList<>();
         List<Filtro> listaFiltros = fs.encontarByAnalista(analista.getId());
         for(Filtro fd : listaFiltros){
@@ -65,12 +65,13 @@ public class FiltroController {
     }
 
     @GetMapping("/crearAnalisis/{id}")
-    public String crearAnalisis(@PathVariable("id") Integer id, Model model){
-        //FiltroService fs = new FiltroService();
+    public String crearAnalisis(@PathVariable("id") Integer id, Model model, HttpSession session){
+        UsuarioDto analista = (UsuarioDto) session.getAttribute("usuario");
+        FiltroPK fk = new FiltroPK(id, analista.getId());
         FiltroDto fdto;
         Filtro filtro;
         try{
-             filtro = fs.econtrarById(id);
+             filtro = fs.findByPK(fk).get(0);
              fdto = filtro.getDto();
         }catch(Exception e){
             filtro = null;
@@ -136,6 +137,17 @@ public class FiltroController {
         model.addAttribute("titulos", titulos);
         model.addAttribute("listaUsuarios", listaUsuarios);
         return "FiltrosUsuariosEventos";
+    }
+
+    @GetMapping("/borrarFiltro/{id}")
+    public String borrarFiltro(Model model, HttpSession session, @PathVariable("id") Integer id){
+        UsuarioDto analista = (UsuarioDto) session.getAttribute("usuario");
+        FiltroPK fk = new FiltroPK(id, analista.getId());
+        Filtro filtro = this.fs.findByPK(fk).get(0);
+
+        this.fs.borrarFiltro(filtro);
+        return inicio(session, model);
+
     }
 
 }
