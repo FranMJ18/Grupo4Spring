@@ -193,7 +193,7 @@ public class Filtro implements Serializable {
         FiltroDto f = new FiltroDto();
         f.setIdfiltro(getFiltroPK().getIdfiltro());
         f.setEdad_lim_sup(this.getEdadLimSup());
-        f.setEdad_lim_inf(this.getEdadLimSup());
+        f.setEdad_lim_inf(this.getEdadLimInf());
         f.setCoste_entrada(this.costeEntrada);
         f.setSexo(this.getSexo());
         f.setNombre(this.getNombre());

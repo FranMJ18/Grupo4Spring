@@ -48,7 +48,7 @@ public class FiltroService {
     public void guardarOEditar(FiltroDto fdto, Integer analista){
         Filtro filtro;
         if(fdto.getIdfiltro() != 0){
-            filtro = this.firep.getById(fdto.getIdfiltro());
+            filtro = this.firep.findByPK(analista, fdto.getIdfiltro()).get(0);
         }else {
             FiltroPK fk = new FiltroPK();
             fk.setAnalistaeventos(analista);
@@ -81,7 +81,7 @@ public class FiltroService {
             edadSup = fdto.getEdad_lim_sup();
         }
 
-        if(fdto.getNombre() == null){
+        if(fdto.getNombre().isEmpty()){
             nombre = "Nuevo Filtro";
         }else{
             nombre = fdto.getNombre();
@@ -99,11 +99,15 @@ public class FiltroService {
         filtro.setEdadLimInf(edadInf);
         filtro.setEdadLimSup(edadSup);
 
-        this.firep.crearFiltro(analista, filtro.getNombre(), filtro.getEdadLimInf(), filtro.getEdadLimSup(), filtro.getSexo(), filtro.getCiudad(), filtro.getAnyo(), filtro.getCosteEntrada(), filtro.getCategoria(), 1);
+        if(fdto.getIdfiltro() != 0){
+            this.firep.save(filtro);
+        }else{
+            this.firep.crearFiltro(analista, filtro.getNombre(), filtro.getEdadLimInf(), filtro.getEdadLimSup(), filtro.getSexo(), filtro.getCiudad(), filtro.getAnyo(), filtro.getCosteEntrada(), filtro.getCategoria(), 1);
+        }
+
     }
 
     public List<EventoUsuario> filtrarPorFiltro(FiltroDto fdto) throws ParseException {
-        //List<EventoUsuario> resultados = new ArrayList<>();
         List<EventoUsuario> usuarios = new ArrayList<>();
         List<EventoUsuario> auxiliar = new ArrayList<>();
 
@@ -117,9 +121,20 @@ public class FiltroService {
         Date inf = new SimpleDateFormat("yyyy-MM-dd").parse(anyoInf);
         Date sup = new SimpleDateFormat("yyyy-MM-dd").parse(anyoSup);
 
-        if (fdto.getEdad_lim_sup() > 0 || !fdto.getSexo().isEmpty() || !fdto.getCiudad().isEmpty() || fdto.getAnyo() > 0 || fdto.getCoste_entrada() > 0 || !fdto.getCategoria().isEmpty()) {
+        Integer ex1 = fdto.getEdad_lim_inf();
+        Integer ex2 = fdto.getEdad_lim_sup();
+        String ex3 = fdto.getSexo();
+        String ex4 = fdto.getCiudad();
+        Integer ex5 = fdto.getAnyo();
+        Integer ex6 = fdto.getCoste_entrada();
+        String ex7 = fdto.getCategoria();
+
+        auxiliar = this.eurep.findAll();
+        Integer max = auxiliar.size();
+
+        if (fdto.getEdad_lim_inf() > 0 || fdto.getEdad_lim_sup() > 0 || !fdto.getSexo().isEmpty() || !fdto.getCiudad().isEmpty() || fdto.getAnyo() > 0 || fdto.getCoste_entrada() > 0 || !fdto.getCategoria().isEmpty()) {
             usuarios = this.eurep.findAll();
-            auxiliar = this.eurep.findAll();
+
             if (fdto.getEdad_lim_inf() != 0) {
                 usuarios.retainAll(this.eurep.findByMinEdad(fdto.getEdad_lim_inf()));
                 if (usuarios != null && usuarios.size() != 0) {
@@ -233,6 +248,10 @@ public class FiltroService {
                     if (usuarios != null && usuarios.size() != 0) {
                         auxiliar.retainAll(usuarios);
                     }
+                }
+
+                if(auxiliar.size() == max){ //Voy a suponer que no hay forma de filtrar todos con una combinacion de filtros
+                    auxiliar.clear();
                 }
             }
 
