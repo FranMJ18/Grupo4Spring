@@ -158,7 +158,7 @@ public class InicioController {
         if(usuario.getRol() == 4){
             usuarioEventoService.guardarUsuarioEvento(usuarioEvento);
         }
-        return "redirect:/perfil";
+        return "redirect:/administrador/usuario/" + usuario.getId();
     }
 
     @PostMapping("/registrar")
